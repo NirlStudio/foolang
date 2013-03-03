@@ -1,4 +1,0 @@
-foolang
-=======
-
-foo programming language
