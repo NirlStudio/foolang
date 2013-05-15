@@ -1,0 +1,22 @@
+#!(generic "foo")
+###############################################################################
+# countable.fo
+#
+# The Programmer - Leevi, @2013-01-04. Updated @2013-02-17.
+# C-Lab, Nirl Studio 2011-2013, All Rights Reserved.
+#
+###############################################################################
+# 0, to define common operations for 'countable'.
+(impl countable 
+    # 1, any countable type should provide a shared empty instance.
+    (Empty ?countable ,
+    #
+    # 2, testing operations.
+    # 2.0, ':Count' is the non-negative amount of elements in the 'collection'.
+    (:Count ?int ,
+    # 2.1, ':is_empty' returns 'true' when the value of '(countable:count )' is less than 1.
+    (:is_empty (= ?bool ,
+    # 2.2, ':not_empty' returns 'true' when the value of '(countable:count )' is great than 0.
+    (:not_empty (= ?bool ,
+) ;
+###############################################################################

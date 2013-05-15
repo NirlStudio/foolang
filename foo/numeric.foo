@@ -1,0 +1,18 @@
+#!foo
+###############################################################################
+# numeric.foo
+#
+# The Programmer - Leevi, @2013-02-17. Updated @2013-02-17.
+# C-Lab, Nirl Studio 2011-2013, All Rights Reserved.
+#
+###############################################################################
+#
+(decl equal (= (! other:object) ?bool
+    ((this:is other):or 
+        ((this:as class):and (this:_equal other)
+) ;
+#
+(decl not_equal (= (! other:object) ?bool
+    returns (not (this:equal other)
+) ;
+###############################################################################

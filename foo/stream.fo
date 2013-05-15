@@ -1,0 +1,43 @@
+#!(generic "foo")
+###############################################################################
+# stream.fo
+#
+# The Programmer - Leevi, @2012-06-24. Happy Birthday. Updated @2013-02-17.
+# C-Lab, Nirl Studio 2011-2013, All Rights Reserved.
+#
+###############################################################################
+# 0, to define opeartions of 'stream'.
+(impl stream
+    # 1, fundamental operations.
+    # 1.0, ':read' returns an instance of data with maximum length of 'length'.
+    (:read (= (! length:int?0) ?data, # '0' means all existing bytes in buffer.
+    # 1.1, ':write' write a block of data into current stream.
+    (:write (= (! value:data|slice|slicer) ?int ,
+    # 1.2, ':eof' tests whether the offset of current stream is in the end.
+    (:eof (= ?bool ,
+    #
+    # 2, operations to read numeric types.
+    (:read_byte   (= (! count:int?1) ?int|data,
+    (:read_short  (= (! count:int?1) ?int|series,
+    (:read_int    (= (! count:int?1) ?int|series,
+    (:read_long   (= (! count:int?1) ?int|series,
+    (:read_float  (= (! count:int?1) ?real|series,
+    (:read_double (= (! count:int?1) ?real|series,
+    #
+    # 3, operations to read string.
+    (:read_cstr (= (! enc_name:string?"auto") ?string,
+    (:read_str  (= (! length:int enc_name:string?"utf-8") ?string,
+    #
+    # 4, operations to write numeric types.
+    (:write_byte   (= (! value:int *) ?int ,
+    (:write_short  (= (! value:int *) ?int ,
+    (:write_int    (= (! value:int *) ?int ,
+    (:write_long   (= (! value:int *) ?int ,
+    (:write_float  (= (! value:real *) ?int ,
+    (:write_double (= (! value:real *) ?int ,
+    #
+    # 5, operations to write string.
+    (:write_cstr (= (! enc_name:string?"auto" value:sting *) ?int ,
+    (:write_str  (= (! enc_name:string?"utf-8" value:string *) ?int ,
+) ;
+###############################################################################

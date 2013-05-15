@@ -1,0 +1,101 @@
+#!foo
+###############################################################################
+# foo.foo
+#
+# The Programmer - Leevi, @2013-02-07. Updated @2013-02-17.
+# C-Lab, Nirl Studio 2011-2013, All Rights Reserved.
+#
+###############################################################################
+#
+(decl check (= (! value type *) ?* 
+    (if (value:is_not null) 
+        (with value (foreach type in (argi 1)
+            (if (value:as type) (return value)
+) ;
+# 
+(decl check_to (operator (! value &defaulue type *) ?*
+    (default (eval defaulue)
+    (if (value:is_not null) 
+        (with value (foreach type in (argi 2)
+            (if (value:as type) (break value)
+) ;
+# 
+(decl restrict (operator (! &ref:quote type *) ?*
+(*
+    (decl value @ref)
+    (decl result (call check value (argi 1), 
+    (if (value:is result)
+        returns value
+    else
+        (decl @ref result)
+) ;
+# 
+(decl restrict_to (operator (! &ref:quote &defaulue type *) ?*
+(*
+    (decl value @ref)
+    (decl result (call check_to value (argi 1), 
+    (if (value:is result)
+        returns value
+    else
+        (decl @ref result)
+) ;
+# 
+(decl assert (operator (! &ref:quote &defaulue test:bool) ?*
+    (if test 
+        returns @ref
+    else
+        returns (decl @ref (eval defaulue), 
+) ;
+#
+(decl default (operator (! &defaulue expr) ?* 
+    (if (expr:is null)
+        returns (eval defaulue)
+    else
+        returns expr
+) ;
+#
+(decl seqn_iter (+:slicer
+    (seqn_iter (= (! current:numeric?0 step:numeric?1 count:int?1) 
+    (* 
+        (decl :_current current)
+        (decl :_step    step)
+        (decl :_count   count)
+    )
+
+    (:rest (= :_count ,
+
+    (:item (= :_current ,
+
+    (:next (= -
+        (if (:_count:gt 1) -
+            (seqn_iter (:_current:plus step) :_step (:_count:minus 1),
+
+    ($next (= 
+        (if (:_count:le 1) 
+            (return false)
+        else (*
+            (decl :_current (:_current:plus :_Step),
+            (decl :_count (:_count:minus 1),
+            (return true)
+) ;
+
+(decl seqn (= (! limit:numeric?0
+                 start:numeric?0
+                  step:numeric?1
+              by_count:bool?false) ?iterator
+    (if (step:ge 0)
+    (if by_count
+        (if (limit:ge 1) -
+            returns (seqn_iter start step limit),
+    else
+        (if (limit:ge start)
+            returns (seqn_iter start step (limit:div step)
+) ;
+# 
+(decl hello (= (! &world:string *)
+    (if (argc:le 0)
+        (print "hello, World.")
+    else
+        (printf "hello, %%." (concat ' ' args)
+) ;
+###############################################################################

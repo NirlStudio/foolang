@@ -1,0 +1,41 @@
+#!(generic "foo")
+###############################################################################
+# bool.fo
+#
+# The Programmer - Leevi, @2012-06-24. Happy Birthday. Updated @2013-02-17.
+# C-Lab, Nirl Studio 2011-2013, All Rights Reserved.
+#
+###############################################################################
+# 0, to implement logical operations of 'bool'.
+(impl bool
+    # 1, generate an instance of 'bool' basing on a test.
+    (bool (= (! test) ?true|false ,
+    #
+    # 2, logical operations.
+    # 2.0, logical AND operation. 
+    (and (= (! val:bool *) ?true|false , 
+    # 2.1, logcal OR operation.
+    (or  (= (! val:bool *) ?true|false , 
+    # 2.2, logical NOT operation.
+    (not (= ?true|false ,
+) ;
+###############################################################################
+# 1, to map package operations of 'bool' to global functions.
+# 1.0, logical AND function without the first operand. 
+(decl and bool:and) 
+ # 1.1, logical OR function without the first operand.
+(decl or  bool:or)  
+ # 1.2, logical NOT function without the first operand. 
+(decl not bool:not)  
+#
+###############################################################################
+# 2, to define some aliases for standard boolean values.
+# 2.0, programmers can use these aliases to make code more readable.
+# 2.1, 'yes' and 'no' are useful when testing for branches.
+(def yes true)  
+(def no  false) 
+# 2.2, 'sucess' and 'fail' are useful when testing results.
+(def success true)  
+(def fail    false) 
+#
+###############################################################################

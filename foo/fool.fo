@@ -1,0 +1,41 @@
+#!(generic "foo")
+###############################################################################
+# fool.fo
+#
+# The Programmer - Leevi, @2013-02-17. Updated @2013-02-17.
+# C-Lab, Nirl Studio 2011-2013, All Rights Reserved.
+#
+###############################################################################
+# 0, to define properties and operations of 'fool'.
+(impl fool
+    # 1, generic properties of 'fool'.
+    # 1.0, values of generic properties are defined in the file '../nothing'.
+    # 1.1, the version of foo programming language.
+    (Lang    ?real) ,
+    # 1.2, the version of test suite.
+    (Test    ?real) ,
+    # 1.3, the version of runtime's generics.
+    (Generic ?real) ,
+    #
+    # 2, operations of 'fool'.
+    # 2.0, 'env' can be used to query environment variables.
+    # 2.1, 'env' also can be used to query about underlying system.
+    (env (= (! name:string) ?string ,
+    #
+    # 3, some common properties of foo runtime.
+    # 3.0, the name of this foo runtime implementation.
+    (Name ?string) ,
+    # 3.1, the author of this implementation.
+    (Author ?string) ,
+    # 3.2, the website of this implementation.
+    (Website ?string) ,
+    # 3.3, the platform informtion, e.g. python, javascript, C, etc.
+    (Platform ?string) ,
+    # 3.3, current architecture, e.g. i386, amd64, arm, etc.
+    (OSArch ?string) ,
+    # 3.3, the name of operating system, e.g. freebsd, linux, macosx, windows, etc.
+    (OSName ?string) ,
+    # 3.3, the version of operating system, e.g. 9.1, 6100, etc. 
+    (OSVersion ?string) ,
+) ;
+###############################################################################

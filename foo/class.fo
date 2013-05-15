@@ -1,0 +1,35 @@
+#!(generic "foo")
+###############################################################################
+# class.fo
+#
+# The Programmer - Leevi, @2012-06-24. Happy Birthday. Updated @2013-02-0i7.
+# C-Lab, Nirl Studio 2011-2013, All Rights Reserved.
+#
+###############################################################################
+# 0, to define some generic operations for 'class'
+(impl class 
+    # 1, construction of instance.
+    # 1.0, a member function with the same name of 'class' is the constructor.
+    # 1.1, a constructor will return a new instance when to be evaluated.
+    # 1.2, the 'class:class' will be automatically invoked for all its decendants.
+    # 1.3, a 'class' without a constructor can't be instantiated.
+    (class (= ?object ,
+    #
+    # 1, testing for an instance.
+    # 1.0, 'is_object' to test whether an entity is an instance of the given class.
+    # 1.1, if 'type' is 'null', it will just test for whether it's an instance.
+    # 1.2, it returns 'false' for a non-instantiated 'class', or a no-matched class.
+    (is_object (= (! type:class) ?bool ,
+    #
+    # 2, protected instance members.
+    # 2.0, ':_equal' can be used to customize the equivalency relationship.
+    # 2.1, ':_equal' will be automatically invoked by 'object:equal'.
+    (:_equal   (= (! other:object) ?bool , 
+    # 2.2, '$_clone' can be used to customize the clone process.
+    # 2.3, '$_clone' will be automatically invoked by 'object:clone'.
+    # 2.4, '$_clone' may not be really invoked for an optimized local replacement.
+    # 2.5, '$_clone' should return a bool value to indicates whether it did the 'updater'.
+    # 2.6, codes should not assume that it will always be invoked in a local replacement.
+    ($_clone (= (! orgin:object updater:function) ?bool , 
+) ;
+###############################################################################

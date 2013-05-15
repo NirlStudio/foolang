@@ -1,0 +1,20 @@
+#!(generic "net")
+###############################################################################
+# socket.fo
+#
+# The Coder - Leevi, 2012-12-09
+# C-Lab, Nirl Studio 2011-2012, All Rights Reserved.
+#
+# Last update @2012-12-09 Leevi
+###############################################################################
+
+(impl socket
+    (socket (= (!family type ,
+
+    (:bind    (= (!addr port ,
+    (:listen  (= (!backlog ,
+    (:accept  (= ,
+    (:connect (= (!addr port ,
+
+    (:shutdown (= (!how ;
+

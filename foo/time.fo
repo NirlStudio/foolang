@@ -1,0 +1,67 @@
+#!(generic "foo")
+###############################################################################
+# time.fo
+#
+# The Programmer - Leevi, @2012-06-24. Happy Birthday. Updated @2013-02-17.
+# C-Lab, Nirl Studio 2011-2013, All Rights Reserved.
+#
+###############################################################################
+# 0, to define an enum type of time fields.
+(decl time_fields (enum 
+    # 1, generic flags.
+    (Year       0x0001) ,
+    (Month      0x0002) ,
+    (Day        0x0004) ,
+    (Hour       0x0008) ,
+    (Minute     0x0010) ,
+    (Second     0x0020) ,
+    (Milisecond 0x0040) ,
+    (TimeZone   0x0080) , 
+    #
+    # 2, combined flags.
+    (Date       0x0007), 
+    (Time       0x0038), 
+    (DateTime   0x003F), 
+    (Full       0x007F), 
+    (All        0x00FF), 
+) ;
+###############################################################################
+# 1, to define and implement operations of 'time'.
+# 1.0, the internal time value is the seconds from '1/1/1970 0:0:0 UTC'.
+(impl time
+    # 2, constructor and generator functions.
+    # 2.0, 'time' returns an instance based on a second-based time stamp value.
+    # 2.1, without a 'timestamp' argument, it returns an instance representing now.
+    (time  (= (! timestamp:int|real) ?time ,
+    # 2.2, 'of' returns an instance based on several separate local values.
+    (of  (= (! year:int|string  month:int|string    day:int|string -
+               hour:int|string minute:int|string second:int|real|string) ?time ,
+    # 2.3, 'utc' returns an instance based on several separate values of UTC.
+    (utc  (= (! year:int|string  month:int|string    day:int|string -
+                hour:int|string minute:int|string second:int|real|string) ?time ,
+    # 2.4, 'parse' generates an instance from a string with an optional 'locale'.
+    # 2.5, 'parse' returns a 'null' for a failed parsing process.
+    (parse (= (! value:string fmt:string time_zone:int|string) ?time ,
+    #
+    # 3, transforming operations.
+    # 3.0, 'resolve' analyzes the value and generates values of 'fields' for 'time_zone'.
+    (:resolve (= (! fields:time_fields time_zone:int|string) ?map ,
+    # 3.1, 'format' format the time to a readable string according to 'fmt' and 'locale'.
+    # 3.2, 'format' accepts a calendar-related resolving function to generate fields.
+    # 3.3, by default, 'format' will use the 'time:resolve' as the 'resolve_func'.
+    (:format (= (! fmt:string time_zone:int|string resolver:function?:resolve) ?string ,
+    # 3.4, 'timestamp' returns an integer or double timestamp value.
+    # 3.5, 'timestamp' just returns an integer when the 'omit_miliseconds' is 'true'.
+    (:timestamp (= (! omit_milliseconds?false) ?real|int, 
+) ;
+###############################################################################
+# 4, aliases and functions to generate an instance of 'time'.
+# 4.0, 'now' is a more readable alias to get current time.
+(def now (time ) ;
+#
+# 4.1, 'time_of' returns an instance based on several separate local values.
+(decl time_of time:of) ;
+# 
+# 4.2, 'utc_of' returns an instance based on several separate values of UTC.
+(decl utc_of time:utc) ;
+###############################################################################

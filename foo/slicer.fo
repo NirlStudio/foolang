@@ -1,0 +1,16 @@
+#!(generic "foo")
+###############################################################################
+# slicer.fo
+#
+# The Programmer - Leevi, @2013-01-03. Updated @2013-01-03.
+# C-Lab, Nirl Studio 2011-2013, All Rights Reserved.
+#
+###############################################################################
+# 0, to define common operations of 'slicer'.
+(impl slicer 
+    # 1, addtional operations to 'slicer'.
+    # 1.0, 'rest' returns the amount of remaining items, counting the current one.
+    (rest (= ?int ,
+) ;
+#
+###############################################################################

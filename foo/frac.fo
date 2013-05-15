@@ -1,0 +1,13 @@
+#!(generic "foo")
+###############################################################################
+# frac.fo
+#
+# The Programmer - Leevi, @2012-06-24. Happy Birthday. Updated @2013-01-01.
+# C-Lab, Nirl Studio 2011-2013, All Rights Reserved.
+#
+###############################################################################
+# 0, 'frac' is just reserved now, it will be implemented in future.
+(impl frac
+    (frac (= ?frac ,
+) ;
+###############################################################################
