@@ -2,7 +2,7 @@
 ###############################################################################
 # sliceable.fo
 #
-# The Programmer - Leevi, @2012-10-04. Updated @2013-02-17.
+# The Programmer - Leevi, @2012-10-04.
 # C-Lab, Nirl Studio 2011-2013, All Rights Reserved.
 #
 ###############################################################################
@@ -13,79 +13,79 @@
     # 1, basic properties.
     # 1.0, 'size' returns the amount of allocated slots, including all occupied and free ones.
     # 1.1, the value of '(sliceable:size )' should not be less than '(sliceable:count )'.
-    (:Size ?int) ,
+    (:Size ?int)
     #
     # 2, basic operations.
     # 2.0, ':get' overrides the operation of 'collection' to resolve 'item' as an offset.
     # 2.1, ':get' returns 'null' if the 'offset' is out of range.
     # 2.2, an negative offset should be equivalent to '((this:count ):plus offset)'.
-    (:get (= (! offset:int) ?* ,
+    (:get (= (! offset:int) ?* -)
     # 2.3, ':yield' returns a 'slicer' traversing elements in range of [from, to).
     # 2.4, ':yield' returns an empty list when the [from, to) is an empty set.
     # 2.5, both 'from' and 'to' could be negative values.
     # 2.6, 'from' will be evaluated to 0 if it refers to an invalid offset.
     # 2.7, 'to' will be evaluated to '(sliceable:count )' if it refers to an invalid offset.
-    (:yield (= (! from:int to:int) ?slicer ,
+    (:yield (= (! from:int to:int) ?slicer -)
     # 2.8, 'cut' works like 'yield', but returns a list of elements in the range.
-    (:cut (= (! from:int to:int as_slice:bool?false) ?sliceable|slice ,
+    (:cut (= (! from:int to:int as_slice:bool?false) ?sliceable|slice -)
     #
     # 3, incremental update operations.
     # 3.0, these opertions will return an updated collection.
     # 3.1, overridden ':put' will replace existing elements from 'offset'. 
-    (:put (= (! offset:int item *) ?sliceable ,
+    (:put (= (! offset:int item *) ?sliceable -)
     # 3.2, ':copy' will replace existing elements from 'offset' using items from 'source'.
     # 3.3, 'source' may be an 'iterator', 'slicer', 'iterable' or 'sliceable' entity.
-    (:copy (= (! offset:int src:iterator|iterable *) ?sliceable ,
+    (:copy (= (! offset:int src:iterator|iterable *) ?sliceable -)
     # 3.4, ':insert' will insert all 'item' from the position of 'offset'.
-    (:insert (= (! offset:int item *) ?sliceable ,
+    (:insert (= (! offset:int item *) ?sliceable -)
     # 3.5, ':merge' will insert all items in 'source' from 'offset'.
-    (:merge (= (! offset:int src:iterator|iterable *) ?sliceable ,
+    (:merge (= (! offset:int src:iterator|iterable *) ?sliceable -)
     # 3.6, ':append' will append all 'item' in arguments to the end.
-    (:append (= (! item *) ?sliceable ,
+    (:append (= (! item *) ?sliceable -)
     # 3.7, overridden ':join' will append all items in 'source' to the end.
-    (:join (= (! src:iterator|iterable *) ?sliceable ,
+    (:join (= (! src:iterator|iterable *) ?sliceable -)
     # 3.8, overridden ':remove' will remove all occurences of 'item'. 
-    (:remove (= (! item *) ?sliceable ,
+    (:remove (= (! item *) ?sliceable -)
     # 3.9, ':delete' will remove all elements in range of [from, to). 
-    (:delete (= (! from:int to:int) ?sliceable ,
+    (:delete (= (! from:int to:int) ?sliceable -)
     # 3.10, ':swap' will swap the values indexed by 'p' and 'q'. 
-    (:swap (= (! p:int q:int) ?sliceable ,
+    (:swap (= (! p:int q:int) ?sliceable -)
     # 3.11, ':reverse' will reverse all items in this collection. 
-    (:reverse (= ?sliceable ,
+    (:reverse (= ?sliceable -)
     #
     # 4, local-replacing operations.
     # 4.0, '$resize' will enlarge or truncate the internal buffer to 'size'.
-    ($resize (= (! size:int) null) ?bool ,
+    ($resize (= (! size:int) null) ?bool -)
     # 4.1, '$put' is the local-replacing version of ':put'.
-    ($put (= (! offset:int item *) ?bool ,
+    ($put (= (! offset:int item *) ?bool -)
     # 4.2, '$copy' is the local-replacing version of ':copy'.
-    ($copy (= (! offset:int src:iterator|iterable *) ?bool ,
+    ($copy (= (! offset:int src:iterator|iterable *) ?bool -)
     # 4.3, '$insert' is the local-replacing version of ':insert'.
-    ($insert (= (! offset:int item *) ?bool ,
+    ($insert (= (! offset:int item *) ?bool -)
     # 4.4, '$merge' is the local-replacing version of ':merge'.
-    ($merge (= (! offset:int src:iterator|iterable *) ?bool ,
+    ($merge (= (! offset:int src:iterator|iterable *) ?bool -)
     # 4.5, '$append' is the local-replacing version of ':append'.
-    ($append (= (! item *) ?bool ,
+    ($append (= (! item *) ?bool -)
     # 4.6, '$join' is the local-replacing version of ':join'.
-    ($join (= (! src:iterator|iterable *) ?bool ,
+    ($join (= (! src:iterator|iterable *) ?bool -)
     # 4.7, '$remove' is the local-replacing version of ':remove'.
-    ($remove (= (! item *) ?bool ,
+    ($remove (= (! item *) ?bool -)
     # 4.8, '$delete' is the local-replacing version of ':delete'.
-    ($delete (= (! from:int to:int) ?bool ,
+    ($delete (= (! from:int to:int) ?bool -)
     # 4.9, '$swap' is the local-replacing version of ':swap'.
-    ($swap (= (! p:int q:int) ?bool ,
+    ($swap (= (! p:int q:int) ?bool -)
     # 4.10, '$reverse' is the local-replacing version of ':reverse'.
-    ($reverse (= ?bool ,
+    ($reverse (= ?bool -)
     #
     # 5, searching for an item.
     # 5.0, 'sliceable' provides default implementations for 'find' and 'find_all'.
     # 5.1, ':find' returns the first offset for 'item' in the range of [from, to).
     # 5.2, ':find' returns integer '-1' if none is found.
-    (:find (= (! item from:int to:int) ?int ,
+    (:find (= (! item from:int to:int) ?int -)
     # 5.3, ':find_all' returns a series of offset for 'item' in the range of [from, to).
     # 5.4, ':find_all' returns 'list:empty' if none is found.
     # 5.5, ':find_all' will return an 'iterator' if 'as_iterator' set to true.
-    (:find_all (= (! item from:int to:int as_iterator:bool) ?series|iterator,
+    (:find_all (= (! item from:int to:int as_iterator:bool) ?series|iterator -)
     #
     # 6, searching for any item in 'items'.
     # 6.0, 'sliceable' provides default implementations for 'scan' and 'scan_all'.
@@ -93,24 +93,25 @@
     # 6.2, ':scan' returns offset and item, where the 'offset' is minimal,
     # 6.3, 'item' is in the range of [from, to), and it may be anyone of 'items'.
     # 6.4, ':scan' returns integer '-1' and 'null' if none is found.
-    (:scan (= (! items:iterator|iterable from:int to:int) ?int ,
+    (:scan (= (! items:iterator|iterable from:int to:int) ?int -)
     # 6.5, 'scan_all' returns an array of 'pair' containing offset and item,
     # 6.6, where 'item' is in the range of [from, to), and it may be anyone of 'items'.
     # 6.7, ':scan_all' returns 'list:empty' if none is found.
     # 6.8, ':scan_all' will return an 'iterator' if 'as_iterator' set to true.
-    (:scan_all (= (! items:iterator|iterable -
-                     from:int to:int as_iterator:bool) ?array|iterator ,
+    (:scan_all (= (! items:iterator|iterable
+                     from:int to:int as_iterator:bool) ?array|iterator
+    -)
     #
     # 7, matching for a permutation of 'sliceable'.
     # 7.0, 'sliceable' provides default implementation for 'match' and 'match_all'.
     # 7.1, 'perm' should be a 'sliceable' entity with correct type.
     # 7.2, ':match' returns the first offset for 'perm' in the range of [from, to).
     # 7.3, ':match' returns integer '-1' if none is matched.
-    (:match (= (! perm:sliceable from:int to:int) ?int ,
+    (:match (= (! perm:sliceable from:int to:int) ?int -)
     # 7.4, ':match_all' returns a series of offset for 'perm' in the range of [from, to),
     # 7.5, ':match_all' returns 'list:empty' if none is matched.
     # 7.6, ':match_all' will return an 'iterator' if 'as_iterator' set to true.
-    (:match_all (= (! perm:sliceable from:int to:int as_iterator:bool) ?series|iterator ,
+    (:match_all (= (! perm:sliceable from:int to:int as_iterator:bool) ?series|iterator -)
     #
     # 8, more common algorithms for 'sliceable'.
     # 8.0, 'sliceable' provides default implementation for them.
@@ -119,14 +120,14 @@
     # 8.3, by default, the 'order' is 'ordering:Ascending'.
     # 8.4, by default, ':sort' will assume that items has implemented 'comparable'.
     # 8.5, by default, the 'algorithm' will be automatically selected by implementation.
-    (:sort (= (! order:ordering comparer:function algorithm:string) ?sliceable ,
-    ($sort (= (! order:ordering comparer:function algorithm:string) ?bool ,
+    (:sort (= (! order:ordering comparer:function algorithm:string) ?sliceable -)
+    ($sort (= (! order:ordering comparer:function algorithm:string) ?bool -)
     # 8.6, ':topn' function returns a new 'sliceable' of containing top 'num' elements.
     # 8.7, by defualt, the 'order' is 'ordering:Descending'.
-    (:topn (= (! num:int order:ordering comparer:function algorithm:string) ?sliceable ,
+    (:topn (= (! num:int order:ordering comparer:function algorithm:string) ?sliceable -)
     # 8.8, ':max' is used to find out the maximal value in the set.
-    (:max (= (! comparer:function) ?* ,
+    (:max (= (! comparer:function) ?* -)
     # 8.9, ':min' is used to find out the minimal value in the set.
-    (:min (= (! comparer:function) ?* ,
+    (:min (= (! comparer:function) ?* -)
 ) ;
 ###############################################################################

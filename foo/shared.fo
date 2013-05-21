@@ -2,16 +2,16 @@
 ###############################################################################
 # shared.fo
 #
-# The Programmer - Leevi, @2012-12-30. Update @2013-02-01.
+# The Programmer - Leevi, @2012-12-30.
 # C-Lab, Nirl Studio 2011-2013, All Rights Reserved.
 #
 ###############################################################################
 # 0, to define operations of 'shared' drivers.
 (impl shared
     # 1, ':endpoint' returns a valid connection point for a 'shared' 'device'.
-    (:endpoint (= ?uri ,
+    (:endpoint (= ?uri -)
     #
     # 2, 'use' generates a valid local agent basing on the infomation of 'endpoint'.
-    (use (= (! endpoint:uri) ?shared ,
+    (use (= (! endpoint:uri) ?shared -)
 ) ;
 ###############################################################################

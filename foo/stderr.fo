@@ -2,16 +2,16 @@
 ###############################################################################
 # stderr.fo
 #
-# The Programmer - Leevi, @2012-06-24. Happy Birthday. Updated @2013-02-01.
+# The Programmer - Leevi, @2012-06-24. Happy Birthday.
 # C-Lab, Nirl Studio 2011-2013, All Rights Reserved.
 #
 ###############################################################################
 # 0, to define and implement operations of 'stderr'.
 (impl stderr
     # 1, operations to print error information.
-    (print  (= (! value *) ?null ,
-    (printl (= (! value *) ?null ,
-    (printf (= (! fmt:string value *) ?null ,
+    (print  (= (! value *) ?null -)
+    (printl (= (! value *) ?null -)
+    (printf (= (! fmt:string value *) ?null -)
 ) ;
 ###############################################################################
 # 2, global version of printing operations.

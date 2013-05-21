@@ -2,7 +2,7 @@
 ###############################################################################
 # string.fo
 #
-# The Programmer - Leevi, @2012-06-24. Happy Birthday. Updated @2013-02-17.
+# The Programmer - Leevi, @2012-06-24. Happy Birthday.
 # C-Lab, Nirl Studio 2011-2013, All Rights Reserved.
 #
 ###############################################################################
@@ -10,10 +10,10 @@
 (impl string
     # 1, constructor of 'string'.
     # 1.0, 'string' can combine a series of string or char to a new string.
-    (string (= (! value:char|string *) ?string ,
+    (string (= (! value:char|string *) ?string -)
     # 1.1, 'concat' works like 'string:string', but can insert a separator between items.
     # 1.2, the 'separator' may be a 'char' or a 'string'.
-    (of (= (! separator:char|string?' ' value:char|string *) ?string ,
+    (of (= (! separator:char|string?' ' value:char|string *) ?string -)
     #
     # 2, common operations of 'string'.
     # 2.0, ':format' uses the owner string as a formatting pattern.
@@ -23,23 +23,24 @@
     # 2.3, ':split' returns an array of strings.
     # 2.4, ':split' returns 'array:empty' if none is found.
     # 2.5, ':split' will return an 'iterator' if 'as_iterator' set to true.
-    (:split  (= (! separator:char|string?' ' -
-                  omit_empty:bool?false -
-                 as_iterator:bool?false) ?array|iterator ,
+    (:split  (= (! separator:char|string?' '
+                  omit_empty:bool?false
+                 as_iterator:bool?false) ?array|iterator
+    -)
     # 2.6, ':encode' will encode the string to a 'data' object.
     # 2.7, ':encode' will return null if the 'enc_name' is not supported.
-    (:encode (= (! enc_name:string?"utf-8") ?data ,
+    (:encode (= (! enc_name:string?"utf-8") ?data -)
     # 2.8, overridden ':append' will accept both 'char' and 'string' as arguments.
-    (:append (= (! value:char|string *) ?string ,
+    (:append (= (! value:char|string *) ?string -)
     #
     # 3, local-replacing operations.
     # 3.0, '$append' is the local-replacing version of ':append'.
-    ($append (= (! value:char|string *) ?bool ,
+    ($append (= (! value:char|string *) ?bool -)
     # 3.1, '$appendl' will automatically append a '\n' to the end.
-    ($appendl (= (! value:char|string *) ?bool ,
+    ($appendl (= (! value:char|string *) ?bool -)
     # 3.2, '$appendf' will use the 'fmt' as formatting pattern to produce a string.
     # 3.3, the produced string will be append to the owner string of ':appendf'.
-    ($appendf (= (! fmt:string value *) ?bool ,
+    ($appendf (= (! fmt:string value *) ?bool -)
 ) ;
 ###############################################################################
 # 4, 'concat' is a global alias of 'string:of'.

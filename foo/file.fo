@@ -2,7 +2,7 @@
 ###############################################################################
 # file.fo
 #
-# The Programmer - Leevi, @2012-06-24. Happy Birthday. Updated @2013-02-17.
+# The Programmer - Leevi, @2012-06-24. Happy Birthday.
 # C-Lab, Nirl Studio 2011-2013, All Rights Reserved.
 #
 ###############################################################################
@@ -10,18 +10,18 @@
 (impl file
     # 1, constructor of 'file'
     # 1.0, 'file' opens a file specified by 'location' and 'mode'.
-    (file (= (! location:string|path|uri mode:char|string?'r') ?file ,
+    (file (= (! location:string|path|uri mode:char|string?'r') ?file -)
     #
     # 2, operations to get basic properties.
     # 2.0, ':length' returns the content length of current file. 
-    (:length (= ?int ,
+    (:length (= ?int -)
     # 2.1, ':offset' returns current read/write position of file. 
-    (:offset (= ?int ,
+    (:offset (= ?int -)
     #
     # 3, seeking operations.
     # 3.0, ':seek' move the read/write position by 'offset' relatively. 
-    (:seek (= (! offset:int?0) ?int ,
+    (:seek (= (! offset:int?0) ?int -)
     # 3.0, ':seek_to' move the read/write position to 'offset'. 
-    (:seek_to (= (! offset:int?0) ?int ,
+    (:seek_to (= (! offset:int?0) ?int -)
 ) ;
 ###############################################################################

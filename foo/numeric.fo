@@ -2,7 +2,7 @@
 ###############################################################################
 # numeric.fo
 #
-# The Programmer - Leevi, @2012-06-24. Happy Birthday. Updated @2013-02-17.
+# The Programmer - Leevi, @2012-06-24. Happy Birthday.
 # C-Lab, Nirl Studio 2011-2013, All Rights Reserved.
 #
 ###############################################################################
@@ -10,83 +10,83 @@
 (impl numeric
     # 1, basic properties.
     # 1.0, the instance of zero value for a numeric.
-    (Zero ?numeric) ,
+    (Zero ?numeric)
     # 1.1, the instance of the maximal valid value for a numeric.
-    (MaxValue ?numeric) ,
+    (MaxValue ?numeric)
     # 1.2, the instance of the minimal valid value for a numeric.
-    (MinValue ?numeric) ,
+    (MinValue ?numeric)
     #
     # 2, common operations.
     # 2.0, 'parse' will try to convert a string into its numerical value.
     # 2.1, 'parse' will try to infer the simplest type for the value.
     # 2.2, 'parse' may return 'int', 'real', 'frac', 'decimal' or 'complex'.
-    (parse (= (! str:string fmt:string) ?numeric ,
+    (parse (= (! str:string fmt:string) ?numeric -)
     # 2.3, ':format' will try to convert its numeric value into a string.
-    (:format (= (! fmt:string) ?string ,
+    (:format (= (! fmt:string) ?string -)
     # 2.4, ':is_zero' will test the value for whether it is the zero value.
-    (:is_zero (= ?bool ,
+    (:is_zero (= ?bool -)
     # 2.5, ':Size' is the real size of the numerical value in byte.
-    (:Size ?int) ,
+    (:Size ?int)
     #
     # 3, fundamental mathematical operations.
     # 3.0, 'abs' can be used to get the absolute value of 'this'.
-    (:abs (= ?numeric ,
-    ($abs (= ?bool ,
+    (:abs (= ?numeric -)
+    ($abs (= ?bool -)
     # 3.1, 'plus' can be used to plus one or more numerics.
-    (:plus (= (! num:numeric *) ?numeric ,
-    ($plus (= (! num:numeric *) ?bool ,
+    (:plus (= (! num:numeric *) ?numeric -)
+    ($plus (= (! num:numeric *) ?bool -)
     # 3.2, 'minus' can be used to minus one or more numerics.
-    (:minus (= (! num:numeric *) ?numeric ,
-    ($minus (= (! num:numeric *) ?bool ,
+    (:minus (= (! num:numeric *) ?numeric -)
+    ($minus (= (! num:numeric *) ?bool -)
     # 3.3, 'times' can be used to be multiplied by one or more numerics.
-    (:times (= (! num:numeric *) ?numeric ,
-    ($times (= (! num:numeric *) ?bool ,
+    (:times (= (! num:numeric *) ?numeric -)
+    ($times (= (! num:numeric *) ?bool -)
     # 3.4, 'div' can be used to be diveded by one or more numerics.
-    (:div (= (! num:numeric *) ?numeric ,
-    ($div (= (! num:numeric *) ?bool ,
+    (:div (= (! num:numeric *) ?numeric -)
+    ($div (= (! num:numeric *) ?bool -)
     # 3.5, 'mod' can be used to compute the modulo to 'num'.
-    (:mod (= (! num:numeric) ?numeric ,
-    ($mod (= (! num:numeric) ?bool ,
+    (:mod (= (! num:numeric) ?numeric -)
+    ($mod (= (! num:numeric) ?bool -)
     #
     # 4, addtional mathematical operations.
     # 4.0, 'power' can be used to compute the value raised to the power of 'num'.
-    (:power (= (! num:numeric) ?numeric ,
-    ($power (= (! num:numeric) ?bool ,
+    (:power (= (! num:numeric) ?numeric -)
+    ($power (= (! num:numeric) ?bool -)
     # 4.1, 'root' can be used to compute the num-th root of its value.
-    (:root (= (! num:numeric accept_complex:bool) ?numeric ,
-    ($root (= (! num:numeric accept_complex:bool) ?bool ,
+    (:root (= (! num:numeric accept_complex:bool) ?numeric -)
+    ($root (= (! num:numeric accept_complex:bool) ?bool -)
     # 4.2, 'sqrt' can be used to compute the square root of its value.
-    (:sqrt (= (! accept_complex:bool) ?numeric ,
-    ($sqrt (= (! accept_complex:bool) ?bool ,
+    (:sqrt (= (! accept_complex:bool) ?numeric -)
+    ($sqrt (= (! accept_complex:bool) ?bool -)
     # 4.3, 'ln' can be used to compute the natural logarithm of its value.
-    (:ln (= (! accept_complex:bool) ?numeric ,
-    ($ln (= (! accept_complex:bool) ?bool ,
+    (:ln (= (! accept_complex:bool) ?numeric -)
+    ($ln (= (! accept_complex:bool) ?bool -)
     # 4.4, 'lg' can be used to compute the logarithm to base '2'.
-    (:lg (= (! accept_complex:bool) ?numeric , 
-    ($lg (= (! accept_complex:bool) ?bool , 
+    (:lg (= (! accept_complex:bool) ?numeric -)
+    ($lg (= (! accept_complex:bool) ?bool -)
     # 4.5, 'log' can be used to compute the logarithm to base 'num'.
     # 4.6, by default, the base of 'log' will be '10'.
-    (:log (= (! num:numeric accept_complex:bool) ?numeric , 
-    ($log (= (! num:numeric accept_complex:bool) ?bool , 
+    (:log (= (! num:numeric accept_complex:bool) ?numeric -)
+    ($log (= (! num:numeric accept_complex:bool) ?bool -)
     #
     # 5, mathematical constants.
     # 5.0, 'Pi' is a constant value of Pi.
-    (Pi     3.141592653589793) ,
+    (Pi     3.141592653589793)
     # 5.1, 'Pi_2' is a double of 'Pi'.
-    (Pi_2   6.283185307179586) ,
+    (Pi_2   6.283185307179586)
     # 5.2, 'Pi_2nd' is a half of 'Pi'.
-    (Pi_2nd 1.5707963267948966) ,
+    (Pi_2nd 1.5707963267948966)
     # 5.3, 'Pi_4th' is a quarter of 'Pi'.
-    (Pi_4th 0.7853981633974483) ,
+    (Pi_4th 0.7853981633974483)
     # 5.4, 'E' is the base of natural logarithm.
-    (E      0.7853981633974483) ,
+    (E      0.7853981633974483)
 ) ;
 ###############################################################################
 # 6, alias of mathematical constants.
-(decl PI     numeric:Pi    ) ;
-(decl PI_2   numeric:Pi_2  ) ;
-(decl PI_2nd numeric:Pi_2nd) ;
-(decl PI_4th numeric:Pi_4th) ;
-(decl BASE_E numeric:E     ) ;
+(decl PI     numeric:Pi    )
+(decl PI_2   numeric:Pi_2  )
+(decl PI_2nd numeric:Pi_2nd)
+(decl PI_4th numeric:Pi_4th)
+(decl BASE_E numeric:E     )
 #
 ###############################################################################

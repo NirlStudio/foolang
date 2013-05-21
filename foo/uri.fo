@@ -2,7 +2,7 @@
 ###############################################################################
 # uri.fo
 #
-# The Programmer - Leevi, @2012-09-23. Updated @2013-02-17.
+# The Programmer - Leevi, @2012-09-23.
 # C-Lab, Nirl Studio 2011-2013, All Rights Reserved.
 #
 ###############################################################################
@@ -10,50 +10,53 @@
 (impl uri
     # 1, constructors of 'uri'.
     # 1.0, to construct an instance of 'uri' from a string.
-    (uri (= (! value:string) ?uri ,
+    (uri (= (! value:string) ?uri -)
     # 1.1, to build an 'uri' from values of various parts.
-    (of (= (! protocol:string -
-             host_info:string -
-               path_to:path|string -
-                 query:string|map -
-              fragment:string) ?uri ,
+    (of (= (! protocol:string
+             host_info:string
+               path_to:path|string
+                 query:string|map
+              fragment:string) ?uri
+    -)
     # 1.2, to build an uri for a local file. 
-    (file (= (! path_to:path|string fragment:string) ?uri ,
+    (file (= (! path_to:path|string fragment:string) ?uri -)
     # 1.3, to build an uri for a HTTP request. 
-    (http (= (! host_info:string -
-                  path_to:path|string -
-                    query:string|map -
-                 fragment:string) ?uri ,
+    (http (= (! host_info:string
+                  path_to:path|string
+                    query:string|map
+                 fragment:string) ?uri
+    -)
     # 1.4, to build an uri for a HTTPS request. 
-    (https (= (! host_info:string -
-                   path_to:path|string -
-                     query:string|map -
-                  fragment:string) ?uri ,
+    (https (= (! host_info:string
+                   path_to:path|string
+                     query:string|map
+                  fragment:string) ?uri
+    -)
     # 1.5, to build an uri for a FTP connection. 
-    (ftp (= (! host_info:string path_to:path|string) ?uri ,
+    (ftp (= (! host_info:string path_to:path|string) ?uri -)
     # 
     # 2, fundamental property and test operation.
     # 2.0, ':Protocol' is the protocol name.
-    (:Protocol ?string) , 
+    (:Protocol ?string) 
     # 2.1, ':UserInfo' is the user-info part.
-    (:UserInfo ?string) , 
+    (:UserInfo ?string)
     # 2.2, ':Host' is the host name or address for a network uri.
-    (:Host     ?string) , 
+    (:Host     ?string)
     # 2.3, ':Protocol' is the port number for a network uri.
-    (:Port     ?int) , 
+    (:Port     ?int)
     # 2.4, ':Path' is the path part for a network or local uri.
-    (:Path     ?path) , 
+    (:Path     ?path)
     # 2.5, ':Query' is the query part for a network or local uri.
-    (:Query    ?map) , 
+    (:Query    ?map)
     # 2.6, ':Fragment' is the fragment part for a network or local uri.
-    (:Fragment ?string) ,
+    (:Fragment ?string)
     # 
     # 3, operation to format the uri.
     # 3.0, ':full' returns the string representation of this uri instance.
-    (:full (= ?string , 
+    (:full (= ?string -) 
     # 
     # 4, ultility functions.
     # 4.0, 'escape' returns the escaped representation of a string.
-    (escape (= (! value:string) ?string ,
+    (escape (= (! value:string) ?string -)
 ) ;
 ###############################################################################

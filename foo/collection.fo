@@ -2,7 +2,7 @@
 ###############################################################################
 # collection.fo
 #
-# The Programmer - Leevi, @2012-06-24. Happy Birthday. Updated @2013-02-17.
+# The Programmer - Leevi, @2012-06-24. Happy Birthday.
 # C-Lab, Nirl Studio 2011-2013, All Rights Reserved.
 #
 ###############################################################################
@@ -10,33 +10,33 @@
 (impl collection
     # 1, query and testing operations.
     # 1.0, ':has' can be used to test for whether containing all the items.
-    (:has (= (! item *) ?bool ,
+    (:has (= (! item *) ?bool -)
     # 1.1, ':has_any' works like 'has', but will return 'true' for any match.
-    (:has_any (= (! item *) ?bool ,
+    (:has_any (= (! item *) ?bool -)
     # 1.2, ':get' can be used to fetch the existing equivalent element.
     # 1.3, ':get' will return a 'null' without a matched one.
-    (:get (= (! item) ?*,
+    (:get (= (! item) ?* -)
     #
     # 2, incremental operations to generate new collection.
     # 2.0, ':put' returns a copied collection containing items in arguments.
-    (:put (= (! item *) ?collection ,
+    (:put (= (! item *) ?collection -)
     # 2.1, ':join' returns a copied collection joined with a series of 'other'.
     # 2.2, 'items' should be an 'iterable' entity or an 'iterator'.
-    (:join (= (! items:iterator|iterable *) ?collection ,
+    (:join (= (! items:iterator|iterable *) ?collection -)
     # 2.3, ':remove' returns a copied collection which had excluded items.
-    (:remove (= (! item *) ?collection ,
+    (:remove (= (! item *) ?collection -)
     # 2.4, ':triage' returns one or more collections basing on filtering statements.
-    (:triage (= (! func:function *) ?(collection *) ,
-    # 2.5, ':assort' works like ':assort' but an item can be matched more than once.
-    (:assort (= (! func:function *) ?(collection *) ,
+    (:triage (= (! func:function *) ?(collection *) -)
+    # 2.5, ':assort' works like ':triage' but an item can be matched more than once.
+    (:assort (= (! func:function *) ?(collection *) -)
     # 2.6, the 'func' in ':triage' and ':assort' should return a boolean value. 
     #
     # 3, local-replacing operations.
     # 3.0, the local-replacing version of 'collection:put'.
-    ($put (= (! item *) ?bool ,
+    ($put (= (! item *) ?bool -)
     # 3.1, the local-replacing version of 'collection:join'.
-    ($join (= (! items:iterator|iterable *) ?bool ,
+    ($join (= (! items:iterator|iterable *) ?bool -)
     # 3.2, the local-replacing version of 'collection:remove'.
-    ($remove (= (! item *) ?bool ,
+    ($remove (= (! item *) ?bool -)
 ) ;
 ###############################################################################

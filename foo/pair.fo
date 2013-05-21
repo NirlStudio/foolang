@@ -9,13 +9,13 @@
 # 0, the structure of 'pair'.
 (impl pair
     # 1, the constructor of 'pair'.
-    (pair (= (! key value) ?pair ,
+    (pair (= (! key value) ?pair -)
     #
     # 2, the fields of 'pair'.
     # 2.0, ':Key' is the identifier of 'pair' in comparasion.
-    (:Key   ?*) ,
+    (:Key   ?*) 
     # 2.1, ':Value' is the satellite data of ':Key'.
-    (:Value ?*) ,
+    (:Value ?*)
 ) ;
 ###############################################################################
 # 3, the aliases of fields of 'pair'.

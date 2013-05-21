@@ -2,7 +2,7 @@
 ###############################################################################
 # reset.fo
 #
-# The Programmer - Leevi, @2012-09-23. Updated @2013-02-17.
+# The Programmer - Leevi, @2012-09-23.
 # C-Lab, Nirl Studio 2011-2013, All Rights Reserved.
 #
 ###############################################################################
@@ -10,6 +10,6 @@
 (impl reset
     # 1, constructor of 'reset'.
     # 1.0, 'reset' produces an instance of 'reset'.
-    (reset (= (! code:int?-2 msg:string reason:error) ?reset,
+    (reset (= (! code:int?-2 msg:string reason:error) ?reset -)
 ) ;
 ###############################################################################

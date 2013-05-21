@@ -2,7 +2,7 @@
 ###############################################################################
 # series.fo
 #
-# The Programmer - Leevi, @2013-01-10. Updated @2013-01-15.
+# The Programmer - Leevi, @2013-01-10.
 # C-Lab, Nirl Studio 2011-2013, All Rights Reserved.
 #
 ###############################################################################
@@ -13,14 +13,14 @@
     # 1.1, any 'item' should be evaluated to true for '(item:as type)'.
     # 1.2, any 'item' will be truncated or expanded to correct 'size'.
     # 1.3, if 'type' is null or 'size' is an invalid value, 'array' will return null.
-    (series (= (! type:numeric size:int value:numeric *) ?series ,
+    (series (= (! type:numeric size:int value:numeric *) ?series -)
     # 1.3, 'of' will produce an instance basing one or more iterable entity.
     # 1.4, 'numbers' may be an 'iterator', 'slicer', 'iterable' or 'sliceable' entity.
-    (of (= (! type:numeric size:int values:iterator|iterable *) ?series ,
+    (of (= (! type:numeric size:int values:iterator|iterable *) ?series -)
     #
     # 2, new testing operation.
     # 2.0, ':ItemSize' returns the size for each element in the 'series'.
-    (:ItemSize ?int) ,
+    (:ItemSize ?int)
 ) ;
 ###############################################################################
 # 3, to define a shortcut function for 'series:of'.

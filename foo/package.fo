@@ -11,10 +11,10 @@
     # 1, dynamically refer to member
     # 1.0, like the global '@' function, '@' can be used as 'pkg:@name'. 
     # 1.1, when using '@', code cann invoke private and protected members of package.
-    (@ (= (! name:string) ?* ,
+    (@ (= (! name:string) ?* -)
     #
     # 2, to get all the members of 'package'.
     # 2.0, 'Members' is a 'set' of all member names.
-    (Members ?set) ,
+    (Members ?set)
 ) ;
 ###############################################################################

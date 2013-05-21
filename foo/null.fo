@@ -2,7 +2,7 @@
 ###############################################################################
 # null.fo
 #
-# The Programmer - Leevi, @2012-06-24, Happy Birthday. Updated @2013-02-03.
+# The Programmer - Leevi, @2012-06-24, Happy Birthday.
 # C-Lab, Nirl Studio 2011-2013, All Rights Reserved.
 #
 ###############################################################################
@@ -44,6 +44,7 @@
 # 3.2, to return the documentation related to the entity.
 (decl null:doc (= ?string ;
 #
+(decl null:conv (= (! type) ?*
 ###############################################################################
 # 4, statement aliases
 # 4.0, 'base' means the super type of calling function.

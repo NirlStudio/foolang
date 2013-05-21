@@ -2,7 +2,7 @@
 ###############################################################################
 # comparable.fo
 #
-# The Programmer - Leevi, @2012-06-24. Happy Birthday. @2013-02-17.
+# The Programmer - Leevi, @2012-06-24. Happy Birthday.
 # C-Lab, Nirl Studio 2011-2013, All Rights Reserved.
 #
 ###############################################################################
@@ -11,7 +11,7 @@
     # 1, a customizable operation for any 'comparable' entities.
     # 1.0, 'comparable' has provided a default implementation for 'compare',
     # 1.1, 'hint' is reserved for overriden implementation to use.
-    (compare (= (! other:package hint) ?compared ,
+    (compare (= (! other:package hint) ?compared -)
     # # by default, it works like:
     #   (if ((this:is other):or (this:equal other))
     #       returns compared:Equal
@@ -22,27 +22,27 @@
     #
     # 2, operators depending on 'comparable:compare'.
     # 2.0, 'gt' means 'greater than' or '>'.
-    (gt (= (! other:package hint) ?bool ,
+    (gt (= (! other:package hint) ?bool -)
     # # it works like: ((this:compare other hint):equal compared:Greater)
     #
     # 2.1, 'ge' means 'greater than or equal to' or '>='.
-    (ge (= (! other:package hint) ?bool ,
+    (ge (= (! other:package hint) ?bool -)
     # # it works like: ((this:compare other hint):not_equal compared:Less)
     #
     # 2.2, 'lt' means 'less than' or '<'.
-    (lt (= (! other:package hint) ?bool ,
+    (lt (= (! other:package hint) ?bool -)
     # # it works like: ((this:compare other hint):equal compared:Less)
     #
     # 2.3, 'le' means 'less than or equal to' or '<='.
-    (le (= (! other:package hint) ?bool ,
+    (le (= (! other:package hint) ?bool -)
     # # it works like: ((this:compare other hint):not_equal compared:Greater))
     #
     # 2.4, 'eq' means 'equal to' or '=='.
-    (eq (= (! other:package hint) ?bool ,
+    (eq (= (! other:package hint) ?bool -)
     # # it works like: ((this:compare other hint):equal compared:Equal)
     #
     # 2.5, 'ne' means 'not equal to' or '!='.
-    (ne (= (! other:package hint) ?bool ,
+    (ne (= (! other:package hint) ?bool -)
     # # it works like: ((this:compare other hint):not_equal compared:Equal)
 ) ;
 ###############################################################################

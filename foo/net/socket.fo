@@ -2,19 +2,19 @@
 ###############################################################################
 # socket.fo
 #
-# The Coder - Leevi, 2012-12-09
-# C-Lab, Nirl Studio 2011-2012, All Rights Reserved.
+# The programmer - Leevi, @2012-12-09
+# C-Lab, Nirl Studio 2011-2013, All Rights Reserved.
 #
-# Last update @2012-12-09 Leevi
 ###############################################################################
-
+#
 (impl socket
-    (socket (= (!family type ,
+    (socket (= (! family:sock_family type:sock_type -)
 
-    (:bind    (= (!addr port ,
-    (:listen  (= (!backlog ,
-    (:accept  (= ,
-    (:connect (= (!addr port ,
+    (:bind    (= (! addr port) ?bool -)
+    (:listen  (= (! backlog) ?bool -)
+    (:accept  (= (! wait:bool?true) ?socket -)
+    (:connect (= (! addr port) ?bool -)
 
-    (:shutdown (= (!how ;
-
+    (:shutdown (= (! how) ?null -) 
+);
+###############################################################################

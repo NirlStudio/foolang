@@ -2,7 +2,7 @@
 ###############################################################################
 # dinfo.fo
 #
-# The Programmer - Leevi, @2012-06-24. Happy Birthday. Updated @2013-02-17.
+# The Programmer - Leevi, @2012-06-24. Happy Birthday.
 # C-Lab, Nirl Studio 2011-2013, All Rights Reserved.
 #
 ###############################################################################
@@ -11,19 +11,19 @@
     #
     # 1, constructor of 'dinfo'.
     # 1.0, 'dinfo' instance can be created by a 'string', 'path' or 'uri'.
-    (dinfo (= (! dir:string|path|uri) ?dinfo ,
+    (dinfo (= (! dir:string|path|uri) ?dinfo -)
     #
     # 2, static operations.
     # 2.0, 'current' returns current directory.
-    (current (= ?string ,
+    (current (= ?string -)
     # 2.1, 'change' changes current directory to another location.
-    (change  (= (! dir:string|path|uri) ?string ,
+    (change  (= (! dir:string|path|uri) ?string -)
     # 2.2, 'make' creates a new directory.
     # 2.3, 'make' returns successfully if the directory is already existed.
-    (make    (= (! dir:string|path|uri) ?string ,
+    (make    (= (! dir:string|path|uri) ?string -)
     #
     # 3, operations to manipulate directory content.
     # 3.0, ':list' returns a snapshot of all files and sub-directories. 
-    (:list (= (! mode:char|string) ?slicer,
+    (:list (= (! mode:char|string) ?slicer -)
 ) ;
 ###############################################################################

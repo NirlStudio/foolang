@@ -2,14 +2,12 @@
 ###############################################################################
 # net.fo
 #
-# The Coder - Leevi, 2012-12-09
-# C-Lab, Nirl Studio 2011-2012, All Rights Reserved.
+# The programmer - Leevi, @2012-12-09.
+# C-Lab, Nirl Studio 2011-2013, All Rights Reserved.
 #
-# Last update @2012-12-09 Leevi
 ###############################################################################
-
-(decl sock_family (enum ;
-(decl sock_type (enum ;
-
-(decl socket (++stream ;
+(decl sock_family (enum );
+(decl sock_type (enum );
+(decl socket (++stream );
+###############################################################################
 
