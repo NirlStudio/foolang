@@ -7,7 +7,7 @@
 #
 ###############################################################################
 # 0, to implement some generic operations of 'enum'.
-(impl enum
+($impl enum
     # 1, operations for discrete values.
     # 1.0, 'Names' is a set of names of all valid values.
     (Names ?set) 

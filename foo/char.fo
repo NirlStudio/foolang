@@ -7,7 +7,7 @@
 #
 ###############################################################################
 # 0, to implement operations for 'char'.
-(impl char
+($impl char
     # 1, constructor of 'char'.
     # 1.0, to generate a char from an interger code and an optional encoding name.
     # 1.1, by default, the code will be taken as an UTF-16 code.

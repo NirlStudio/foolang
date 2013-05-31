@@ -7,7 +7,7 @@
 #
 ###############################################################################
 # 0, to define common operations for 'countable'.
-(impl countable 
+($impl countable 
     # 1, any countable type should provide a shared empty instance.
     (Empty ?countable -)
     #

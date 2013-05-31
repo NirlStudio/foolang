@@ -7,7 +7,7 @@
 #
 ###############################################################################
 # 0, to define and implement generic operations for 'comparable'.
-(impl comparable 
+($impl comparable 
     # 1, a customizable operation for any 'comparable' entities.
     # 1.0, 'comparable' has provided a default implementation for 'compare',
     # 1.1, 'hint' is reserved for overriden implementation to use.

@@ -7,7 +7,7 @@
 #
 ###############################################################################
 # 0, to implement logical operations of 'bool'.
-(impl bool
+($impl bool
     # 1, generate an instance of 'bool' basing on a test.
     (bool (= (! test) ?true|false -)
     #

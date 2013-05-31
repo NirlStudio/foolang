@@ -7,7 +7,7 @@
 #
 ###############################################################################
 # 0, 'odering' defines valid values of sorting based on keys in a poset.
-(impl ordering
+($impl ordering
     # 1, fundamental notations 
     # 1.0, the next element is greater than or equals to the previous one.
     # 1.1, or more exactly, the 'Ascending' means non-descending.

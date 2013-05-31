@@ -7,7 +7,7 @@
 #
 ###############################################################################
 # 0, the structure of 'couple'.
-(impl couple
+($impl couple
     # 1, the constructor of 'couple'.
     (couple (= (! left right) ?couple -)
     #

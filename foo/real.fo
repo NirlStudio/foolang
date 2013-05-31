@@ -8,7 +8,7 @@
 ###############################################################################
 # 0, to define and implements the operations of 'real'.
 # 0.0, 'real' will be implemented as float or double following the IEEE-754.
-(impl real
+($impl real
     # 1, the constructor of 'real'.
     # 1.0, by default, it will generate a double-precision value.
     # 1.1, the optional 'as_single' can be used to generate a single-precision value.

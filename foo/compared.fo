@@ -7,7 +7,7 @@
 #
 ###############################################################################
 # 0, 'compared' defines valid results of comparasion of values in a poset.
-(impl compared
+($impl compared
     # 1, fundamental notations 
     # 1.0, the left operand is great than the right operand.
     (Great 1) 

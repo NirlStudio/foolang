@@ -8,7 +8,7 @@
 ###############################################################################
 # 0, to define and implement common operations of 'int'.
 # 0.0, the value of '(int:size )' might be one of '1', '2', '4' and '8'.
-(impl int
+($impl int
     # 1, the constructor of 'int'.
     # 1.0, the optional 'size' can be used to resize the 'value'.
     # 1.1, the default 'size' is 4 or 8 when it's not given.

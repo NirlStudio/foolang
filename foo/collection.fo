@@ -7,7 +7,7 @@
 #
 ###############################################################################
 # 0, to define properties and operations of 'collection'.
-(impl collection
+($impl collection
     # 1, query and testing operations.
     # 1.0, ':has' can be used to test for whether containing all the items.
     (:has (= (! item *) ?bool -)

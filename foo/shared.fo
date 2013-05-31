@@ -7,7 +7,7 @@
 #
 ###############################################################################
 # 0, to define operations of 'shared' drivers.
-(impl shared
+($impl shared
     # 1, ':endpoint' returns a valid connection point for a 'shared' 'device'.
     (:endpoint (= ?uri -)
     #

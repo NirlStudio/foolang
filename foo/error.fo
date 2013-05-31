@@ -7,7 +7,7 @@
 #
 ###############################################################################
 # 0, to define properties and operations of 'error'.
-(impl error
+($impl error
     # 1, constructor of 'error'.
     # 1.0, 'error' produces an instance of 'error'.
     # 1.1, all negative values of 'code' are reserved to indicate verious internal errors.

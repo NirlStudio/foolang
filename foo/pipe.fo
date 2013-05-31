@@ -7,7 +7,7 @@
 #
 ###############################################################################
 # 0, to define and implement operations of 'pipe'.
-(impl pipe
+($impl pipe
     # 1, constructor of 'pipe'.
     (pipe (= (! mode:char|string) ?pipe -)
 ) ;

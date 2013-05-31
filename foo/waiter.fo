@@ -7,7 +7,7 @@
 #
 ###############################################################################
 # 0, to define and implement operations of 'waiter'.
-(impl waiter
+($impl waiter
     # 1, the constructor of 'waiter'.
     # 1.0, the 'svc' is a name or an uri of a service.
     # 1.1, the 'params' is an instance of map containing more named parameters.

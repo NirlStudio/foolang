@@ -7,7 +7,7 @@
 #
 ###############################################################################
 # 0, to implement common operations for 'array'.
-(impl array
+($impl array
     # 1, the constructors of 'array'.
     # 1.0, 'array' will produce an instance including all items in arguments.
     # 1.1, any 'item' should be evaluated to true for '(item:as type)'.

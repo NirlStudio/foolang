@@ -7,7 +7,7 @@
 #
 ###############################################################################
 # 0, to define operations of 'crash'.
-(impl crash
+($impl crash
     # 1, constructor of 'crash'.
     # 1.0, 'crash' produces an instance of 'crash'.
     (crash (= (! code:int?-1 msg:string reason:error) ?crash -)

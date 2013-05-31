@@ -8,7 +8,7 @@
 ###############################################################################
 # 0, to define and implement some generic operations of 'object'.
 # 0.0, in theory, an 'object' is an immutable entity after it has been created.
-(impl object 
+($impl object 
     # 1, fundamental operations.
     # 1.0, 'class' return the type of this object.
     (class (= ?class -)
@@ -31,7 +31,7 @@
     # 2.2, when it's possible, the clone action may be omitted automatically by runtime.
     # 2.3, '$mset' implements an operation to 'update' an object's member.
     ($mset (= (! name:string entity) ?bool -)
-    # 2.4, '$update' implements an operation to 'update' an object with a func.
+    # 2.4, '$update' implements a method to 'update' an object with a function.
     ($update (= (! updater:function) ?bool -)
-) ;
+);
 ###############################################################################

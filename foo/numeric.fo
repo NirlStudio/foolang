@@ -7,7 +7,7 @@
 #
 ###############################################################################
 # 0, common properties and operations of 'numeric'.
-(impl numeric
+($impl numeric
     # 1, basic properties.
     # 1.0, the instance of zero value for a numeric.
     (Zero ?numeric)

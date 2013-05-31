@@ -9,7 +9,7 @@
 # 0, to define the operations of a 'sliceable' entity.
 # 0.0, the offset of an element of 'sliceable' should be a zero-based integer.
 # 0.1, the value of an element of 'sliceable' should support 'equal' or 'is'.
-(impl sliceable
+($impl sliceable
     # 1, basic properties.
     # 1.0, 'size' returns the amount of allocated slots, including all occupied and free ones.
     # 1.1, the value of '(sliceable:size )' should not be less than '(sliceable:count )'.
@@ -38,6 +38,8 @@
     (:copy (= (! offset:int src:iterator|iterable *) ?sliceable -)
     # 3.4, ':insert' will insert all 'item' from the position of 'offset'.
     (:insert (= (! offset:int item *) ?sliceable -)
+    # 3.6, ':prepend' will append all 'item' in arguments as the first one.
+    (:append (= (! item *) ?sliceable -)
     # 3.5, ':merge' will insert all items in 'source' from 'offset'.
     (:merge (= (! offset:int src:iterator|iterable *) ?sliceable -)
     # 3.6, ':append' will append all 'item' in arguments to the end.

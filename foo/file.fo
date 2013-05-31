@@ -7,7 +7,7 @@
 #
 ###############################################################################
 # 0, to define and implement operations of 'file'.
-(impl file
+($impl file
     # 1, constructor of 'file'
     # 1.0, 'file' opens a file specified by 'location' and 'mode'.
     (file (= (! location:string|path|uri mode:char|string?'r') ?file -)

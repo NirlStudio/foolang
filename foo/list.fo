@@ -7,7 +7,7 @@
 #
 ###############################################################################
 # 0, to implement operations of 'list'.
-(impl list
+($impl list
     # 1, the constructors of 'list'.
     # 1.0, 'list' will produce an instance including all items in arguments.
     (list (= (! item *) ?list -)

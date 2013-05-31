@@ -7,7 +7,7 @@
 #
 ###############################################################################
 # 0, to define an enum type of time fields.
-(decl time_fields (enum 
+($decl time_fields (enum 
     # 1, generic flags.
     (Year       0x0001)
     (Month      0x0002)

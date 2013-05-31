@@ -7,7 +7,7 @@
 #
 ###############################################################################
 # 0, to define common operation of 'iterable'.
-(impl iterable
+($impl iterable
     # 1, 'items' should return an 'iterator' according to its implementation.
     # 1.0, 'items' accepts a optional function to filter out elements.
     # 1.1, 'test' should accept an entity as argument.

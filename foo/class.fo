@@ -7,7 +7,7 @@
 #
 ###############################################################################
 # 0, to define some generic operations for 'class'
-(impl class 
+($impl class 
     # 1, construction of instance.
     # 1.0, a member function with the same name of 'class' is the constructor.
     # 1.1, a constructor will return a new instance when to be evaluated.
@@ -28,8 +28,8 @@
     # 2.2, '$_clone' can be used to customize the clone process.
     # 2.3, '$_clone' will be automatically invoked by 'object:clone'.
     # 2.4, '$_clone' may not be really invoked for an optimized local replacement.
-    # 2.5, '$_clone' should return a bool value to indicates whether it did the 'updater'.
-    # 2.6, codes should not assume that it will always be invoked in a local replacement.
+    # 2.5, '$_clone' should return a bool value to indicates if it did the 'updater'.
+    # 2.6, programmer should not assume that it would be invoked in a local replacement.
     ($_clone (= (! orgin:object updater:function) ?bool -)
 ) ;
 ###############################################################################

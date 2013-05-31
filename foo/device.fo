@@ -7,7 +7,7 @@
 #
 ###############################################################################
 # 0, to define the operations of 'device'.
-(impl device
+($impl device
     # 1, to get the driver type of this device.
     (driver (= ?driver -)
     # 2, to test whether the 'device' is in an available status.

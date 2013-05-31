@@ -7,7 +7,7 @@
 #
 ###############################################################################
 # 0, to implement operations of 'quote'.
-(impl quote
+($impl quote
     # 1, the constructor of 'quote'.
     # 1.0, 'quote' will produce an instance from a valid string.
     (quote (= (! ref:string) ?quote -)

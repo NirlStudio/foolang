@@ -7,7 +7,7 @@
 #
 ###############################################################################
 # 0, to define the structure of 'triple'.
-(impl triple
+($impl triple
     # 1, the constructor of 'triple'.
     (triple (= (! left right value) ?triple -)
     #

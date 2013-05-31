@@ -12,8 +12,8 @@
 # P-0.0, foo stands for 'Functional Object-Oriented'.
 # P-0.1, foo is a programming language for any internet-enabled smart devices.
 # P-0.2, foo is designed for analysis, creation and research.
-# P-0.3, foo is mainly about being, but all beings are from the nothing.
-# P-0.4, the space of foo can be connected to other types of spaces.
+# P-0.3, foo is mainly about being, but all the beings are from the nothing.
+# P-0.4, the space of foo can be connected to other type of space.
 # P-0.5, rules of coding: R.C.S. - Readable, Clean, Short. 
 # P-0.6, rules of program: G.E.P. - Good Enough is Perfect.
 #
@@ -29,15 +29,17 @@
 # P-2.1, to simplify the development of parallel computing.
 # P-2.2, to simplify the development of large scale distributed system.
 # P-2.3, to promote an internet-oriented, open computing ecosystem.
-# P-2.4, to research the possibility of universalizing data and program.
+# P-2.4, to research the possibility of really universalizing data and program.
 # P-2.5, to research the possibility of building a complex self-evolutive system.
 # P-2.6, to implement a flexible framework which can be continuosly optimized.
 #
 # P-3, primary format of code.
 # P-3.0, '(' starts a new statement.
 # P-3.1, ')' encloses current statement.
-# P-3.2, '-)' encloses the recent statement in same indent level.
-# P-3.3, if having leading statements in the same line, '-)' encloses all of them.
+# P-3.2, '-)' encloses the recent statement in same indent level,
+# P-3.2.0, if and only if there is no non-space character before it.
+# P-3.3, '-)' encloses all opening statements in the same line.
+# P-3.3.0, if and only if there is a non-space character before it. 
 # P-3.4, '#' starts a piece of comment until the end of current line.
 # P-3.5, '#!' starts a pragma statement.
 # P-3.6, '##' starts a piece of document.
@@ -83,21 +85,23 @@
 # 1.1.0, from foo's point of view, every statement is a motion.
 # 1.1.1, subject, predicate and arguments will be evaluated from left to right.
 # 1.1.2, the short-circuit logic will be applied when it's possible.
-# 1.1.3, stmt-eval-0: (predicate space_separated_arguments)
-# 1.1.4, stmt-eval-1: (subject:predicate space_separated_arguments)
+# 1.1.3, stmt-eval-func: (predicate space_separated_arguments)
+# 1.1.4, stmt-eval-oo: (subject:predicate space_separated_arguments)
 #
-# 1.2, list statement '(!...)' represents a list of quotes.
+# 1.2, prototype statement '(!...)' represents a list of quotes.
 # 1.2.0, any space between '(' and '!' is not allowed.
-# 1.2.1, all statements nested in the list will be taken as list statement.
-# 1.2.2, list statement is used to declare formal parameters for a function.
+# 1.2.1, all statements nested in it are also prototype statements.
+# 1.2.2, it can be used to declare formal parameters for a function.
 # 1.2.3, it also can be used to describe the structure of structured blocks.
-# 1.2.4, it will be evaluated to a const list object in compiling.
-# 1.2.5, stmt-list-0: (!space_separated_entries)
-# 1.2.6, stmt-list-1: (!space_separated_entries_andor_lists)
+# 1.2.4, it's not allowed to use it for any other occasions.
+# 1.2.5, it will be evaluated to a const list-like object in compiling.
+# 1.2.5, stmt-proto-simple: (!space_separated_entries)
+# 1.2.6, stmt-proto-nested: (!space_separated_entries_andor_protos)
 #
 # 1.3, block statement '(*...)' is a sequence of statements.
 # 1.2.0, any space between '(' and '*' is not allowed.
 # 1.2.0.0, for instance, '( * ...)' will be explained as '(null ...)'.
+# 1.2.0.1, spaces after '*' are optional for this type of statement.
 # 1.3.1, all inner statements of first level will be evaluated sequentially.
 # 1.3.2, the content of a source file is implicitly placed in a block statement.
 # 1.3.3, a block statement is also a sub-space of variables.
@@ -108,113 +112,187 @@
 # 1.4, 'decl' is a magic wand of programmers.
 # 1.4.0, 'decl' is beyond both nothing and being.
 # 1.4.1, 'decl' gives names to anything which can be referenced.
-# 1.4.2, stmt-decl-0: (decl name entity)
-# 1.4.3, stmt-decl-1: (decl name statement_to_be_evaluated)
-# 1.4.4, stmt-decl-2: (decl (name ...) value_list)
-# 1.4.5, 'name' could be a static reference or dynamic one like @string.
+# 1.4.2, 'decl' may create a new reference entry or alter an exising one.
+# 1.4.2.0, stmt-decl-refer: (decl name entity_or_statement)
+# 1.4.2.1, the pseudo result of this statement is the real value of 'name'.
+# -
+# 1.4.3, 'decl' may alter an existing entity.
+# 1.4.3.0, stmt-decl-alter: (decl entity:member entity_or_statement)
+# 1.4.3.1, 'member' could be a dynamic reference if the entity is a 'package'.
+# 1.4.3.2, dynamic referece is is a quote like '@strval'.
+# 1.4.3.3, in application code, the 'entity' must be some type of 'package'.
+# 1.4.3.4, the pseudo result of this statement is the final value of 'entity'.
+# -
+# 1.4.4, stmt-decl-combo: (decl (quote-0 ... quote-n) value_list)
+#         be expanded as: (*
+#                             (_decl quote-0 (value_list:get 0 -)
+#                             ...
+#                             (_decl quote-n (value_list:get n -)
+#                             ()
+#                         )
+# 1.4.4.0, the 'quote' may be like 'name' or 'entity:member'.
+# 1.4.4.1, the pseudo result of this statement is identically 'null'.
+# -
+# 1.4.5, stmt-decl-dynamic: (decl (stmt):member entity_or_statement)
+# 1.4.5.0, 'member' could be a dynamic reference if the value of '(stmt)' is a 'package'.
+# 1.4.5.1, the pseudo result of this statement is the altered value of '(stmt)'.
 #
 # 1.5, 'def' can give an alias to an entity or a statement.
-# 1.5.0, a alias will be replaced to its original expression before evaluating.
-# 1.5.1, some special generic aliases will not be replaced before evaluating.
-# 1.5.1.0, these aliases include 'self', 'this' and '_retry'.
-# 1.5.1, stmt-def-0: (def alias name)           # alias => name
-# 1.5.2, stmt-def-1: (def alias package:member) # packge:alias => package:member
-# 1.5.3, stmt-def-2: (def alias statement)      # alias => statement
-(decl def)
+# 1.5.0, an alias will be replaced to its original expression in compiling.
+# 1.5.0.0, aliases just can be defined in the top level of source file.
+# 1.5.0.1, def-statement in otherwhere will be just ignored with an warning.
+# 1.5.0.2, some special generic aliases will not be replaced actually.
+# 1.5.0.3, these aliases include 'self' and 'this'.
+# 1.5.1, stmt-def-simple: (def alias name)           # alias => name
+# 1.5.2, stmt-def-member: (def alias package:member) # packge:alias => package:member
+# 1.5.3, stmt-def-stmt:   (def alias statement)      # alias => statement
+(decl def)  #verb.
 #
 # 1.6, 'decl' can give a pseudonym to the nothing.
 # 1.6.0, the nothing is the only absolutely free one.
 # 1.6.1, '?' is not the nothing, just a notation of its.
-# 1.6.2. '?' can be used by foo runtime to generate generic types.
-(decl ?)
+# 1.6.2. '?' can be used by foo runtime to produce generic types.
+(decl ?)  #noun in grammar, pronoun in semantics.
 # 1.6.3, 'nothing' is a more readable alias of '?'.
-# 1.6.4, it's forbidden to define any other alias for nothing.
-(def nothing ?)
+# 1.6.4, it's forbidden to define any other alias for '?' or 'nothing'.
+(def nothing ?)  #pronoun
 # 1.6.5, 'nothing' or '?' can be used as an argument in a 'closure' statement.
 # 1.6.5.0, in this case, it represents a free variable.
-# 1.6.6, 'nothing' and '?' are not allowed to be used in any other scenarios.
+# 1.6.6, ?' and 'nothing' are not allowed to be used in any other scenarios.
 #
 # 1.7, special usages of character '?'.
-# 1.7.0, '?' can start an special argument to restrict function result's type(s).
-# 1.7.1, this argument will be evaluated to a const array object in compiling.
-# 1.7.2, return-types-0: ?type_list  ## type_list may be: 'type' or 'type1|type2|...'.
-# 1.7.3, return-types-1: ?(type_list ...)
-# 1.7.4, '?' can indicate a default value in a list statement entry (a parameter).
-# 1.7.5, a parameter entry will be evaluated to a const triple object in compiling.
-# 1.7.6, without a explicitly defaulue, the default value will be null.
-# 1.7.6, param-type-0: param:type?defaulue
-# 1.7.7, param-type-1: param:type1|type2|...?defaulue
+# 1.7.0, '?' can be used to define a type filter for one or more entities.
+# 1.7.0.0, any space after '?' is not allowed for type filter.
+# 1.7.0.1, type-filter-simple: ?types
+# 1.7.0.2, type-filter-combo:  ?(types ...)
+# 1.7.0.3, 'types' may be a single 'type' or a type list like 'type1|type2|...'.
+# 1.7.0.4, a simple filter will be evaluated to a const list-like object in compiling.
+# 1.7.0.5, a combo filter will be evaluated to a const array-like object in compiling.
+# 1.7.0.6, a function can use both simple and combo type filters to define its result.
+# 1.7.0.7, a simple filter can be used to explicitly restrict a package member.
+# -
+# 1.7.1, '?' can be used to include a default value for a prototype entry.
+# 1.7.1.0, a prototype entry will be evaluated to a const triple object in compiling.
+# 1.7.1.1, without an explicit defaulue, the default value will always be 'null'.
+# 1.7.1.2, proto-entry-simple: param:type?defaulue
+# 1.7.1.3, proto-entry-choice: param:type1|type2|...?defaulue
 #
-# 1.8, rules of restricted update.
-# 1.8.0, the following statements are valid.
-# 1.8.1, stmt-update-0: (decl name new_entity)
-# 1.8.2, stmt-update-1: (decl entity:member new_entity)   ## auto-shadow or auto-clone
-# 1.8.3, stmt-update-2: (impl package (member new_entity))## auto-shadow or auto-clone
-# 1.8.4, stmt-update-3: (object:$update_action ...)       ## auto-clone
-# 1.8.5, recursive update is not allowed.
-# 1.8.6, invalid-stmt-update-0: (decl package:member:name new_entity)
-# 1.8.7, invalid-stmt-update-1: (package:member:$name ...)
-# 
+# 1.8, mechanism of update.
+# 1.8.0, if the target reference is global, to produce a local entity.
+# 1.8.1, if the target reference is local, to update it.
+# 1.8.1.0, ref-redirect(RR): the target reference points to the new entity.
+# 1.8.1.1, ref-override(RO): RR + wrapper pointing to the original one.
+# 1.8.1.2, object-clone(OC): RR + a shallow clone of the original one.
+# 1.8.1.3, the static entity system is global, even it's lazily loaded. 
+# 1.8.1.4, the dynamic entity system is local, unless it's loaded while initialing.
+# -
+# 1.8.2, simple update statements.
+# 1.8.2.0, stmt-update-basic:  (decl name new_entity)          ## RR
+# 1.8.2.1, stmt-update-nonobj: (decl nonobj:member new_entity) ## RO
+# 1.8.2.2, stmt-update-object: (decl object:member new_entity) ## OC
+# 1.8.2.3, stmt-update-objself:(object:$update_action ...)     ## OC
+# 1.8.2.4, stmt-update-recursive:
+#              (decl entity:member-0:member-1:...:member-n new_entity)
+#          be expanded as: 
+#              (_decl entity:member-0 (*
+#                  (_decl m-0 entity:member-0)
+#                  (_decl m-0:member-1 (*
+#                      (_decl m-1 m0:member-1)
+#                      (_decl m-1:member-2 (*
+#                          (_decl m-2 m1:member-2) (*
+#                          (_decl m-2:member-3 m2:member-3) (*
+#                             ... ...
+#                                (_decl m-[n-1] m-[n-2]:member-[n-1]) 
+#                                (_decl m-[n-1]:member-n new_entity) 
+#              -)
+# 1.8.2.5, stmt-update-recursive-objself:
+#              (entity:member-0:member-1:...:member-n:$update_action ...)
+#          be expanded as: 
+#              (*
+#                  (decl m-n entity:member-0:member-1:...:member-n)
+#                  (if (m-n:$update_action ...) 
+#                      (*
+#                          (decl entity:member-0:member-1:...:member-n new_entity)
+#                          true
+#                      -)
+#                      false
+#                  -)
+#              -)
+# -
+# 1.8.3, local replacement statement.
+# 1.8.3.0, stmt-local-repl-func: ($func arg0 ...)
+#                be expanded as: (decl arg0 (func arg0 ...);
+# 1.8.3.1, stmt-local-repl-oo: ($entity:method ...)
+#              be expanded as: (decl entity (entity:method ...);
+# 1.8.3.2, stmt-local-repl-oo-recursive:
+#                          ($entity:member-0:member-1:...:member-n:method ...)
+#          be expanded as: (decl entity:member-0:member-1:...:member-n 
+#                              (entity:member-0:member-1:...:member-n  ...)
+#                          -)
+# 1.8.3.3, the 'func' must be an ordinary function.
+# 1.8.3.4, the 'entity' must be a simple name quote.
+#
 ###############################################################################
 # 2, Chapter of DERIVABLE
 #
 # 2.0, derivation statements.
 # 2.0.0, the foo runtime use the nothing to produce generic types.
-# 2.0.0.0, stmt-derive-0: (?base_type +optional_adjective  ...)
-# 2.0.0.1, stmt-derive-0 just can be used by foo runtime.
+# 2.0.0.0, stmt-derive-generic: (?base_type +optional_adjective  ...)
+# 2.0.0.1, stmt-derive-generic just can be used by the core runtime of foo.
 # -
 # 2.0.1, a type generator can produce more complex derivated types.
-# 2.0.1.0, stmt-derive-1: (type_generator +optional_base_type ...)
+# 2.0.1.0, stmt-derive-basic: (type_generator +optional_base_type)
 # 2.0.1.1, the 'type_generator' could be 'function', 'package', 'class' or 'driver'.
 # -
-# 2.0.2, 'package' based type generators support adjective types.
-# 2.0.2.0, stmt-derive-2: (type_generator +optional_base_type +optional_adjectives ...)
+# 2.0.2, 'package' based type generators support both base type and adjectives.
+# 2.0.2.0, stmt-derive-package: (type_generator +optional_base_type +optional_adjectives ...)
 # 2.0.2.1, the 'type_generator' could be 'package', 'class' or 'driver'.
 # 2.0.2.2, an 'optional_adjective' must be a 'package'.
 # -
-# 2.0.3, 'class' and 'driver' support ':' to be use as a modifier of adjective.
-# 2.0.3.0, stmt-derive-2: (type_generator +optional_base_type +:optional_adjectives ...)
-# 2.0.3.1, an adjective with a ':' means it's just valid for an instance entity.
+# 2.0.3, 'class' and 'driver' support using the ':' as a modifier of adjective.
+# 2.0.3.0, stmt-derive-instance: (type_generator +optional_base_type +:optional_adjectives ...)
+# 2.0.3.1, an adjective with a ':' means it's only valid for an instance entity.
 #
 # 2.1, 'null' is an empty being, and it's the very first entity.
 # 2.1.0, 'null' is the root entity of all other beings.
 # 2.1.1, 'null' can be represented by an empty statement '()'.
 # 2.1.2, 'null' will always return itself when to be evaluated.
 # 2.1.3, logically, 'null' is the only direct descendant of nothing.
-(decl null (?? ); 
+(decl null (?? );  #noun 
 
 # 2.2, a standalone single asterisk is an alias of 'null'.
-# 2.2.0, since anything is 'null', 'null' may be everything.
+# 2.2.0, since anything "is" 'null', 'null' may be everything.
 # 2.2.1, in such a semantic context, '*' is preferable than 'null'.
-# 2.2.2, when '*' is used as a formal parameter, it have special meaning.
-(def * null)
+# 2.2.2, when '*' is used in prototype statement, it has special meaning.
+(def * null)  #pronoun
 #
-# 2.3, 'statement' is a generic type derivated from 'null'.
+# 2.3, 'statement' is a generic type directly derivated from 'null'.
 # 2.3.1, a 'statement' entity can be defined by a statement with a preceding '&'.
 # 2.3.2, stmt-ref-0: &(...).
 # 2.3.3, a 'statement' could be evaluated to get the result of its original one.
 # 2.3.3.0, so, '(stmt_name)' equals '(stmt_body)', after (decl stmt_name &(stmt_body)).
-(decl statement (?null );
+(decl statement (?null );  #noun
 #
 # 2.4, 'block' is a generic type derivated from 'statement'.
 # 2.4.1, a 'block' entity can be defined by a block statement with a preceding '&'.
 # 2.4.2, block-ref-0: &(* ...).
-# 2.4.3, a 'block' will be evaluated to the value of the last evaluated statement.
-(decl block (?statement );
+# 2.4.3, a 'block' will be evaluated to the value of its last evaluated inner statement.
+(decl block (?statement );  #noun
 #
 # 2.5, sentinel entity.
 # 2.5.0, 'nil' is an entity to simplify the implementation of some algorithms.
 # 2.5.1, 'nil' is a special value indicating a terminator or an invalid value.
-# 2.5.2, 'nil' may be used as sentinel when null is a valid value in its context.
-# 2.5.3, 'nil' should not be used in any other scenarios.
+# 2.5.2, 'nil' may be used as sentinel when 'null' is meaningful in the semantic context.
+# 2.5.3, 'nil' should not be used in any other scenario.
 # 2.5.4, 'null' and 'nil' can't be put into 'series', 'data' and 'string'.
-# 2.5.5, 'nil' will work like a null except for the 'is' operation.
+# 2.5.5, 'nil' performs like 'null' except for the 'is' operation.
 # 2.5.6, both '(nil:is null)' and '(nil:is nil)' return 'true'.
-(decl nil (?null );
+(decl nil (?null );  #noun
 #
-# 2.6, name placeholders of some generic types.
-# 2.6.0, they may be virtually referenced before formal declaration.
+# 2.6, placeholders of some generic types.
+# 2.6.0, they are virtually referenced before its formal declaration.
 (decl list  ) # (John-McCarthy Sep-4-1927 Oct-24-2011)
+(decl array )
 (decl int   )
 (decl iterator) 
 (decl quote )
@@ -226,123 +304,148 @@
 # 3.0, about 'lambda'.
 # 3.0.0, 'lambda' had been created as a middle type between 'null' and 'function'.
 # 3.0.1, the 'lambda' represented a type of pure function.
-# 3.0.2, as the programmer of foo choosed to trust programmers using foo,
+# 3.0.2, as the programmers of foo choosed to trust programmers using foo,
 # 3.0.3, as foo has been trying to strengthen programmers, not to weaken them,
-# 3.0.5, the 'lambda' was finally given up @2012-12-25 12:53PM UTC, Merry Christmas.
-# 3.0.6, to show respect for this word, this section and 'lambda' are still reserved.
+# 3.0.5, the 'lambda' was eventually cancelled @2012-12-25 12:53PM UTC. Merry Christmas.
+# 3.0.6, to show respects for this word, this section and 'lambda' were still reserved.
 # 3.0.7, programmers can build pure functions by the type of 'function', if they will.
-(def lambda)
+(def lambda)  #noun
 #
 # 3.1, 'function' is the first real evaluable type derivated from 'null'.
-# 3.1.0, 'function' is a type generator to produce more functions.
-# 3.1.1, 'function' supports adjective syntax, but only one base function is allowed.
+# 3.1.0, or we can say, only functions are full-featured verbs.
+# 3.1.0.0, addtionally, a function works like an adverb when passed to another function.
+# 3.1.1, 'function' is a type generator to produce more functions.
 # 3.1.2, 'function' can receive both plain and structured arguments.
-# 3.1.3, the 'parameters' should be defined by a list statement.
-# 3.1.4, the 'result_desc' should be a return-types stament.
+# 3.1.3, the 'parameters' should be a prototype statement.
+# 3.1.3.0, if it's absence, that means this function need no parameter.
+# 3.1.3.1, that means, all it arguments will not be evaluted.
+# 3.1.3.2, so, please be careful if you are depending on their side-effects.
+# 3.1.4, the 'result' can be a simple or combo type filter.
+# 3.1.4.0, if it's absence, that means this function may return any type.
+# 3.1.4.1, '?*' can be used to explicitly declare the funtion may return any type.
+# 3.1.4.2, in contrast to '?*', '?null' means definitely to return 'null'.
 # 3.1.5, a formal parameter with a modifier '&' means a reference parameter.
 # 3.1.5.0. a referenced entity name will be evaluated to a 'quote'.
 # 3.1.5.1. a referenced statement will be evaluated to a 'statement'.
 # 3.1.6, to use '*' as the last parameter means more anonymous arguments are acceptable.
-(decl function (?null (! parameters:list result_desc:list &impl_expr:quote|statement );
+# 3.1.6.0, without it, extra arguments will not be evaluted.
+# 3.1.6.1, it's a caller's blame to depend on extra arguments' side-effects.
+(decl function (?null (! parameters:list
+                             result:list|array
+                         &impl_expr:quote|statement );  #noun & verb.
 # 3.1.7, '=' is an alias of 'function'.
-(def = function)
+# 3.1.7.0, it's mainly used for defining a function in a more compat form.
+(def = function)  #verb, code like '(x:is =)' is not recommanded.
 #
 # 3.3, 'self' makes recursion more easy.
-# 3.3.0, '_self' is a generic function to be evaluated to the caller itself.
-(decl _self (= ?function ;
+# 3.3.0, '_self' is a generic function to be evaluated to the caller function itself.
+(decl _self (= ?function ;  #verb.
 # 3.3.1, 'self' is a statement alias of the evaluation of '_self'.
 # 3.3.2, a 'function' can recursively refer to itself by 'self'.
 # 3.3.3, 'self' can be used in both named and anonymous functions to implement recursion.
-(def self (_self );
+(def self (_self );  #v-ing.
 #
-# 3.4, all function arguments can be dynamically accessed.
-# 3.4.0, and on the other side, all arguments of 'function' are optional.
+# 3.4, all arguments can be dynamically accessed.
+# 3.4.0, on the other side, all named arguments of 'function' are optional.
 # 3.4.0.0, the value of a missing argument will be 'null'.
-# 3.4.1, more arguments than explicitly declared are acceptable.
-# 3.4.1.0, without an '*' parameter, excess arguments will not be evaluated.
-# 3.4.2, 'argn' can be used to get the amount of real arguments.
-# 3.4.3, calling 'argn' with indexes will return the count of items of a structured argument.
-(decl argn (= (! index:int *) ?int ;
-# 3.4.4, 'argc' is a statement alias of '(argn)'.
-(def argc (argn ) ;
-# 3.4.5, 'argv' will return the value of an argument indexed by a series of indexes.
-(decl argv (= (! index:int?0 *) ?* ;
-# 3.4.6, 'argi' will iterate arguments values in a range of [index, index + count).
-(decl argi (= (! index:int?0 count:int?0) ?iterator ;
-# 3.4.7, 'argr' will return arguments values in a range of [index, index + count) as a list.
-(decl argr (= (! index:int?0 count:int?0) ?list ;
-# 3.4.8, 'args' is a statement alias to return all arguments as a 'list'.
-(def args (argr );
+# 3.4.0.1, an explicit or implicit null argument may be replaced to its default value.
+# 4.4.0.2, it's not necessary to explicitly define a parameter's default value as null.
+# 3.4.1, 'argn' can be used to get the amount of real arguments.
+# 3.4.1.0, calling 'argn' with indexes will return the count of items for a structured argument.
+# 3.4.1.1, if corresponding argument exists and is is plain, 'argn' returns 1 too.
+(decl argn (= (! index:int *) ?int ;  #verb.
+# 3.4.2, 'argc' is a statement alias of '(argn)'.
+(def argc (argn ) ;  #v-ing.
+# 3.4.3, 'argv' will return the value of an argument indexed by a series of indexes.
+(decl argv (= (! index:int?0 *) ?* ;  #verb.
+# 3.4.4, 'argi' will iterate arguments values in a range of [index, index + count).
+# 3.4.4.0, a structured argument will be returned as a list-like entity.
+(decl argi (= (! index:int?0 count:int?0) ?iterator ;  #verb.
+# 3.4.5, 'argr' will return arguments values in a range of [index, index + count) as a list.
+(decl argr (= (! index:int?0 count:int?0) ?list ;  #verb.
+# 3.4.6, 'args' is a statement alias to return all arguments as a 'list'.
+(def args (argr );  #v-ing
 #
-# 3.5, result set of 'function' can be flexibly operated.
-# 3.5.1, 'return' can be used to return one or more items as result set.
+# 3.5, return the result set.
+# 3.5.0, 'return' can explicitly return one or more values as the result set.
+# 3.5.5, 'return' overrides the default result logic of various block statements.
 # 3.5.2, the calling 'function' will be terminated immediately after this call.
-# 3.5.3, for a function returning multiple values, the result set will be a 'list'.
-(decl return (= (! result *) ?null ;
-# 3.5.4, 'return' are used to explicitly return result(s).
-# 3.5.5, 'return' will replace the default result logic of the block statement.
+# 3.5.3, if returning multiple values, those value will be placed in a list-like entity.
+# 3.5.3.0, in such a case, the result's type filter should be '?*', '?list' or a combo one.
+(decl return (= (! result *) ?null ;  #verb.
 #
-# 3.6, manually checking and tolerance.
+# 3.6, manually value checking and tolerance.
 # 3.6.0, 'check' returns null if 'value' doesn't match any type listed in arguments.
-(decl check (= (! value type *) ?* ;
-# 3.6.1, 'check_to' returns the 'defaulue' if 'value' is null or doesn't match any type.
-(decl check_to (= (! value defaulue type *) ?* ;
+(decl check (= (! value type *) ?* ; #verb.
+# 3.6.1, 'check_to' returns 'defaulue' if 'value' is null or doesn't match any type.
+(decl check_to (= (! value defaulue type *) ?* ; #verb.
 # 3.6.2, 'by_default' returns the 'defaulue' if 'value' is null.
-(decl by_default (= (! defaulue value) ?* ;
-#
-(decl convert (= (! value type *) ?* ;
-#
-(decl convert_to (= (! value defaulue type *) ?* ;
+(decl by_default (= (! defaulue value) ?* ;  #verb.
+# 3.6.3, 'convert' will try to convert the 'value' to a listed 'type' by order.
+(decl convert (= (! value type *) ?* ;  #verb.
+# 3.6.4, 'convert_to' works like 'convert', but it requires a default value. 
+(decl convert_to (= (! value defaulue type *) ?* ;  #verb.
+# 3.6.5, why are they here?
+# 3.6.5.0, for each non-null argument, it will be checked orderly by the listed types.
+# 3.6.5.1, if checking failed, it will be converted orderly to the listed types.
+# 3.6.5.2, if converting failed, the default value or null will be used.
+# 3.6.5.3, like the argument, each result item will be orderly checked and converted.
+# 3.6.6, while defining parameter or result, it's worth to pay attention to types' order.
 #
 # 3.7, 'closure' is evaluable type derived from function.
-# 3.7.0, 'closure' is a simple type generator which does not support adjective syntax.
+# 3.7.0, 'closure' is a simple type generator without base-type or adjective supporting.
 # 3.7.1, all closures are the immediate descendants of 'closure'.
 # 3.7.2, 'closure' will try to evaluate all statements in 'func' without free variables,
-# 3.7.3, the runtime will try to cache closures with the same arguments.
-(decl closure (= (! func:function arg *) ;
+# 3.7.3, the runtime may try to cache closures with the same arguments.
+(decl closure (= (! func:function arg *) ;  #noun & verb.
 # 3.7.4, '==' is an name alias of 'closure'.
-(def == closure)
-# 3.7.5, to produce closure with a function having side effects may be dangerous.
+# 3.7.4.0, it's mainly used for producing a closure in a more compat form.
+(def == closure)  #verb.
+# 3.7.5, it might be doubtful to produce a closure with a function having side effects.
 #
 ###############################################################################
 # 4, Chapter of COMPOSABLE
 #
 # 4.0, 'package' is derivated from 'null'.
-# 4.0.0, 'package' is a type generator to generate other packages.
-# 4.0.1, a derivated 'package' can have zero or more customized members.
-# 4.0.2, without a special instruction, a derivated 'package' will be evaluated to itself.
-# 4.0.3, a member beginning with '_' is visible only in the same file or code piece.
-(decl package (?null (! (&name:quote expr) * );
+# 4.0.0, for the perspective of semantics, it works like adjective.
+# 4.0.1, 'package' is a type generator to generate other packages.
+# 4.0.2, a derivated 'package' may have zero or more customized members.
+# 4.0.3, the generic members of package can't be overridden, altered or removed.
+# 4.0.4, without a special instruction, a derivated 'package' will be evaluated to itself.
+# 4.0.5, a member beginning with '_' is visible only in the same file or code piece.
+# 4.0.5.0, visibile does not means accessable, it's also accessable.
+# 4.0.5.1, it's assumed that programmers should know what they were doing.
+(decl package (?null (! (&name:quote expr) * );  #noun & verb.
 #
 # 4.1 generic functions to manipulate 'package'.
-# 4.1.0, 'impl' can insert one or more new members into 'pkg'.
-# 4.1.1, 'impl' can override one or more members of 'pkg'.
-(decl impl (= (! &pkg:quote (&name:quote expr) *) ?null ;
-# 4.1.2, 'enable' will merge one or more adjective packages into 'pkg'.
-(decl enable (= (! &pkg:quote adj:package *) ?null ;
-# 4.1.3, 'disable' will remove one or more adjective packages of 'pkg'.
-(decl disable (= (! &pkg:quote adj:package *) ?null ;
-# 4.1.4, 'impl', 'enable' and 'disable' may imply a transparent local replacement.
+# 4.1.0, 'impl' can append one or more new members into 'pkg' to produce a new one.
+# 4.1.1, 'impl' also can override one or more members existing in 'pkg'.
+(decl impl (= (! pkg:package (&name:quote expr) *) ?package ;  #verb.
+# 4.1.2, 'enable' will merge one or more adjectives into 'pkg' to produce a new one.
+(decl enable (= (! pkg:package adj:package *) ?package ;  #verb.
+# 4.1.3, 'disable' will remove one or more adjectives of 'pkg' to produce a new one.
+(decl disable (= (! pkg:package adj:package *) ?package ;  #verb
 #
 # 4.2, container package of a 'function'.
-# 4.2.0, the container packge of 'func' is 'pkg' when 'func' is called like 'pkg:func'.
+# 4.2.0, the container package of 'func' is 'pkg' when a 'func' is called like 'pkg:func'.
 # 4.2.1, '_this' is a hiden generic function to get container package.
-(decl _this (= ?package ;
+(decl _this (= ?package ;  #verb.
 # 4.2.2, 'this' is a statement alias of evaluation of '_this'.
-(def this (_this ); 
+(def this (_this );  #v-ing. 
 #
 # 4.3, 'enum' is derivated from 'package'.
 # 4.3.0, 'enum' is a container of a series of const values.
-# 4.3.1, the name of an 'enum' should be a plural noun if its items are mask values.
-(decl enum (package );
+# 4.3.1, 'enum' is a simple type generator to generate other enums.
+# 4.3.2, the name of an 'enum' should be a plural noun if its items are mask values.
+(decl enum (?package (! (&name:quote value:int?0) * );  #noun & verb.
 #
 # 4.4, 'fool' is derivated from 'package'.
 # 4.4.0, 'fool' is used to interactive with foo runtime and underlying system.
-# 4.4.1, 'underlying system' includes and does not limited to operating system.
+# 4.4.1, 'underlying system' includes and is not limited to operating system.
 # 4.4.2, 'fool' also provides operations to query environment variables.
 # 4.4.3, foo does not encourage programmers to depends on environment variables.
 # 4.4.4, 'fool' does not provide methods to update environment variables.
-(decl fool (package );
+(decl fool (package );  #verb.
 # 
 ###############################################################################
 # 5, Chapter of CLONEABLE
@@ -352,130 +455,130 @@
 # 5.0.1, an instance of 'class' will be a type of fixed-point,
 # 5.0.2, that means, it will always return itself when to be evaluated.
 # 5.0.3, an instance of 'class' will support the equivalency comparasion.
-# 5.0.4, an instance of 'class' may support local-replacing operations.
+# 5.0.4, an instance of 'class' may support local replacement.
 # 5.0.5, 'object' should not be used in any other scenarios.
-(decl object (package );
+(decl object (package ); #adjective.
 #
 # 5.1, 'class' is derivated from both 'function' and 'package'.
 # 5.1.0, 'class' is one of general type generators.
 # 5.1.1, a 'class' will return an instance of it when to be evaluated.
 # 5.1.2, a member decorated by a leading ':' will be only valid in an instance.
 # 5.1.3, an instance memeber will be evaluated to 'null' without a 'this' of instance.
-(decl class (?function +package (! (&name:quote expr) *);
+(decl class (?function +package (! (&name:quote expr) *);  #noun & verb.
 #
 ###############################################################################
 # 6, Attached Chapter of Elementary Types
 #
 # 6.0, types for ordering and comparasion.
 # 6.0.0, 'ordering' defines valid values of sort ordering.
-(decl ordering (enum );
+(decl ordering (enum );  #noun.
 # 6.0.1, 'compared' defines valid results of a comparasion operation.
-(decl compared (enum );
+(decl compared (enum );  #noun.
 # 6.0.2, 'comparable' represents that a package can be comparabed with another one.
 # 6.0.3, entities derived from a common 'comparable' ancestor can be compared to each other.
-(decl comparable (package );
+(decl comparable (package );  #adjective.
 #
 # 6.1, adjective types for collections.
 # 6.1.0, 'iterator' is a class returned by an 'iterable' package.
-(decl iterator (class );
+(decl iterator (class );  #noun.
 # 6.1.1, 'filter' is a class using a function to filter on an 'iterator'.
-(decl filter (+iterator );
+(decl filter (+iterator );  #noun & verb.
 # 6.1.2, 'iterable' represents that a package supports a traversal operation.
 # 6.1.3, the traversal operation should not change the state of the target package.
-(decl iterable (package );
+(decl iterable (package );  #adjective.
 # 6.1.4, 'countable' represents a collection which is countable.
-(decl countable (package );
+(decl countable (package );  #adjective.
 #
 # 6.2, standardized boolean type.
 # 6.2.0, 'bool' is the standard boolean type in foo.
-(decl bool (class );
+(decl bool (class );  #noun & verb.
 # 6.2.1, 'false' is the standard value of boolean FALSE.
 # 6.2.2, 'null', zero value of numbers will be equivalent to 'false' in boolean testing.
 # 6.2.3, 'bool' itself, empty string and empty collections will be equivalent to 'false' too.
-(decl false (+bool +object );
+(decl false (+bool +object );  #noun.
 # 6.2.4, 'true' is the standard value of boolean TRUE.
 # 6.2.5, an entity will be treated as 'true' if it's not explicitly defined as 'false'.
-(decl true (+bool +object );
+(decl true (+bool +object );  #noun.
 #
 # 6.3, types of numbers.
 # 6.3.0, 'numeric' is the super class of all numerical types.
-(decl numeric (+:comparable );
+(decl numeric (+:comparable );  #noun.
 # 6.3.1, 'int' is the class of all integer numbers.
 # 6.3.2, 'int' may internally be byte/int8, short/int16, int/int32 and long/int64.
 # 6.3.3, instances of 'int' can support bit operating.
-(decl int (+numeric );
+(decl int (+numeric );  #noun & verb.
 # 6.3.4, 'real' is the class of both float and double values.
-(decl real (+numeric );
+(decl real (+numeric );  #noun & verb.
 # 6.3.5, 'frac' is reserved for future.
-(decl frac (+real );
+(decl frac (+real );  #noun & verb.
 # 6.3.6, 'decimal' is reserved for future.
-(decl decimal (+real );
+(decl decimal (+real );  #noun & verb.
 # 6.3.7, 'complex' is reserved for future.
-(decl complex (+real );
+(decl complex (+real );  #noun & verb.
 #
 # 6.4, type for date and time.
 # 6.4.0, 'time' is the class representing a value of date and time.
 # 6.4.1, the value of 'time' is a count of seconds like unix timestamp.
 # 6.4.2, being different with unix timestamp, 'time' has wider value range,
 # 6.4.3, 'time' may have fractional part in its value.
-(decl time (+real );
+(decl time (+real );  #noun & verb.
 #
 # 6.5, type for character.
 # 6.5.0, 'char' is a class of unicode (UTF-16) character.
 # 6.5.1, generally, the internal value of 'char' will be a short/int16 integer.
-(decl char (+int );
+(decl char (+int );  #noun & verb.
 #
 # 6.6, simple data structures.
 # 6.6.0, 'pair' is a composition type with two fields: Key and Value.
 # 6.6.1, 'pair' is for associating the satellite data to its key.
 # 6.6.2, the comparasion of pairs is implemented as the comparasion of their keys.
-(decl pair (+:comparable ); 
+(decl pair (+:comparable );  #noun & verb. 
 # 6.6.3, 'couple' is a composition type with two fields: Left and Right.
 # 6.6.4, 'couple' can be used in all scenarios to represent a couple of values.
 # 6.6.5, the comparasion of couples is implemented as the comparasion of all their fields.
-(decl couple (class ); 
+(decl couple (class );  #noun & verb.
 # 6.6.6, 'triple' is a composition type with three fields: Left, Right and Value.
 # 6.6.7, 'triple' can be used to represent a collection of 3 values.
 # 6.6.8, the comparasion of triples is implemented as the comparasion of all their fields.
-(decl triple (class );
+(decl triple (class );  #noun & verb.
 #
 ###############################################################################
 # 7, Attached Chapter of Collection Types
 #
 # 7.0, generic collection types.
 # 7.0.0, 'collection' is the abstract super class of various collection types.
-(decl collection (+countable +:iterable );
+(decl collection (+countable +:iterable );  #noun.
 # 7.0.1, 'set' is a series of entities which support 'equal' or 'is' operations.
 # 7.0.2, since 'null' has 'is' operation, so all its descendants can be put into a 'set'.
 # 7.0.3, the 'null' is defined that it can't be really put into a set.
 # 7.0.4, elements in a 'set' are indexed by themselves.
-(decl set (+collection );
+(decl set (+collection );  #noun & verb.
 #
 # 7.1, mapping-collection types.
 # 7.1.0, 'map' is a collection of key-value pairs indexed by the keys.
 # 7.1.1, the 'null' is defined that it can't work as a key.
 # 7.1.2, if try to use 'null' as key, it will not affect the collection.
-(decl map (+collection );
+(decl map (+collection );  #noun & verb.
 #
 # 7.2, sliceable-collection types.
 # 7.2.0, 'slicer' is an enchance 'iterator' with the count of remaining items.
-(decl slicer (+iterator );
+(decl slicer (+iterator );  #noun.
 # 7.2.1, 'sliceable' represents a collection with a zero-based integer index.
-(decl sliceable (+collection );
+(decl sliceable (+collection );  #noun.
 # 7.2.2, 'slice' is a sliceable type basing on another sliceable one.
-(decl slice (+sliceable );
+(decl slice (+sliceable );  #noun & verb.
 # 7.2.3, 'list' is a sequence of any entities, including 'null'.
-(decl list (+sliceable );
+(decl list (+sliceable );  #noun & verb.
 #
 # 7.3, typed-collection types.
 # 7.3.0, 'array' is a sliceable collection of entities of same type.
-(decl array (+sliceable );
+(decl array (+sliceable );  #noun & verb.
 # 7.3.1, 'series' is an arry of numeric values of same type with same size.
-(decl series (+array );
+(decl series (+array +:comparable );  #noun & verb.
 # 7.3.2, 'data' is a buffer preserving a sequence of binary bytes.
-(decl data (+series );
+(decl data (+series );  #noun & verb.
 # 7.3.3, 'string' is a sequence of unicode (UTF-16) characters.
-(decl string (+series +:comparable );
+(decl string (+series );  #noun & verb.
 # 7.3.4, 'quote' is a special string which is a valid reference of an entity.
 (decl quote (+string );
 #
@@ -487,13 +590,13 @@
 # 8.0.1, 'if' returns the result set of the expression really evaluated.
 (decl if (?block (! test:quote|statement
                expr_true:quote|statement
-              expr_false:quote|statement );
+               expr_else:quote|statement );
 # 8.0.2, 'else' is just a placeholder token to make 'if' statement more readable.
 (def else)
 # 8.0.3, 'when' is used to simplify the structure like 'if ... else if ...'.
 # 8.0.4, 'when' returns the result set of the expression really evaluated.
 (decl when (?block (! (test:quote|statement 
-                       expr:quite|statement) * );
+                       expr:quote|statement) * );
 # 8.0.5, 'switch' is used to simplify the strucutre of matching for multiple values.
 # 8.0.6, 'switch' returns the result set of the expression really executed.
 # 8.0.7, if no matched value found, swith will return the value of 'test'.
@@ -508,7 +611,7 @@
 # 8.1.0, 'while' implements a loop according to the evaluation result of 'test'.
 (decl while (?block (! test:quote|statement 
                        body:statement );
-# 8.1.1, 'for' implements a loop like 'while', but with a 'revise' statement.
+# 8.1.1, 'for' implements a loop like 'while', but having 'init' and a 'revise' statement.
 (decl for (?block (! init:statement
                      test:quote|statement
                    revise:statement
@@ -529,7 +632,7 @@
 # 8.1.6.0, 'last' must be called in 'body' of 'while', 'for' or 'foreach'.
 # 8.1.6.1, by default, the 'last' will return 'null' in the first iteration.
 (decl last (= (! index:int?0) ?* ;
-# 8.2.7, 'with' is a function used to set a customized initial 'last' value.
+# 8.1.7, 'with' is used for setting a customized initial 'last' value.
 (decl with (?block (! init_last:quote|statement
                       loop_stmt:while|for|foreach );
 # 
@@ -568,66 +671,53 @@
 ###############################################################################
 # 9, Chapter of SEQUENTIAL II - Parallel Procedures
 #
-# 9.0, degradable process.
-# 9.0.0, 'final' is a base type of function to forward a result set.
+# 9.0, types of errors.
+# 9.0.0, 'error' is a class representing an abnormal state.
+(decl error (class );
+# 9.0.1, 'crash' is a special error which can't be caught in its raising process.
+(decl crash (+error );
+# 9.0.2, 'reset' is a class representing to restart a process.
+(decl reset (+crash );
+#
+# 9.1, degradable process.
+# 9.1.0, 'final' is a base type of function to forward a result set.
 (decl final (= ?* ;
-# 9.0.1, 'wait' is a base type of function used to wait a process to complete.
-# 9.0.2, 'wait' can be used to kill the process after waiting timeout.
-(decl wait (= (! seconds:int|real?0
-      kill_after_timeout:bool?false) ?false|error|final ;
-# 9.0.3, 'process' will try to asynchronously evaluate a function,
-# 9.0.4, that means, current process may not be blocked by the evaluation.
-# 9.0.5, an application will at least have a root process.
-# 9.0.6, 'process' will return a function derivated from 'wait'.
+# 9.1.1, 'process' will try to asynchronously evaluate a function,
+# 9.1.2, that means, current process may not be blocked by the evaluation.
+# 9.1.3, an application will at least have a root process.
+# 9.1.4, if succeeded, 'process' will return a function derivated from 'final'.
+# 9.1.4.0, if an error was raised in target process, 'process' will return the error.
+# 9.1.4.1, if the process did not terminate in 'max_seconds', 'process' will return false.
+# 9.1.5, if 'next' is not null, 'process' will run in chained mode.
+# 9.1.5.0, in chained mode, above result will be delivered to the 'next' function.
 (decl process (= (! func:function
                     args:sliceable|iterable|iterator
-               post_args:bool?false) ?wait ;
-# 9.0.7, the interpretation of 'args' is just like what it is in 'eval' and 'call'.
-# 9.0.8, programmers should avoid to write code assuming a 'process' won't be degraded.
+             max_seconds:real|int?0
+                    next:function) ?false|error|final|null ;
 #
-# 9.1, process control.
-# 9.1.0, 'exit' can be used to terminate current process gracefully.
-# 9.1.1, 'exit' can return zero or more values as result set of current process.
+# 9.2, process control.
+# 9.2.0, 'exit' can be used to terminate current process gracefully.
+# 9.2.1, 'exit' can return zero or more values as result set of current process.
 (decl exit (= (! result *) ?null ;
-# 9.1.2, 'is_shutting' can be used to test if the current process is shutting down.
-# 9.1.3, 'is_shutting' always returns 'true' if current process was degraded.
+# 9.2.2, 'is_shutting' can be used to test if the current process is shutting down.
+# 9.2.3, 'is_shutting' always returns 'true' if current process was degraded.
 (decl is_shutting (= ?bool ;
-# 9.1.4, 'shutting' is an statement alias of '(is_shutting )'.
-(def shutting (is_shutting ) ;
+# 9.2.4, 'shutting' is an statement alias of '(is_shutting )'.
+(def shutting (is_shutting );
 #
-# 9.2, bulk operations.
-# 9.2.0, 'wait_any' is to be used to wait any one of a list of 'wait' to return.
-# 9.2.1, 'wait_any' will return a 'map' containing all completed processes.
-(decl wait_any (= (! waits:set|array
-                   seconds:int|real
-        kill_after_timeout:bool?false) ?map ;
-# 9.2.2, 'wait_all' is to be used to wait all if a series of 'wait' to return.
-# 9.2.3, 'wait_all' will return a 'list' containing all results of 'waits'.
-(decl wait_all (= (! waits:set|array
-                   seconds:int|real
-        kill_after_timeout:bool?false) ?list ;
-#
-# 9.3, types of errors.
-# 9.3.0, 'error' is a class representing an abnormal state.
-(decl error (class ) ;
-# 9.3.1, 'crash' is a special error which can't be caught in its raising process.
-(decl crash (+error ) ;
-# 9.3.2, 'reset' is a class representing to restart a process.
-(decl reset (+crash ) ;
-#
-# 9.4, error handling.
-# 9.4.0, 'abort' will try to terminate current process for an abnormal state.
+# 9.3, error handling.
+# 9.3.0, 'abort' will try to terminate current process for an abnormal state.
 (decl abort (= (! err:error) ?null ;
-# 9.4.1, 'try' can provide some alternatives for an expression when an error were raised.
+# 9.3.1, 'try' can provide some alternatives for an expression when an error were raised.
 (decl try (?block (! expr_tried:statement
                        expr_alt:quote|statement * );
-# 9.4.2, 'catch' can be used to get current error in 'expr_alt'.
+# 9.3.2, 'catch' can be used to get current error in 'expr_alt'.
 (decl catch (= ?error ;
-# 9.4.3, 'catched' can be used to write more clean code in 'expr_alt'.
-(def catched (catch ) ;
+# 9.3.3, 'catched' can be used to write more clean code in 'expr_alt'.
+(def catched (catch );
 #
 ###############################################################################
-# 10, Attached Chapter of Namespace Management
+# 10, Attached Chapter of Module and Namespace - informational now
 #
 # 10.0, basic module features
 # 10.0.0, 'module' is used to better organize a set of related entities.
@@ -639,9 +729,7 @@
 # 10.0.6, sub-modules under 'foo' will not be automatically imported.
 # 10.0.7, 'import' can manually import a mounted module.
 # 10.0.8, the same module will be imported only once by foo runtime.
-(decl import (= (! &module:quote &alias:quote) ?bool ;
-#
-(decl mount (= (! &remote_module:string|uri &alias:quote) ?bool ;
+(decl import (= (! &module:quote &alias:quote optional:bool?false) ?bool ;
 #
 # 10.1, advanced module features.
 # 10.1.0, 'import' can directly import a local directory or a remote code repository.
@@ -660,7 +748,7 @@
 # 10.2.1, 'lock' is used to protect one or more, even all entities from being updated.
 # 10.2.2, 'lock' will return a funtion to reverse its effects, like a 'undo' operation.
 (decl lock (= (! &name:quote *) ?function ;
-# 10.2.3, 'show' is a prototype function to be used to show hidden entities.
+# 10.2.3, 'show' is a prototype function to be used for showing hidden entities.
 (decl show (= (! &name:quote *) ?show ;
 # 10.2.4, 'hide' is used to make one or more, even all entities invisible.
 # 10.2.5, 'hide' will return a 'show' function to show all or partial hidden entities.
@@ -692,46 +780,45 @@
 # 11.0.3, state of a 'driver' instance might change according to itself.
 # 11.0.4, a 'driver' instance can't be persisted or transported.
 # 11.0.5, 'device' should not be used in any other scenarios.
-(decl device (package ) ;
+(decl device (package );
+#
+#
+(decl async (package );  #adjective.
 #
 # 11.1, 'shared' is an adjective package for 'driver'.
 # 11.1.0, 'shared' indicates instances of a 'driver' can be shared by multiple processes.
-# 11.1.1, a 'shared' instance can be declared as a global entity.
-# 11.1.2, a 'shared' instance can be passed as an argument of 'process'.
-# 11.1.3, 'shared' should not be used in any other scenarios.
-(decl shared (package ) ;
+# 11.1.1, a 'shared' instance can be passed as an argument of 'process'.
+# 11.1.2, 'shared' should not be used in any other scenarios.
+(decl shared (package );
 #
 # 11.2, 'public' is another adjective package for 'driver'.
 # 11.2.0, 'public' is derivated from 'shared'.
 # 11.2.1, 'public' indicates an instance of 'driver' can be universally shared.
 # 11.2.2, a 'public' instance can be passed as an argument of 'exec'.
 # 11.2.3, 'public' should not be used in any other scenarios.
-(decl public (package +shared ) ;
+(decl public (package +shared );
 #
 # 11.3, 'driver' is a connector between foo and external devices or resources.
 # 11.3.0, 'driver' is one of type generators.
 # 11.3.1, a 'driver' will return an instance of it when to be evaluated.
 # 11.3.2, a member decorated by a leading ':' will be just valid in an instance.
 # 11.3.3, an instance memeber will be evaluated to 'null' without a 'this' of instance.
-(decl driver (?function +package (! (&name:quote expr) * ) ;
+(decl driver (?function +package (! (&name:quote expr) * );
 #
-# 11.4, complementary data structures.
-# 11.4.0, 'stack' is an implementation of FILO. 
-(decl stack (++shared +:countable) ;
-# 11.4,1, 'queue' is an implementation of FIFO.
-(decl queue (++shared +:countable) ;
-# 11.4.2, 'linked' is an implementation of Linked List. 
-(decl linked (++shared +:countable) ;
-# 11.4.3, 'tree' is an implementation of Binary Tree. 
-(decl tree (++shared +:countable) ; 
-# 11.4.4, 'heap' is an implementation of B-Tree. 
-(decl heap (++shared +:countable) ;  
+# 11.4, shared data model.
+# 11.4.0, 'datastore'
+(decl datastore (++shared );
+# 11.4,1, 'database'
+(decl database (++shared );
 #
-# 11.5, inter-processes communication (IPC).
+# event-driven model
+(decl generator (++shared );
+#
+# 11.5, distributed service.
 # 11.5.0, a service is conceptual entity working as a request router between processes.
 # 11.5.1, 'waiter' can be used to register current process as a servant.
-# 11.5.2, a runtime not to support 'waiter' mode, should define the 'waiter' as 'null'.
-(decl waiter (++public ) ;
+# 11.5.2, a runtime not supportting 'waiter' mode, should define the 'waiter' as 'null'.
+(decl waiter (++public );
 # 11.5.3, 'exec' will try to asynchronously execute a task in a particular service.
 # 11.5.4, the result set of 'exec' is just like 'processs'.
 # 11.5.5, the argument 'svc' is an unique name or uri of target service.
@@ -747,23 +834,23 @@
 #
 # 12.0, basic I/O types.
 # 12.0.0, 'path' can be used to represent local file-like resources.
-(decl path (class ) ;
+(decl path (class );
 # 12.0.1, 'uri' can be used to represent both global and local resources.
-(decl uri (class ) ;
+(decl uri (class );
 #
 # 12.1, stream and file types.
 # 12.1.0, 'stream' is the base class for both block and character devices.
-(decl stream (driver ) ;
+(decl stream (driver );
 # 12.1.1, 'stdio' represents the Standard Input/Output device.
-(decl stdio (++stream +device ) ;
+(decl stdio (++stream +device );
 # 12.1.2, 'stderr' represents the write-only Standard Error device.
-(decl stderr (++stream +device ) ;
+(decl stderr (++stream +device );
 # 12.1.3, 'file' is used to manipulate the content of a file..
-(decl file (++stream ) ;
+(decl file (++stream );
 # 12.1.4, 'finfo' is used to manipulate a file from the perspective of file system.
-(decl finfo (++:iterable ) ;
+(decl finfo (++:iterable );
 # 12.1.5, 'dinfo' is used to manipulate a directory from the perspective of file system.
-(decl dinfo (++finfo ) ;
+(decl dinfo (++finfo );
 #
 # 12.2, stream channel for IPC.
 # 12.2.0, 'pipe' provides a asynchronous duplex communication channel.
@@ -773,11 +860,11 @@
 # 12.2.4, programmers should try to avoid using 'pipe' when it's not necessary.
 # 12.2.5, 'pipe' should not be used as argument of 'process'.
 # 12.2.6, a runtime not to support 'pipe' should define the 'pipe' as 'null'.
-(decl pipe (++stream +public ) ;
+(decl pipe (++stream +public );
 #
 ###############################################################################
 # Epilogue - Hello, World.
 #
-(decl hello (= (! &world:string *) ;
+(decl hello (= (! &world:string *);
 #
 ###############################################################################

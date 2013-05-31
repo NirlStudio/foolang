@@ -7,7 +7,7 @@
 #
 ###############################################################################
 # 0, to implement operations of 'slice'.
-(impl slice
+($impl slice
     # 1, the constructors of 'slice'.
     # 1.0, 'slice' will produce an instance of 'slice' basing on a 'sliceable'.
     (slice (= (! basis:sliceable from:int to:int) ?slice ,

@@ -7,7 +7,7 @@
 #
 ###############################################################################
 # 0, to define and implement operations of 'finfo'.
-(impl finfo
+($impl finfo
     # 1, constructor of 'finfo'.
     # 1.0, 'finfo' creates an instance for file located at 'location'.
     (finfo (= (! location:string|path|uri) ?finfo -)

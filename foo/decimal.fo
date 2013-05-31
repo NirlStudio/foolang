@@ -7,7 +7,7 @@
 #
 ###############################################################################
 # 0, decimal is just reserved now, and it will be implemented in future.
-(impl decimal
+($impl decimal
     (decimal (= ?decimal -)
 ) ;
 ###############################################################################

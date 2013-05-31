@@ -7,7 +7,7 @@
 #
 ###############################################################################
 # 0, to define operations of 'reset'.
-(impl reset
+($impl reset
     # 1, constructor of 'reset'.
     # 1.0, 'reset' produces an instance of 'reset'.
     (reset (= (! code:int?-2 msg:string reason:error) ?reset -)
