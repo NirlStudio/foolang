@@ -1,0 +1,50 @@
+#!(generic "foo")
+###############################################################################
+# datastore.fo
+#
+# The Programmer - Leevi, @2013-06-02.
+# C-Lab, Nirl Studio 2011-2013, All Rights Reserved.
+#
+###############################################################################
+# 0, to define operations of 'datastore'.
+($impl datastore
+    # 1, the constructor of 'datastore'.
+    # 1.0, the parameter 'drv' is optional.
+    # 1.1, more parameters will be passed to underlying driver.
+    (datastore (= (! drv:string arg:int|string *) ?datastore -)
+    #
+    # 2, 'drivers' will list all available driver names.
+    # 2.0, 'drivers' returns an array of string.
+    (drivers (= ?array -)
+    #
+    # 3, 'save' can be used to create or update a data entry.
+    (:save (= (! key:int|string 
+               value:object
+                func:function) ?true|false|* 
+    -)
+    #
+    # 4, 'update' can be used to update a data entry.
+    (:update (= (! key:int|string 
+                  func:function) ?* 
+    -)
+    #
+    # 5, 'get' can be used to get a data entry or partial of it.
+    (:get (= (! key:int|string 
+               func:function) ?*
+    -)
+    #
+    # 6, 'remove' can be used to remove a data entry.
+    (:remove (= (! key:int|string 
+                  test:function) ?true|false
+    -)
+    #
+    # 7, 'push' can be used to put the 'value' into 'datastore'.
+    # 7.0, the local reference of 'value' will be cleared.
+    (:push (= (! key:int|string 
+               value:object) ?true|false
+    -)
+    #
+    # 8, 'pop' can be used to get and remove a data entry from the datastore.
+    (:pop (= (! key:int|string ) ?object -)
+) ;
+###############################################################################

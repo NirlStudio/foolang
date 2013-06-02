@@ -1,0 +1,17 @@
+#!(generic "foo")
+###############################################################################
+# async.fo
+#
+# The Programmer - Leevi, @2013-06-02.
+# C-Lab, Nirl Studio 2011-2013, All Rights Reserved.
+#
+###############################################################################
+# 0, to define operation of 'async' devices.
+($impl async
+    # 1, 'process' is a driver-customized version of global 'process'.
+    (:process (= (! &method:quote
+                       args:sliceable|iterable|iterator
+                       next:function) ?false|true|wait
+    -)
+) ;
+###############################################################################
