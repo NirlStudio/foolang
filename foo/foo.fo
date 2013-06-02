@@ -156,7 +156,7 @@
 # 1.6.3, 'nothing' is a more readable alias of '?'.
 # 1.6.4, it's forbidden to define any other alias for '?' or 'nothing'.
 (def nothing ?)  #pronoun
-# 1.6.5, 'nothing' or '?' can be used as an argument in a 'closure' statement.
+# 1.6.5, 'nothing' or '?' can be used as an argument in 'closure' and 'use' statements.
 # 1.6.5.0, in this case, it represents a free variable.
 # 1.6.6, ?' and 'nothing' are not allowed to be used in any other scenarios.
 #
@@ -258,26 +258,26 @@
 # 2.1.1, 'null' can be represented by an empty statement '()'.
 # 2.1.2, 'null' will always return itself when to be evaluated.
 # 2.1.3, logically, 'null' is the only direct descendant of nothing.
-(decl null (?? );  #noun 
+(decl null (?? );  #noun.
 
 # 2.2, a standalone single asterisk is an alias of 'null'.
 # 2.2.0, since anything "is" 'null', 'null' may be everything.
 # 2.2.1, in such a semantic context, '*' is preferable than 'null'.
 # 2.2.2, when '*' is used in prototype statement, it has special meaning.
-(def * null)  #pronoun
+(def * null)  #pronoun.
 #
 # 2.3, 'statement' is a generic type directly derivated from 'null'.
 # 2.3.1, a 'statement' entity can be defined by a statement with a preceding '&'.
 # 2.3.2, stmt-ref-0: &(...).
 # 2.3.3, a 'statement' could be evaluated to get the result of its original one.
 # 2.3.3.0, so, '(stmt_name)' equals '(stmt_body)', after (decl stmt_name &(stmt_body)).
-(decl statement (?null );  #noun
+(decl statement (?null );  #noun, the basic syntax.
 #
 # 2.4, 'block' is a generic type derivated from 'statement'.
 # 2.4.1, a 'block' entity can be defined by a block statement with a preceding '&'.
 # 2.4.2, block-ref-0: &(* ...).
 # 2.4.3, a 'block' will be evaluated to the value of its last evaluated inner statement.
-(decl block (?statement );  #noun
+(decl block (?statement );  #noun, the syntax of simple procedure.
 #
 # 2.5, sentinel entity.
 # 2.5.0, 'nil' is an entity to simplify the implementation of some algorithms.
@@ -287,7 +287,7 @@
 # 2.5.4, 'null' and 'nil' can't be put into 'series', 'data' and 'string'.
 # 2.5.5, 'nil' performs like 'null' except for the 'is' operation.
 # 2.5.6, both '(nil:is null)' and '(nil:is nil)' return 'true'.
-(decl nil (?null );  #noun
+(decl nil (?null );  #noun.
 #
 # 2.6, placeholders of some generic types.
 # 2.6.0, they are virtually referenced before its formal declaration.
@@ -309,7 +309,7 @@
 # 3.0.5, the 'lambda' was eventually cancelled @2012-12-25 12:53PM UTC. Merry Christmas.
 # 3.0.6, to show respects for this word, this section and 'lambda' were still reserved.
 # 3.0.7, programmers can build pure functions by the type of 'function', if they will.
-(def lambda)  #noun
+(def lambda)  #noun.
 #
 # 3.1, 'function' is the first real evaluable type derivated from 'null'.
 # 3.1.0, or we can say, only functions are full-featured verbs.
@@ -364,7 +364,7 @@
 # 3.4.5, 'argr' will return arguments values in a range of [index, index + count) as a list.
 (decl argr (= (! index:int?0 count:int?0) ?list ;  #verb.
 # 3.4.6, 'args' is a statement alias to return all arguments as a 'list'.
-(def args (argr );  #v-ing
+(def args (argr );  #v-ing.
 #
 # 3.5, return the result set.
 # 3.5.0, 'return' can explicitly return one or more values as the result set.
@@ -401,7 +401,8 @@
 # 3.7.4, '==' is an name alias of 'closure'.
 # 3.7.4.0, it's mainly used for producing a closure in a more compat form.
 (def == closure)  #verb.
-# 3.7.5, it might be doubtful to produce a closure with a function having side effects.
+# 3.7.5, 'use' is an alternative for 'closure' with parameters in first.
+(decl use (= (! (arg *) func:function) ?closure ;
 #
 ###############################################################################
 # 4, Chapter of COMPOSABLE
@@ -424,7 +425,7 @@
 # 4.1.2, 'enable' will merge one or more adjectives into 'pkg' to produce a new one.
 (decl enable (= (! pkg:package adj:package *) ?package ;  #verb.
 # 4.1.3, 'disable' will remove one or more adjectives of 'pkg' to produce a new one.
-(decl disable (= (! pkg:package adj:package *) ?package ;  #verb
+(decl disable (= (! pkg:package adj:package *) ?package ;  #verb.
 #
 # 4.2, container package of a 'function'.
 # 4.2.0, the container package of 'func' is 'pkg' when a 'func' is called like 'pkg:func'.
@@ -479,7 +480,7 @@
 (decl comparable (package );  #adjective.
 #
 # 6.1, adjective types for collections.
-# 6.1.0, 'iterator' is a class returned by an 'iterable' package.
+# 6.1.0, 'iterator' is a abstract class to be returned by an 'iterable' package.
 (decl iterator (class );  #noun.
 # 6.1.1, 'filter' is a class using a function to filter on an 'iterator'.
 (decl filter (+iterator );  #noun & verb.
@@ -502,7 +503,7 @@
 #
 # 6.3, types of numbers.
 # 6.3.0, 'numeric' is the super class of all numerical types.
-(decl numeric (+:comparable );  #noun.
+(decl numeric (+:comparable );  #abstract noun.
 # 6.3.1, 'int' is the class of all integer numbers.
 # 6.3.2, 'int' may internally be byte/int8, short/int16, int/int32 and long/int64.
 # 6.3.3, instances of 'int' can support bit operating.
@@ -580,7 +581,7 @@
 # 7.3.3, 'string' is a sequence of unicode (UTF-16) characters.
 (decl string (+series );  #noun & verb.
 # 7.3.4, 'quote' is a special string which is a valid reference of an entity.
-(decl quote (+string );
+(decl quote (+string );   #noun & verb.
 #
 ###############################################################################
 # 8, Chapter of SEQUENTIAL I - Serial Procedures
@@ -590,131 +591,148 @@
 # 8.0.1, 'if' returns the result set of the expression really evaluated.
 (decl if (?block (! test:quote|statement
                expr_true:quote|statement
-               expr_else:quote|statement );
+               expr_else:quote|statement );  #conj.
 # 8.0.2, 'else' is just a placeholder token to make 'if' statement more readable.
-(def else)
+(def else)  #conj.
 # 8.0.3, 'when' is used to simplify the structure like 'if ... else if ...'.
 # 8.0.4, 'when' returns the result set of the expression really evaluated.
 (decl when (?block (! (test:quote|statement 
-                       expr:quote|statement) * );
+                       expr:quote|statement) * );  #conj.
 # 8.0.5, 'switch' is used to simplify the strucutre of matching for multiple values.
 # 8.0.6, 'switch' returns the result set of the expression really executed.
 # 8.0.7, if no matched value found, swith will return the value of 'test'.
 (decl switch (?block (! test:quote|statement
                         ( value:quote  
-                           expr:quote|statement) * );
+                           expr:quote|statement) * );  #conj.
 # 8.0.8, 'default' can works like a placeholder token to make code more readable.
 # 8.0.9, 'default' can be used in 'when' and 'switch' statements for the default 'expr'.
-(def default)
+(def default)  #pronoun.
 #
-# 8.1, conditional loops.
-# 8.1.0, 'while' implements a loop according to the evaluation result of 'test'.
-(decl while (?block (! test:quote|statement 
-                       body:statement );
-# 8.1.1, 'for' implements a loop like 'while', but having 'init' and a 'revise' statement.
-(decl for (?block (! init:statement
-                     test:quote|statement
-                   revise:statement
-                     body:statement );
-# 8.1.2, 'foreach' is an automatic loop based on an iterable entity.
-(decl foreach (?block (! item:quote 
-                         iter:quote|statement
-                         body:statement );
-# 8.1.3, 'in' can be placed between 'item' and 'iter'.
-(def in)
-# 8.1.4, 'seqn' is used to generate an arithmetic progression.
+# 8.1, generic loop.
+# 8.1.0, 'loop' returns the last result set of 'body' after the end of loop.
+(decl loop (?block (! body:statement);  #conj.
+# 8.1.1, 'last' is a function to query the previous result set of 'body'.
+# 8.1.1.0, 'last' only can be called in the 'body' of 'loop'.
+# 8.1.1.1, by default, the 'last' will return 'null' in the first iteration.
+(decl last (= (! index:int?-1) ?* ;  #verb.
+# 8.1.1.2, 'with' is used for setting a customized initial 'last' value.
+(decl with (?block (! init_last:quote|statement
+                      loop_stmt:loop );  #conj.
+# 8.1.2, 'contiune' is a function used to break current iteration in loop.
+(decl continue (= (! result *) ?null ;  #verb.
+# 8.1.3, 'break' is a function used to immediately stop current loop.
+(decl break (= (! result *) ?null ;  #verb.
+# 8.1.4, the arguments of 'break' and 'continue' will be the result of loop.
+# 8.1.5, 'collect' produces a 'list' with all results generated by each iteration.
+(decl collect (?block (! loop_stmt:loop|with );  #conj.
+# 8.1.6, 'collect_into' collects all results of loop into the 'container'.
+# 8.1.6.0, 'container' must be a type of 'collection'.
+# 8.1.6.1, the 'container' or a copy of it will be returned as the result.
+(decl collect_into (?block (! container:quote|statement
+                              loop_stmt:loop|with );  #conj.
+#
+# 8.2, conditional loops.
+# 8.2.0, 'while' implements a loop according to the evaluation result of 'test'.
+(decl while (?loop (! test:quote|statement 
+                      body:statement );  #conj.
+# 8.2.1, 'until' works like 'while', but firstly evaluate the body once.
+(decl until (?loop (! body:statement
+                      test:quote|statement );  #conj.
+# 8.2.2, 'for' implements a loop like 'while', but having an 'init' and a 'revise'.
+(decl for (?loop (! init:statement
+                    test:quote|statement
+                  revise:statement
+                    body:statement );  #conj.
+# 8.2.3, 'foreach' is an automatic loop basing on an iterator entity.
+(decl foreach (?loop (! (item:quote *)
+                        iter:quote|statement
+                        body:statement );  #conj.
+# 8.2.4, 'in' can be placed before 'iter' to make code more readable.
+(def in)  #conj.
+# 8.2.5, 'seqn' is used to generate an iterator of arithmetic progression.
 (decl seqn (= (! limit:numeric?0
                  start:numeric?0
                   step:numeric?1
-              by_count:bool?false) ?iterator ;
-# 8.1.5, 'while', 'for' and 'foreach' return the last result set of 'body'.
-# 8.1.6, 'last' is a function to query the previous result set of 'body'.
-# 8.1.6.0, 'last' must be called in 'body' of 'while', 'for' or 'foreach'.
-# 8.1.6.1, by default, the 'last' will return 'null' in the first iteration.
-(decl last (= (! index:int?0) ?* ;
-# 8.1.7, 'with' is used for setting a customized initial 'last' value.
-(decl with (?block (! init_last:quote|statement
-                      loop_stmt:while|for|foreach );
-# 
-# 8.2, iteration control in loops.
-# 8.2.0, 'contiune' is a function used to break current iteration in loop.
-# 8.2.1, 'continue' is valid for loops of 'while', 'for' and 'foreach'.
-(decl continue (= (! result *) ?null ;
-# 8.2.2, 'break' is a function used to break current loop.
-# 8.2.3, 'break' is valid for loops of 'while', 'for' and 'foreach'.
-(decl break (= (! result *) ?null ;
-# 8.2.4, the arguments of 'break' and 'continue' will be the result of loop.
-# 8.2.5, 'collect' generates a 'list' for all result in iteration.
-(decl collect (?block (! loop_stmt:while|for|foreach|with );
-# 8.2.6, 'collect_into' will collect all result in iteration into the 'container'.
-# 8.2.6.0, 'container' must be a type of 'collection'.
-# 8.2.6.1, the 'container' or a copy of it will be returned as the result.
-(decl collect_into (?block (! container:quote|statement
-                              loop_stmt:while|for|foreach|with );
-#
-# 8.3, dynamical reference.
-# 8.3.0, '@' is a function to dynamicaly get an entity indicated by a string name.
-# 8.3.1, '(@ name)' can be represented as @name.
-# 8.3.2, in compact format, the space between '@' and 'name is not allowed.
-(decl @ (= (! name:quote|uri|string) ?* ;
+              by_count:bool?false) ?iterator ;  #verb.
 # 
 # 8.3, dynamically evaluation.
 # 8.3.0, 'eval' is used to evaluate a piece of code and pass a list as arguments.
-# 8.3.1, the 'code' must be a piece of code to produce an entity.
-# 8.3.2, the 'code' is not allowed to udpate global and local entities out of it.
-# 8.3.3, the 'code' is not allowed to interact with any type of device.
-(decl eval (= (! code:quote|statement|uri|string ) ?* ;
-# 8.3.4, 'call' is used to evaluate a function and pass a collection as arguments.
+# 8.3.0.0, the 'code' must be a piece of code to produce an entity.
+# 8.3.0.1, the 'code' is not allowed to udpate global and local entities out of it.
+# 8.3.0.2, the 'code' is not allowed to interact with any type of device.
+(decl eval (= (! code:quote|statement|uri|string ) ?* ;  #verb.
+# 8.3.1, 'call' is used to evaluate a function and pass a collection as arguments.
 (decl call (= (! func:function
-            arguments:sliceable|iterable|iterator) ?* ;
+            arguments:sliceable|iterable|iterator) ?* ;  #verb.
+# 8.3.2, '@' is a function to dynamicaly get an entity indicated by a string name.
+# 8.3.2.0, '(@ name)' can be represented as compact format like: @name.
+# 8.3.2.1, in compact format, the space between '@' and 'name is not allowed.
+(decl @ (= (! name:quote|uri|string) ?* ;  #verb.
+# 
+# 8.4, types of error.
+# 8.4.0, 'error' is a class representing an abnormal state.
+# 8.4.1, 'error' includes various aspects of information about the state.
+(decl error (class );  #noun & verb.
+# 8.4.2, 'crash' is a special error which can't be caught in its raising process.
+(decl crash (+error );  #noun & verb.
+# 8.4.3, 'reset' is a special error representing to restart its raising process.
+(decl reset (+crash );  #noun & verb.
+#
+# 8.5, error handling.
+# 8.5.0, 'abort' will try to terminate current process for an error.
+(decl abort (= (! err:error) ?null ;  #verb.
+# 8.5.1, 'try' can provide some alternatives for an expression when an error were raised.
+(decl try (?block (! expr_tried:statement
+                       expr_alt:quote|statement * );  #conj.
+# 8.5.2, 'catch' can be used to get current error in 'expr_alt'.
+(decl catch (= ?error ;  #conj.
+# 8.5.3, 'catched' can be used to write more clean code in 'expr_alt'.
+(def catched (catch );  #v-ing.
 #
 ###############################################################################
 # 9, Chapter of SEQUENTIAL II - Parallel Procedures
 #
-# 9.0, types of errors.
-# 9.0.0, 'error' is a class representing an abnormal state.
-(decl error (class );
-# 9.0.1, 'crash' is a special error which can't be caught in its raising process.
-(decl crash (+error );
-# 9.0.2, 'reset' is a class representing to restart a process.
-(decl reset (+crash );
+# 9.0, generic parallel types.
+# 9.0.0, 'final' is a base type of function to forward a result set.
+# 9.0.0.0, 'final' is used by 'wait' to indicate the normal end of a process.
+(decl final (= ?* ;  #verb.
+# 9.0.1, 'timeout' is an error basing on 'crash'.
+# 0.0.1.0, it will be automatically raised if a process was killed for timeout.
+(decl timeout (+crash );  #noun & verb.
+# 9.0.2, 'wait' is a base type of function to manupulate an on-going process.
+# 9.0.2.0, 'wait' can be used to obtain result or error of another process.
+# 9.0.2.1, 'wait' can be used to forcely end a process after waiting for timeout.
+# 9.0.3, if the process normally ended, 'wait' returns a 'final' function.
+# 9.0.3.0, if an error was raised, 'process' will return the error.
+# 9.0.3.1, if the process did not end in 'seconds', 'process' will return false.
+# 9.0.3.2, if the process was killed after 'seconds', 'process' will return 'timeout'.
+(decl wait (= (! seconds:int|real?0
+               kill_proc:bool?false) ?false|timeout|error|final ;  #verb.
+# 9.0.4, 'final' and 'wait' are used for 'process'.
+# 9.0.4.0, they can be used for asynchronous operation of device too.
 #
-# 9.1, degradable process.
-# 9.1.0, 'final' is a base type of function to forward a result set.
-(decl final (= ?* ;
+# 9.1, parallel processing.
 # 9.1.1, 'process' will try to asynchronously evaluate a function,
-# 9.1.2, that means, current process may not be blocked by the evaluation.
-# 9.1.3, an application will at least have a root process.
-# 9.1.4, if succeeded, 'process' will return a function derivated from 'final'.
-# 9.1.4.0, if an error was raised in target process, 'process' will return the error.
-# 9.1.4.1, if the process did not terminate in 'max_seconds', 'process' will return false.
-# 9.1.5, if 'next' is not null, 'process' will run in chained mode.
-# 9.1.5.0, in chained mode, above result will be delivered to the 'next' function.
+# 9.1.1.0, that means, current process may not be blocked by the evaluation.
+# 9.1.2, an application will at least have a root process.
+# 9.1.3, if succeeded to start, 'process' returns a function derivated from 'wait'.
+# 9.1.3.0, otherwise, 'process' will return 'false'.
+# 9.1.4, if 'next' is not null, 'process' will run in chained mode.
+# 9.1.4.0, if succeeded to start in chained mode, 'process' returns 'true'.
+# 9.1.4.1, in this mode, the 'wait' will be delivered to the 'next' function.
 (decl process (= (! func:function
                     args:sliceable|iterable|iterator
-             max_seconds:real|int?0
-                    next:function) ?false|error|final|null ;
+                    next:function) ?false|true|wait ;  #verb.
 #
 # 9.2, process control.
 # 9.2.0, 'exit' can be used to terminate current process gracefully.
 # 9.2.1, 'exit' can return zero or more values as result set of current process.
-(decl exit (= (! result *) ?null ;
+(decl exit (= (! result *) ?null ;  #verb.
 # 9.2.2, 'is_shutting' can be used to test if the current process is shutting down.
 # 9.2.3, 'is_shutting' always returns 'true' if current process was degraded.
-(decl is_shutting (= ?bool ;
+(decl is_shutting (= ?bool ;   #verb.
 # 9.2.4, 'shutting' is an statement alias of '(is_shutting )'.
-(def shutting (is_shutting );
-#
-# 9.3, error handling.
-# 9.3.0, 'abort' will try to terminate current process for an abnormal state.
-(decl abort (= (! err:error) ?null ;
-# 9.3.1, 'try' can provide some alternatives for an expression when an error were raised.
-(decl try (?block (! expr_tried:statement
-                       expr_alt:quote|statement * );
-# 9.3.2, 'catch' can be used to get current error in 'expr_alt'.
-(decl catch (= ?error ;
-# 9.3.3, 'catched' can be used to write more clean code in 'expr_alt'.
-(def catched (catch );
+(def shutting (is_shutting );  #v-ing.
 #
 ###############################################################################
 # 10, Attached Chapter of Module and Namespace - informational now
@@ -780,91 +798,98 @@
 # 11.0.3, state of a 'driver' instance might change according to itself.
 # 11.0.4, a 'driver' instance can't be persisted or transported.
 # 11.0.5, 'device' should not be used in any other scenarios.
-(decl device (package );
+(decl device (package );  #adjective.
 #
-#
+# 11.1, 'async' is an adjective package for 'driver'.
+# 11.1.0, 'async' should be provided to support asynchronous operations.
+# 11.1.1, the parallel model of 'async' is just like the model of 'process'.
 (decl async (package );  #adjective.
 #
-# 11.1, 'shared' is an adjective package for 'driver'.
-# 11.1.0, 'shared' indicates instances of a 'driver' can be shared by multiple processes.
-# 11.1.1, a 'shared' instance can be passed as an argument of 'process'.
-# 11.1.2, 'shared' should not be used in any other scenarios.
-(decl shared (package );
+# 11.2, 'shared' is an adjective package for 'driver'.
+# 11.2.0, 'shared' indicates instances of a 'driver' can be shared by multiple processes.
+# 11.2.1, a 'shared' instance can be passed as an argument of 'process'.
+# 11.2.2, 'shared' should not be used in any other scenarios.
+(decl shared (package );  #adjective.
 #
-# 11.2, 'public' is another adjective package for 'driver'.
-# 11.2.0, 'public' is derivated from 'shared'.
-# 11.2.1, 'public' indicates an instance of 'driver' can be universally shared.
-# 11.2.2, a 'public' instance can be passed as an argument of 'exec'.
-# 11.2.3, 'public' should not be used in any other scenarios.
-(decl public (package +shared );
+# 11.3, 'public' is another adjective package for 'driver'.
+# 11.3.0, 'public' is derivated from 'shared'.
+# 11.3.1, 'public' indicates an instance of 'driver' can be universally shared.
+# 11.3.2, a 'public' instance can be passed as an argument of 'exec'.
+# 11.3.3, 'public' should not be used in any other scenarios.
+(decl public (package +shared +async );  #adjective.
 #
-# 11.3, 'driver' is a connector between foo and external devices or resources.
-# 11.3.0, 'driver' is one of type generators.
-# 11.3.1, a 'driver' will return an instance of it when to be evaluated.
-# 11.3.2, a member decorated by a leading ':' will be just valid in an instance.
-# 11.3.3, an instance memeber will be evaluated to 'null' without a 'this' of instance.
-(decl driver (?function +package (! (&name:quote expr) * );
+# 11.4, 'driver' is a connector between foo and external devices or resources.
+# 11.4.0, 'driver' is one of type generators.
+# 11.4.1, a 'driver' will return an instance of itself when to be evaluated.
+# 11.4.2, a member decorated by a leading ':' will be only valid for an instance.
+# 11.4.3, an instance memeber will be evaluated to 'null' without a 'this' of instance.
+(decl driver (?function +package (! (&name:quote expr) * );  #noun & verb.
 #
-# 11.4, shared data model.
-# 11.4.0, 'datastore'
-(decl datastore (++shared );
-# 11.4,1, 'database'
-(decl database (++shared );
+# 11.5, shared data model.
+# 11.5.0, 'persistent' is an ajective for data model entities.
+# 11.5.0.0, 'persistent' is used for manually manuplating the persitence process.
+# 11.5.0.1, it's not required for all persistable data model to provide it,
+# 11.5.0.2, for instance, it's an isolated or a self-managed data service.
+(decl persistent (package );  #adjective.
+# 11.5.1, 'datastore' is shared data store for different processes.
+# 11.5.1.0, the foo runtime should provide a memory-based implementation at least.
+# 11.5.1.1, the foo runtime may optionally provide some other underlying drivers.
+# 11.5.1.2, according to the underlying drivers, a 'datastore' may be persistent or not.
+# 11.5.1.3, a datastore also could be 'public' according to its driver.
+(decl datastore (++shared );  #noun & verb.
+# 11.5.2, 'generator' is a common model to generate asynchronous events.
+(decl generator (++shared );  #noun.
+# 11.5.3, 'timer' is a generator to raise events at a fixed time interval.
+(decl timer (++generator );   #noun & verb.
 #
-# event-driven model
-(decl generator (++shared );
-#
-# 11.5, distributed service.
-# 11.5.0, a service is conceptual entity working as a request router between processes.
-# 11.5.1, 'waiter' can be used to register current process as a servant.
-# 11.5.2, a runtime not supportting 'waiter' mode, should define the 'waiter' as 'null'.
-(decl waiter (++public );
-# 11.5.3, 'exec' will try to asynchronously execute a task in a particular service.
-# 11.5.4, the result set of 'exec' is just like 'processs'.
-# 11.5.5, the argument 'svc' is an unique name or uri of target service.
-(decl exec (= (! svc:uri|string request) ?wait ; 
-# 11.5.6, programmers should not try to write code assuming an 'exec' won't be degraded.
-#
-# 11.6, pragma functions.
-# 11.6.0, 'generic' refers to an native compiled library file. 
-(decl generic (= (! lib:string *) ?bool ;
+# 11.6, distributed service.
+# 11.6.0, a service is conceptual entity working as a request router between processes.
+# 11.6.1, 'waiter' can be used to register current process as a servant.
+# 11.6.1.0, a runtime not supportting 'waiter' mode, should define the 'waiter' as 'null'.
+(decl waiter (++public );  #noun. 
+# 11.6.3, 'exec' will try to asynchronously execute a task in a particular service.
+# 11.6.3.0, the result set of 'exec' is just like 'processs'.
+# 11.6.3.1, the argument 'svc' is an unique name or uri of target service.
+(decl exec (= (! svc:uri|string
+                args:sliceable|iterable|iterator
+                next:function) ?false|true|wait ;  #verb.
+# 11.6.4, programmers should not try to write code assuming an 'exec' won't be degraded.
 #
 ###############################################################################
 # 12, Attached Chapter of Standard IO
 #
 # 12.0, basic I/O types.
 # 12.0.0, 'path' can be used to represent local file-like resources.
-(decl path (class );
+(decl path (class );  #noun & verb.
 # 12.0.1, 'uri' can be used to represent both global and local resources.
-(decl uri (class );
+(decl uri (class );  #noun & verb.
 #
 # 12.1, stream and file types.
 # 12.1.0, 'stream' is the base class for both block and character devices.
 (decl stream (driver );
 # 12.1.1, 'stdio' represents the Standard Input/Output device.
-(decl stdio (++stream +device );
+(decl stdio (++stream +device );  #noun.
 # 12.1.2, 'stderr' represents the write-only Standard Error device.
-(decl stderr (++stream +device );
+(decl stderr (++stream +device );  #noun.
 # 12.1.3, 'file' is used to manipulate the content of a file..
-(decl file (++stream );
+(decl file (++stream );  #noun & verb.
 # 12.1.4, 'finfo' is used to manipulate a file from the perspective of file system.
-(decl finfo (++:iterable );
+(decl finfo (++:iterable );  #noun & verb.
 # 12.1.5, 'dinfo' is used to manipulate a directory from the perspective of file system.
-(decl dinfo (++finfo );
+(decl dinfo (++finfo );  #noun & verb.
 #
 # 12.2, stream channel for IPC.
 # 12.2.0, 'pipe' provides a asynchronous duplex communication channel.
-# 12.2.1, 'pipe' can be used to transporting streaming data between different processes.
-# 12.2.2, 'pipe' instance can be used as argument of 'exec'.
-# 12.2.3, generally speaking, the 'pipe' depends on non-degradable 'exec'.
-# 12.2.4, programmers should try to avoid using 'pipe' when it's not necessary.
-# 12.2.5, 'pipe' should not be used as argument of 'process'.
-# 12.2.6, a runtime not to support 'pipe' should define the 'pipe' as 'null'.
-(decl pipe (++stream +public );
+# 12.2.1, a 'pipe' instance should be used as an argument of 'exec'.
+# 12.2.2, a 'pipe' instance will be automatically opened when read/write occurs.
+# 12.2.3, the same 'pipe' instance only can be opened twice.
+# 12.2.4, 'pipe' is used to transmit streaming data to/from a service.
+# 12.2.5, a runtime not to support 'pipe' should define the 'pipe' as 'null'.
+(decl pipe (++stream +public );  #noun & verb.
 #
 ###############################################################################
 # Epilogue - Hello, World.
 #
-(decl hello (= (! &world:string *);
+(decl hello (= (! &world:string *);  #verb.
 #
 ###############################################################################
