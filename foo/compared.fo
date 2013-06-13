@@ -17,11 +17,12 @@
     (Less -1)
 ) ;
 ###############################################################################
-# 2, aliases for more clean code.
-# 2.1, complete forms of values.
+# 2, global references for values of compared.
+# 2.0, abbreviated form of 'Great'.
 (decl GREAT compared:Great)
+# 2.1, abbreviated form of 'Equal'.
 (decl EQUAL compared:Equal)
-(decl LESS  compared:Less )
+# 2.2, abbreviated form of 'Less'.
+(decl LESS compared:Less)
 #
 ###############################################################################
-
