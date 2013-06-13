@@ -570,20 +570,23 @@
 # 6.1, adjective types for collections.
 # 6.1.0, 'iterator' is an abstract class to traverse items in a collection.
 (decl iterator (class );  #noun.
-# 6.1.1, serveral special iterators.
-# 6.1.1.0, 'filter' is a class using a function to select items from an 'iterator'.
+# 6.1.1, 'slicer' is an enchanced 'iterator' with the count of remaining items.
+# 6.1.1.0, the value of the count includes the current item.
+(decl slicer (+iterator );  #noun.
+# 6.1.2, serveral special iterators.
+# 6.1.2.0, 'filter' is a class using a function to select items from an 'iterator'.
 (decl filter (+iterator );  #noun & verb.
-# 6.1.1.1, 'converter' is a class using a function to convert items from an 'iterator'.
+# 6.1.2.1, 'converter' is a class using a function to convert items from an 'iterator'.
 (decl converter (+iterator );  #noun & verb.
-# 6.1.1.2, 'cons' is an iterator to concatenate more than one iterators.
+# 6.1.2.2, 'cons' is an iterator to concatenate more than one iterators.
 (decl cons (+iterator );  #noun & verb.
-# 6.1.2, 'iterable' represents that a package supports traversal operation.
-# 6.1.2.0, the traversal operation should not change the state of its target package.
+# 6.1.3, 'iterable' represents that a package supports traversal operation.
+# 6.1.3.0, the traversal operation should not change the state of its target package.
 (decl iterable (package );  #adjective.
-# 6.1.3, 'countable' represents a collection which is countable.
+# 6.1.4, 'countable' represents a collection which is countable.
 (decl countable (package );  #adjective.
-# 6.1.4, an uncountable entity which may be iterable is reasonable and useful.
-# 6.1.4.0, for instance: a class to generate the Febonacci Sequence.
+# 6.1.5, an iterable but uncountable entity is reasonable and useful.
+# 6.1.5.0, for instance: a class to generate the Febonacci Sequence.
 #
 # 6.2, standardized boolean entities.
 # 6.2.0, 'bool' is the standard boolean type in foo.
@@ -624,7 +627,7 @@
 #
 # 6.6, simple data structures.
 # 6.6.0, 'single' is an iterator for a single entity.
-(decl single (+iterator )  #noun & verb.
+(decl single (+slicer )  #noun & verb.
 # 6.6.1, 'pair' is a composition type with two fields: Key and Value.
 # 6.6.1.0, 'pair' is for associating the satellite data to its key or owner.
 # 6.6.1.0, the comparasion of pairs is implemented as the comparasion of their keys.
@@ -659,14 +662,11 @@
 (decl map (+set );  #noun & verb.
 #
 # 7.2, sliceable-collection types.
-# 7.2.0, 'slicer' is an enchance 'iterator' with the count of remaining items.
-# 7.2.0.0, the value of 'count' includes the current item.
-(decl slicer (+iterator );  #noun.
-# 7.2.1, 'sliceable' represents a collection with a zero-based integer index.
+# 7.2.0, 'sliceable' represents a collection with a zero-based integer index.
 (decl sliceable (+collection );  #noun.
-# 7.2.2, 'slice' is a sliceable type basing on another sliceable one.
+# 7.2.1, 'slice' is a sliceable type basing on another sliceable one.
 (decl slice (+sliceable );  #noun & verb.
-# 7.2.3, 'list' is a sequence of any entities, including 'null'.
+# 7.2.2, 'list' is a sequence of any entities, including 'null'.
 (decl list (+sliceable );  #noun & verb.
 #
 # 7.3, typed-collection types.
