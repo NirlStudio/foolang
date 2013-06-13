@@ -20,7 +20,7 @@
     (:is_valid (= ?bool  -)
     # 2.1, 'is_normal' indicates whether the internal format is 'normal' or 'subnormal'.
     (:is_normal (= ?bool -)
-    # 2.2, 'is_number' indicates whether the value is a not-a-number value.
+    # 2.2, 'not_number' indicates whether the value is a not-a-number value.
     (:not_number (= ?bool -)
     #
     # 3, resizing operations.
@@ -62,18 +62,12 @@
 ###############################################################################
 # 6, functions to generate real numbers.
 # 6.0, 'float' will generate a single-precesion floating-point number.
-(decl float (= (! value:numeric|string) returns (real value true) ;
-#
+(decl float (= (! value:numeric|string) 
+    (real value true)
+);
 # 6.1, 'double' is an alias of 'real'.
-(def double real) ;
-# 
-###############################################################################
-# 7, global constant aliases.
-(decl REAL_MAX     real:MaxValue   )
-(decl REAL_MIN     real:MinValue   )
-(decl REAL_MIN_ABS real:MinAbsValue)
-(decl REAL_INF     real:Infinity   )
-(decl REAL_INFN    real:InfinityN  )
-(decl NaN          real:NaN        )
+(decl double (= (! value:numeric|string)
+    (real value)
+);
 # 
 ###############################################################################
