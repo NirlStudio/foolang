@@ -11,61 +11,75 @@
     # 1, a customizable operation for any 'comparable' entities.
     # 1.0, 'comparable' has provided a default implementation for 'compare',
     # 1.1, 'hint' is reserved for overriden implementation to use.
-    (compare (= (! other:package hint) ?compared -)
-    # # by default, it works like:
-    #   (if ((this:is other):or (this:equal other))
-    #       returns compared:Equal
-    #    else
-    #       returns compared:Greater)
-    #
-    ###########################################################################
+    (compare (= (! other:package hint) ?compared
+        (when 
+            ( (this:is other)  EQUAL)
+            ( (this:is null )  LESS )
+            ( (other:is null)  GREAT)
+            ( else             LESS )
+    -)
     #
     # 2, operators depending on 'comparable:compare'.
-    # 2.0, 'gt' means 'greater than' or '>'.
-    (gt (= (! other:package hint) ?bool -)
-    # # it works like: ((this:compare other hint):equal compared:Greater)
-    #
-    # 2.1, 'ge' means 'greater than or equal to' or '>='.
-    (ge (= (! other:package hint) ?bool -)
-    # # it works like: ((this:compare other hint):not_equal compared:Less)
-    #
+    # 2.0, 'gt' means 'great than' or '>'.
+    (gt (= (! other:package hint) ?bool
+        ((this:compare other hint):equal GREAT)
+    -)
+    # 2.1, 'ge' means 'great than or equal to' or '>='.
+    (ge (= (! other:package hint) ?bool
+        ((this:compare other hint):not_equal LESS)
+    -)
     # 2.2, 'lt' means 'less than' or '<'.
-    (lt (= (! other:package hint) ?bool -)
-    # # it works like: ((this:compare other hint):equal compared:Less)
-    #
+    (lt (= (! other:package hint) ?bool
+        ((this:compare other hint):equal LESS)
+    -)
     # 2.3, 'le' means 'less than or equal to' or '<='.
-    (le (= (! other:package hint) ?bool -)
-    # # it works like: ((this:compare other hint):not_equal compared:Greater))
-    #
+    (le (= (! other:package hint) ?bool
+        ((this:compare other hint):not_equal GREAT)
+    -)
     # 2.4, 'eq' means 'equal to' or '=='.
-    (eq (= (! other:package hint) ?bool -)
-    # # it works like: ((this:compare other hint):equal compared:Equal)
+    (eq (= (! other:package hint) ?bool
+        ((this:compare other hint):equal EQUAL)
+    -)
+    # 2.5, 'neq' means 'not equal to' or '!='.
+    (neq (= (! other:package hint) ?bool
+        ((this:compare other hint):not_equal EQUAL)
+    -)
     #
-    # 2.5, 'ne' means 'not equal to' or '!='.
-    (ne (= (! other:package hint) ?bool -)
-    # # it works like: ((this:compare other hint):not_equal compared:Equal)
+    # 3, to keep consistent with object's equivalence operations.
+    # 3.0, if 'equal' exists, it should be equivalent to 'eq'.
+    (equal (= (! other:package hint) ?bool
+        (this:eq other)
+    -)
+    # 3.1, if 'not_equal' exists, it should be equivalent to 'neq'.
+    (not_equal (= (! other:package hint) ?bool
+        (this:neq other)
+    -)
 ) ;
 ###############################################################################
-# 3, 'compare' is an universal comparasion operation.
-# 3.0, 'compare' will use the 'comparable:compare' if the 'left_val' supports 'comparable'.
-# 3.1, 'compare' will returns 'compared:Equal' if '(left_val:is right_val)' returns 'true'.
-# 3.2, 'compare' will returns 'compared:Equal' if '(left_val:equal right_val)' returns 'true'.
-# 3.3, 'compare' will returns 'compared:Less' if '(left_val:is null)' returns 'true'.
-# 3.4, 'compare' will returns 'compared:Greater if it does not match [3.0]-[3.3].
-(decl compare (= (! left_val:package right_val:package) ?compared ;
-# # it works like:
-#   (when 
-#       ( (left_val:as    comparable) returns (left_val:compare right_val) ,
-#       ( (left_val:is    right_val)  returns compared:Equal) ,
-#       ( (left_val:equal right_val)  returns compared:Equal) ,
-#       ( (left_val:is    null)       returns compared:Less)  ,
-#       ( default                     returns compared:Greater) ;
-#
+# 3, 'compare' is an universal comparasion function.
+(decl compare (= (! leftv:package rightv:package) ?compared
+    (when 
+        ( (leftv:is    rightv)      EQUAL)
+        ( (leftv:as    comparable)  (leftv:compare rightv -)
+        ( (leftv:is    null)        LESS )
+        ( (rightv:is   null)        GREAT)
+        ( (leftv:equal rightv)      EQUAL)
+        ( else                      LESS )
+);
 ###############################################################################
 # 4, common operations based on 'comparable'.
 # 4.0, 'max' is used to find out the maximal value from arguments.
-(decl max (= (! item:package *) ?package ;
+# 4.0.0, 'max' will return the first occurence for equavilent values.
+# 4.0.1, 'max' will return the front value for uncertain situation.
+(decl max (= (! item:package *) ?package 
+    (foreach item in args 
+        (if (item:gt last) item else last -)
+);
 # 4.1, 'min' is used to find out the minimal value from arguments.
-(decl min (= (! item:package *) ?package ;
-#
+# 4.1.0, 'min' will return the first occurence for equavilent values.
+# 4.1.1, 'min' will return the front value for uncertain situation.
+(decl min (= (! item:package *) ?package
+    (foreach item in args 
+        (if (last:gt item) last else item -)
+);
 ###############################################################################
