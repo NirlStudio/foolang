@@ -13,5 +13,13 @@
     # 1.1, 'test' should accept an entity as argument.
     # 1.2, 'test' should return a bool value according to filtering logic.
     (items (= (! test:function) ?iterator -)
+    #
+    # 2, override the conv method.
+    (conv (= (! type hint) ?*
+        (if (type:is iterator)
+            (:items )
+         else
+            (base:conv type hint)
+    -)
 ) ;
 ###############################################################################
