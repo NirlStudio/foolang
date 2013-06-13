@@ -12,26 +12,30 @@
     # 1.0, 'map' will produce an instance mapping saving all key-value pairs.
     # 1.1, if the value is 'null', the key will be taken as value.
     # 1.2, if the key is 'null', this entry will be ignored.
-    (map (= (! (key value) *) ?map -)
+    (map (= (! key value *) ?map -)
     # 1.3, 'of' will produce an instance basing one or more iterable entity.
     # 1.4, 'items' should be an 'iterable' entity or an 'iterator'.
     # 1.5, the first result returned by 'iterator:item' will be taken as the key.
     # 1.6, the second result returned by 'iterator:item' will be taken as the value.
-    (of (= (! items:iterator|iterable *) ?map -)
+    (of (= (! keys:iterator|iterable
+            values:iterator|iterable) ?map 
+    -)
     #
     # 2, oerridden operations of collection.
-    # 2.0, ':put' returns a copied collection containing items in arguments.
-    (:put (= (! (key value) *) ?map -)
-    # 2.1, ':$put' is the overridden local-replacing version of ':put' .
-    (:$put (= (! (key value) *) ?bool -)
-    # 2.2, for other operations inherited from 'collection', 'item' will be taken as 'key'.
+    # 2.0, ':get' returns the value attached to a key.
+    (:get (= (! key) ?* -)
+    # 2.1, ':put' returns a copied collection containing items in arguments.
+    (:put (= (! key value) ?map -)
+    # 2.2, ':cas' attaches 'value' to 'key' if it's not 'refer'.
+    # 2.3, ':cas' returns 'this' if '(value:is refer)' is true.
+    (:cas (= (! key refer value) ?map -)
+    # 2.4, for other operations inherited from 'collection', 'item' will be taken as 'key'.
     #
     # 3, unique query operation of 'map'.
-    # 3.0, ':values' returns an 'iterator' to traverse all values.
+    # 3.0, ':keys' returns an 'iterator' to traverse all keys.
+    (:keys (= ?iterator -)
+    # 3.1, ':values' returns an 'iterator' to traverse all values.
     (:values (= ?iterator -)
 ) ;
-###############################################################################
-# 4, to define a shortcut function for 'map:of'.
-(decl map_of map:of) ;
 ###############################################################################
 

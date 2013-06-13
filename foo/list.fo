@@ -13,9 +13,6 @@
     (list (= (! item *) ?list -)
     # 1.1, 'of' will produce an instance basing one or more iterable entity.
     # 1.2, 'items' may be an 'iterator', 'slicer', 'iterable' or 'sliceable' entity.
-    (of (= (! items:iterator|iterable *) ?list -)
+    (of (= (! iter:iterator|iterable *) ?list -)
 ) ;
-###############################################################################
-# 2, to define a shortcut function for 'list:of'.
-(decl list_of list:of) ;
 ###############################################################################

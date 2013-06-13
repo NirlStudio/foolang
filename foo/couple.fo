@@ -13,26 +13,8 @@
     #
     # 2, the fields of 'couple'.
     # 2.0, the left value of 'couple'.
-    (:Left  ?*) 
+    (:L ?*) 
     # 2.1, the right value of 'couple'.
-    (:Right ?*) 
+    (:R ?*) 
 ) ;
-###############################################################################
-# 3, the aliases of fields of 'couple'.
-# 3.0, short aliases for 'Left' and 'Right'.
-(def L couple:Left )
-(def R couple:Right)
-# 3.1, a range of [Begin, End].
-(def Begin couple:Left )
-(def End   couple:Right)
-# 3.2, a range of [Offset, Offset + Length).
-(def Offset couple:Left )
-(def Length couple:Right)
-# 3.3, a range of [Trom, To).
-(def From couple:Left )
-(def To   couple:Right)
-# 3.4, a linked-list node.
-(def Value couple:Left )
-(def Next  couple:Right)
-#
 ###############################################################################

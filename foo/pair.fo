@@ -12,14 +12,9 @@
     (pair (= (! key value) ?pair -)
     #
     # 2, the fields of 'pair'.
-    # 2.0, ':Key' is the identifier of 'pair' in comparasion.
-    (:Key   ?*) 
-    # 2.1, ':Value' is the satellite data of ':Key'.
-    (:Value ?*)
+    # 2.0, ':K' is the identifier of 'pair' in comparasion.
+    (:K ?*) 
+    # 2.1, ':V' is the satellite data of ':K'.
+    (:V ?*)
 ) ;
-###############################################################################
-# 3, the aliases of fields of 'pair'.
-(def K pair:Key  )
-(def V pair:Value)
-#
 ###############################################################################

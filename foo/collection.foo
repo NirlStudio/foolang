@@ -7,12 +7,66 @@
 #
 ###############################################################################
 #
-(decl equal (= (! other:object) ?bool
-    ((this:is other):or 
-        ((this:as class):and (this:_equal other)
-) ;
+(decl :_equal (= (! other:object) ?bool
+    (by_default false 
+        (if ((other:is_object collection):and (this:Count:eq other:Count))
+            (for item in other
+                (if (this:has item)
+                    (continue true)
+                 else
+                    (break false)
+);
 #
-(decl not_equal (= (! other:object) ?bool
-    returns (not (this:equal other)
-) ;
+(decl :has_any (= (! item *) ?bool
+    (with true (for item in args
+        (if (this:has item)
+            (break true)
+         else
+            (continue false)
+);
+#
+(:$cas (= (! item value) ?collection
+    (if (value:is item)
+        this
+    else
+        (&(&this:remove item):put value)
+);
+#
+(:$join (= (! iter:iterator|iterable *) ?collection
+    (with this
+        (for iter in args
+            (for item in iter
+                (&last:put item)
+);
+#
+(:triage (= (! func:function *) ?(collection *) (*
+    (decl groups (collect
+        (for func in args
+            (pair func (this:clear -)
+    -)
+    (for item in this
+        (for index in (seqn groups:count) (*
+            (decl group (groups:get index -)
+            (if (group:K item) (* 
+                ($groups:cas index group (&group:V:put item -) 
+                (break )
+            -)
+    -)
+    (return (collect (for group in groups group:V -)
+);
+#
+(:assort (= (! func:function *) ?(collection *) (*
+    (decl groups (collect
+        (for func in args
+            (pair func (this:clear -)
+    -)
+    (for item in this
+        (for index in (seqn groups:count) (*
+            (decl group (groups:get index -)
+            (if (group:K item)
+                ($groups:cas index group (&group:V:put item) -)
+    -)
+    (return collect (for group in groups group:V -)
+);
+#
 ###############################################################################

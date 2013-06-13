@@ -8,10 +8,5 @@
 ###############################################################################
 # 0, to define operations of 'shared' drivers.
 ($impl shared
-    # 1, ':endpoint' returns a valid connection point for a 'shared' 'device'.
-    (:endpoint (= ?uri -)
-    #
-    # 2, 'use' generates a valid local agent basing on the infomation of 'endpoint'.
-    (use (= (! endpoint:uri) ?shared -)
 ) ;
 ###############################################################################

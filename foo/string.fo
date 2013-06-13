@@ -11,9 +11,12 @@
     # 1, constructor of 'string'.
     # 1.0, 'string' can combine a series of string or char to a new string.
     (string (= (! value:char|string *) ?string -)
-    # 1.1, 'concat' works like 'string:string', but can insert a separator between items.
+    # 1.1, 'of' works like 'string:string', but can insert a separator between items.
     # 1.2, the 'separator' may be a 'char' or a 'string'.
     (of (= (! separator:char|string?' ' value:char|string *) ?string -)
+    # 1.3, 'concat' works like 'of', but accepts a 'list' of values.
+    # 1.4, the items in 'values' would be converted to strings.
+    (concat (= (! values:list separator:char|string?' ' *) ?string -)
     #
     # 2, common operations of 'string'.
     # 2.0, ':format' uses the owner string as a formatting pattern.
@@ -32,18 +35,5 @@
     (:encode (= (! enc_name:string?"utf-8") ?data -)
     # 2.8, overridden ':append' will accept both 'char' and 'string' as arguments.
     (:append (= (! value:char|string *) ?string -)
-    #
-    # 3, local-replacing operations.
-    # 3.0, '$append' is the local-replacing version of ':append'.
-    ($append (= (! value:char|string *) ?bool -)
-    # 3.1, '$appendl' will automatically append a '\n' to the end.
-    ($appendl (= (! value:char|string *) ?bool -)
-    # 3.2, '$appendf' will use the 'fmt' as formatting pattern to produce a string.
-    # 3.3, the produced string will be append to the owner string of ':appendf'.
-    ($appendf (= (! fmt:string value *) ?bool -)
 ) ;
-###############################################################################
-# 4, 'concat' is a global alias of 'string:of'.
-(decl concat string:of) ;
-#
 ###############################################################################

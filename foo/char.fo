@@ -16,9 +16,8 @@
     # 2, conversion operations.
     # 2.0, ':ascii' returns a byte/int8 ascii code if the char is an ascii char.
     # 2.1, ':ascii' returns 'false' when the char is not a valid ascii char.
-    (:ascii  (= ?int -)
+    (:ascii  (= ?int|false -)
     # 2.2, ':encode' returns the integer value of char for a given encoding type.
-    # 2.3, the second value returned by ':encode' is the valid length of the integer.
     (:encode (= (! enc_name:string) ?int -)
 ) ;
 ###############################################################################

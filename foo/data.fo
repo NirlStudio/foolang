@@ -34,23 +34,24 @@
     # 2.10, ':read_cstr' returns a string which length is determined by a '\0'.
     (:read_cstr (= (! offset:int enc_name:int) ?(string int) -)
     #
+    (:SaveOffset ?int) #???
     # 3, functions to save data.
     # 3.0, all the returned result sets Of ':$save_*' return the new offset.
-    # 3.1, '$save_byte' writes a byte/int8 value into the buffer.
-    ($save_byte   (= (! value:int offset:int) ?bool -)
-    # 3.2, '$save_short' writes a short/int16 value into the buffer.
-    ($save_short  (= (! value:int offset:int) ?bool -)
-    # 3.3, '$save_int' writes an int32 value into the buffer.
-    ($save_int    (= (! value:int offset:int) ?bool -)
-    # 3.4, '$save_long' writes a long/int64 value into the buffer.
-    ($save_long   (= (! value:int offset:int) ?bool -)
-    # 3.5, '$save_float' writes a single-precision floating-point value into the buffer.
-    ($save_float  (= (! value:real offset:int) ?bool -)
-    # 3.6, '$save_double' writes a double-precision floating-point value into the buffer.
-    ($save_double (= (! value:real offset:int) ?bool -)
-    # 3.7, '$save_str' writes a string value
-    ($save_str  (= (! str:string offset:int enc_name:string) ?bool -)
-    # 3.8, '$save_cstr' writes a string value into the buffer as a c-style string.
-    ($save_cstr (= (! str:string offset:int enc_name:string) ?bool -)
+    # 3.1, 'save_byte' writes a byte/int8 value into the buffer.
+    (save_byte   (= (! value:int offset:int) ?data -)
+    # 3.2, 'save_short' writes a short/int16 value into the buffer.
+    (save_short  (= (! value:int offset:int) ?data -)
+    # 3.3, 'save_int' writes an int32 value into the buffer.
+    (save_int    (= (! value:int offset:int) ?data -)
+    # 3.4, 'save_long' writes a long/int64 value into the buffer.
+    (save_long   (= (! value:int offset:int) ?data -)
+    # 3.5, 'save_float' writes a single-precision floating-point value into the buffer.
+    (save_float  (= (! value:real offset:int) ?data -)
+    # 3.6, 'save_double' writes a double-precision floating-point value into the buffer.
+    (save_double (= (! value:real offset:int) ?data -)
+    # 3.7, 'save_str' writes a string value
+    (save_str  (= (! str:string offset:int enc_name:string) ?data -)
+    # 3.8, 'save_cstr' writes a string value into the buffer as a c-style string.
+    (save_cstr (= (! str:string offset:int enc_name:string) ?data-)
 ) ;
 ###############################################################################

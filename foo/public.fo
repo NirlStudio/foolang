@@ -8,8 +8,11 @@
 ###############################################################################
 # 0, to define operations of 'public' drivers.
 ($impl public
-    # 1, 'connect' generates local agent for a remote 'public' 'device'.
-    # 1.0, the 'endpoint' should be an uri provided by a 'public' 'device'.
+    # 1, ':endpoint' returns a valid connection point for a 'shared' 'device'.
+    (:endpoint (= ?uri -)
+    #
+    # 2, 'connect' generates local agent for a remote 'public' 'device'.
+    # 2.0, the 'endpoint' should be an uri provided by a 'public' 'device'.
     (connect (= (! endpoint:uri) ?public -)
 ) ;
 ###############################################################################

@@ -9,24 +9,9 @@
 # 0, to define the structure of 'triple'.
 ($impl triple
     # 1, the constructor of 'triple'.
-    (triple (= (! left right value) ?triple -)
+    (triple (= (! left middle right) ?triple -)
     #
-    # 2, the fields of 'triple'.
-    # 2.0, the left value of 'triple'.
-    (:Left  ?*)
-    # 2.1, the right value of 'triple'.
-    (:Right ?*)
-    # 2.2, the value field of 'triple'.
-    (:Value ?*)
+    # 2, the new field of 'triple'.
+    (:M ?*)
 ) ;
-###############################################################################
-# 3, the aliases of fields of 'triple'.
-# 3.0, short aliases for 'Left', 'Right' and 'Value'.
-(def L triple:Left )
-(def R triple:Right)
-(def V triple:Value)
-# 3.1, a doubly linked list.
-(def Prev triple:Left )
-(def Next triple:Right)
-#
 ###############################################################################

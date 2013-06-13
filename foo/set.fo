@@ -13,7 +13,7 @@
     (set (= (! item *) ?set -)
     # 1.1, 'of' will produce an instance basing one or more iterable entity.
     # 1.2, 'items' should be an 'iterable' entity or an 'iterator'.
-    (of (= (! items:iterator|iterable *) ?set -)
+    (of (= (! iter:iterator|iterable *) ?set -)
     #
     # 2, testing and query operations.
     # 2.0, ':contain' tests for whether the 'set' is the superset of 'subset'.
@@ -28,13 +28,5 @@
     # 3.1, ':substract' produces the complementary set of others to 'set'.
     (:subtract (= (! other:set *) ?set -)
     #
-    # 4, local-replacing operations.
-    # 4.0, '$intersect' is the local-replacing version of ':intersect'.
-    ($intersect (= (! other:set *) ?bool -)
-    # 4.1, '$substract' is the local-replacing version of ':substract'.
-    ($subtract (= (! other:set *) ?bool -)
 ) ;
-###############################################################################
-# 5, to define a shortcut function for 'set:of'.
-(decl set_of set:of)
 ###############################################################################

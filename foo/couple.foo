@@ -7,8 +7,16 @@
 #
 ###############################################################################
 #
-(decl equal (= (! other:object) ?bool
-    ((this:is other):or 
-        ((this:as class):and (this:_equal other)
-) ;
+(decl couple (= (! left right) ?couple
+    (impl this 
+        (L left)
+        (R right)
+);
+#
+(decl :_equal (= (! other:object) ?bool
+    (by_default false 
+        (if (other:is_object couple)
+            ((this:L:equal other:L):and (this:R:equal other:R -)
+);
+#
 ###############################################################################
