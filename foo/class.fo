@@ -18,18 +18,12 @@
     # 1, testing for an instance.
     # 1.0, 'is_object' to test whether an entity is an instance of the given class.
     # 1.1, if 'type' is 'null', it will just test for whether it's an instance.
-    # 1.2, it returns 'false' for a non-instantiated 'class', or a no-matched class.
+    # 1.2, it returns 'false' for a non-instantiated 'class', or a non-matched class.
     (is_object (= (! type:class) ?bool -)
     #
-    # 2, protected instance members.
+    # 2, restricted instance members.
     # 2.0, ':_equal' can be used to customize the equivalency relationship.
     # 2.1, ':_equal' will be automatically invoked by 'object:equal'.
     (:_equal   (= (! other:object) ?bool -)
-    # 2.2, '$_clone' can be used to customize the clone process.
-    # 2.3, '$_clone' will be automatically invoked by 'object:clone'.
-    # 2.4, '$_clone' may not be really invoked for an optimized local replacement.
-    # 2.5, '$_clone' should return a bool value to indicates if it did the 'updater'.
-    # 2.6, programmer should not assume that it would be invoked in a local replacement.
-    ($_clone (= (! orgin:object updater:function) ?bool -)
 ) ;
 ###############################################################################
