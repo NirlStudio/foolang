@@ -18,24 +18,21 @@
     (or  (= (! val:bool *) ?true|false -)
     # 2.2, logical NOT operation.
     (not (= ?true|false -)
+    #
 ) ;
 ###############################################################################
 # 1, to map package operations of 'bool' to global functions.
 # 1.0, logical AND function without the first operand. 
-(decl and bool:and) 
- # 1.1, logical OR function without the first operand.
-(decl or  bool:or)  
- # 1.2, logical NOT function without the first operand. 
-(decl not bool:not)  
-#
-###############################################################################
-# 2, to define some aliases for standard boolean values.
-# 2.0, programmers can use these aliases to make code more readable.
-# 2.1, 'yes' and 'no' are useful when testing for branches.
-(def yes true)  
-(def no  false) 
-# 2.2, 'sucess' and 'fail' are useful when testing results.
-(def success true)  
-(def fail    false) 
+(decl and (= (! bval:bool *) ?true|false
+    (call bool:and args)
+);
+# 1.1, logical OR function without the first operand.
+(decl or (= (! bval:bool *) ?true|false
+    (call bool:or args)
+);
+# 1.2, logical NOT function without the first operand. 
+(decl not (= (! bval:bool) ?true|false
+    (bval:not )
+);
 #
 ###############################################################################
