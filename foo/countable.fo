@@ -18,5 +18,8 @@
     (:is_empty (= ?bool -)
     # 2.2, ':not_empty' returns 'true' when the value of '(countable:count )' is great than 0.
     (:not_empty (= ?bool -)
+    #
+    # 3, to remove all items from a 'countable' entity.
+    (:clear (= ?null -)
 ) ;
 ###############################################################################
