@@ -8,6 +8,37 @@
 ###############################################################################
 # 0, to define and implement operations of 'filter'.
 ($impl filter
-    (filter (= (! src:iterator test:function) ?filter -)
+    # 1, the constructor of 'filter'.
+    (filter (= (! src:iterator test:function) ?filter (*
+        (decl src (:_find_next test src -) 
+        (if (src:is_not null)
+            (&impl this
+                (_src  src)
+                (_test test)
+    -)
+    #
+    (:next (= ?filter
+        (filter (:_src:next ) :_test -)
+    -)
+    #
+    (:item (= ?* 
+        (:_src:item )
+    -)
+    #
+    ($next (= ?filter (*
+        (decl src (:_find_next :_test (&:_src:next -)
+        (if (src:is_not null)
+            (&impl this
+                (_src  src)
+    -)
+    #
+    (_find_next (= (! test iter)
+        (with iter (while (last:is_not null)
+            (if (test (last:item ))
+                (return last)
+             else
+                (&last:next )
+    -)
+    #
 ) ;
 ###############################################################################
