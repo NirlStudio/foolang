@@ -9,9 +9,28 @@
 # 0, to define the structure of 'triple'.
 ($impl triple
     # 1, the constructor of 'triple'.
-    (triple (= (! left middle right) ?triple -)
+    (triple (= (! left middle right) ?triple
+        (&impl this
+            (L left)
+            (M middle)
+            (R right)
+    -)
     #
     # 2, the new field of 'triple'.
     (:M ?*)
+    #
+    # 3, overridden operations.
+    # 3.0, to customize the behaviour of equivalence.
+    (:_equal (= (! other:object) ?bool
+        (by_default false
+            (if (other:is_object triple)
+                (and (:L:equal other:L)
+                     (:M:equal other:M)
+                     (:R:equal other:R)
+    -)
+    # 3.1, to customize the operation of 'iterable'.
+    (:items (= (! test:function) ?iterator
+        ((list :L :M :R):items test -)
+    -)
 ) ;
 ###############################################################################
