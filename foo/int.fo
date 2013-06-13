@@ -21,39 +21,29 @@
     # 2.2, ':int8' returns an integer value stored in 1 byte.
     # 2.3,  the value range of 'int8' is [-128, 127].
     (:int8  (= ?int -)
-    ($int8  (= ?bool -)
     # 2.4, ':int16' returns an integer value stored in 2 bytes.
     # 2.5,  the value range of 'int16' is [-32768, 32767].
     (:int16 (= ?int -)
-    ($int16 (= ?bool -)
     # 2.6, ':int32' returns an integer value stored in 4 bytes.
     # 2.7,  the value range of 'int32' is [-2147483648, 2147483647].
     (:int32 (= ?int -)
-    ($int32 (= ?bool -)
     # 2.8, ':int64' returns an integer value stored in 8 bytes.
     # 2.9,  the value range of 'int64' is [-9223372036854775808, 9223372036854775807].
     (:int64 (= ?int -)
-    ($int64 (= ?bool -)
 
     # 3, bitwise operations.
     # 3.0, ':bnot' implements the 'Bitwise NOT' operation.
     (:bnot (= ?int -)
-    ($bnot (= ?bool -)
     # 3.1, ':band' implements the 'Bitwise AND' operation.
     (:band (= (! mask:int) ?int -)
-    ($band (= (! mask:int) ?bool -)
     # 3.2, ':bor' implements the 'Bitwise OR' operation.
     (:bor  (= (! mask:int) ?int -)
-    ($bor  (= (! mask:int) ?bool -)
     # 3.3, ':bxor' implements the 'Bitwise XOR' operation.
     (:bxor (= (! mask:int) ?int -)
-    ($bxor (= (! mask:int) ?bool -)
-    # 3.4, ':blsh' implements the 'Bitwise Left Shift' operation.
+    # 3.4, ':bsleft' implements the 'Bitwise Left Shift' operation.
     (:bsleft  (= (! bits:int padding:0|1) ?int -)
-    ($bsleft  (= (! bits:int padding:0|1) ?bool -)
-    # 3.5, ':brsh' implements the 'Bitwise Right Shift' operation.
+    # 3.5, ':bsright' implements the 'Bitwise Right Shift' operation.
     (:bsright (= (! bits:int padding:0|1) ?int -)
-    ($bsright (= (! bits:int padding:0|1) ?bool -)
     #
     # 4, integer constants.
     # 4.0, maximal value of int8:  127
@@ -69,42 +59,26 @@
     # 4.5, minimal value of int32: -2147483648, 
     (MinInt32 0xFFFFFFFF)
     # 4.6, maximal value of int64:  9223372036854775807
-    (MaxValue 0x7FFFFFFF-FFFFFFFF)
+    (MaxLong 0x7FFFFFFF-FFFFFFFF)
     # 4.7, minimal value of int64: -9223372036854775808
+    (MinLong 0xFFFFFFFF-FFFFFFFF)
+    # 4.8, maximal value of int:  9223372036854775807
+    (MaxValue 0x7FFFFFFF-FFFFFFFF)
+    # 4.9, minimal value of int: -9223372036854775808
     (MinValue 0xFFFFFFFF-FFFFFFFF)
 ) ;
 ###############################################################################
-# 5, member aliases of 'int'.
-(def to_byte  int:int8    ) 
-(def to_short int:int16   ) 
-(def to_int32 int:int32   ) 
-(def to_long  int:int64   ) 
-(def MaxLong  int:MaxValue) 
-(def MinLong  int:MinValue) 
-#
-###############################################################################
-# 6, functions to generate integer values.
-# 6.0, 'byte' will generate an 'int8' integer.
+# 5, functions to generate integer values.
+# 5.0, 'byte' will generate an 'int8' integer.
 (decl byte (= (! value:numeric|string) returns (int value 1) ;
 #
-# 6.1, 'short' will generate an 'int16' integer.
+# 5.1, 'short' will generate an 'int16' integer.
 (decl short (= (! value:numeric|string) returns (int value 2) ;
 #
-# 6.2, 'int32' will generate an 'int16' integer.
+# 5.2, 'int32' will generate an 'int16' integer.
 (decl int32 (= (! value:numeric|string) returns (int value 4) ;
 #
-# 6.3, 'long' will generate an 'int64' integer.
+# 5.3, 'long' will generate an 'int64' integer.
 (decl long (= (! value:numeric|string) returns (int value 8) ;
 # 
-###############################################################################
-# 7, global constant aliases.
-(decl BYTE_MAX  int:MaxByte )
-(decl BYTE_MIN  int:MinByte )
-(decl SHORT_MAX int:MaxShort)
-(decl SHORT_MIN int:MinShort)
-(decl INT32_MAX int:MaxInt  )
-(decl INT32_MIN int:MinInt  )
-(decl LONG_MAX  int:MaxValue)
-(decl LONG_MIN  int:MinValue)
-#
 ###############################################################################
