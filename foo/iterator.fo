@@ -12,12 +12,6 @@
     # 1.0, ':next' returns a new 'iterator' indicating next element.
     (:next (= ?iterator -)
     # 1.1, ':item' returns the current element.
-    # 1.2, ':item' may return one or more values.
     (:item (= ?* -)
-    #
-    # 2, local replacement operation.
-    # 2.0, '$next' should update current 'iterator' to point to next element.
-    # 2.1, '(iter:$next)' will be replaced to '(decl iter (iter:next))' if '$next' is 'null'.
-    ($next (= ?bool -)
 ) ;
 ###############################################################################
