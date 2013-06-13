@@ -8,7 +8,7 @@
 ###############################################################################
 # 0, to implement generic operations of 'package'.
 ($impl package
-    # 1, dynamically refer to member
+    # 1, dynamically refer to a member.
     # 1.0, like the global '@' function, '@' can be used as 'pkg:@name'. 
     # 1.1, when using '@', code cann invoke private and protected members of package.
     (@ (= (! name:string) ?* -)
@@ -17,18 +17,5 @@
     # 2.0, 'Members' is a 'set' of all customized member names.
     (Members ?set)
     #
-    # 3, the member alternatives of package-manipulation functions.
-    # 3.0, 'impls' can override one or more members of this package to produce a new one.
-    (impls (= (! (&name:quote expr) *) ?package
-        (call impl (args:prepend this)
-    -)
-    # 4.1.2, 'enables' will merge one or more adjective packages to produce a new one.
-    (enables (= (! adj:package *) ?null
-        (call enable (args:prepend this)
-    -)
-    # 4.1.3, 'disables' will remove one or more adjective to produce a new one.
-    (disables (= (! adj:package *) ?null
-        (call disable (args:prepend this)
-    -)
 ) ;
 ###############################################################################
