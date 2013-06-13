@@ -31,43 +31,31 @@
     # 3, fundamental mathematical operations.
     # 3.0, 'abs' can be used to get the absolute value of 'this'.
     (:abs (= ?numeric -)
-    ($abs (= ?bool -)
     # 3.1, 'plus' can be used to plus one or more numerics.
     (:plus (= (! num:numeric *) ?numeric -)
-    ($plus (= (! num:numeric *) ?bool -)
     # 3.2, 'minus' can be used to minus one or more numerics.
     (:minus (= (! num:numeric *) ?numeric -)
-    ($minus (= (! num:numeric *) ?bool -)
     # 3.3, 'times' can be used to be multiplied by one or more numerics.
     (:times (= (! num:numeric *) ?numeric -)
-    ($times (= (! num:numeric *) ?bool -)
     # 3.4, 'div' can be used to be diveded by one or more numerics.
     (:div (= (! num:numeric *) ?numeric -)
-    ($div (= (! num:numeric *) ?bool -)
     # 3.5, 'mod' can be used to compute the modulo to 'num'.
     (:mod (= (! num:numeric) ?numeric -)
-    ($mod (= (! num:numeric) ?bool -)
     #
     # 4, addtional mathematical operations.
     # 4.0, 'power' can be used to compute the value raised to the power of 'num'.
     (:power (= (! num:numeric) ?numeric -)
-    ($power (= (! num:numeric) ?bool -)
     # 4.1, 'root' can be used to compute the num-th root of its value.
     (:root (= (! num:numeric accept_complex:bool) ?numeric -)
-    ($root (= (! num:numeric accept_complex:bool) ?bool -)
     # 4.2, 'sqrt' can be used to compute the square root of its value.
     (:sqrt (= (! accept_complex:bool) ?numeric -)
-    ($sqrt (= (! accept_complex:bool) ?bool -)
     # 4.3, 'ln' can be used to compute the natural logarithm of its value.
     (:ln (= (! accept_complex:bool) ?numeric -)
-    ($ln (= (! accept_complex:bool) ?bool -)
     # 4.4, 'lg' can be used to compute the logarithm to base '2'.
     (:lg (= (! accept_complex:bool) ?numeric -)
-    ($lg (= (! accept_complex:bool) ?bool -)
     # 4.5, 'log' can be used to compute the logarithm to base 'num'.
     # 4.6, by default, the base of 'log' will be '10'.
     (:log (= (! num:numeric accept_complex:bool) ?numeric -)
-    ($log (= (! num:numeric accept_complex:bool) ?bool -)
     #
     # 5, mathematical constants.
     # 5.0, 'Pi' is a constant value of Pi.
@@ -79,7 +67,7 @@
     # 5.3, 'Pi_4th' is a quarter of 'Pi'.
     (Pi_4th 0.7853981633974483)
     # 5.4, 'E' is the base of natural logarithm.
-    (E      0.7853981633974483)
+    (E      2.718281828459045)
 ) ;
 ###############################################################################
 # 6, alias of mathematical constants.
