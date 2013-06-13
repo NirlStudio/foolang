@@ -17,10 +17,10 @@
     (Descending 1)
 ) ;
 ###############################################################################
-# 2, global alias for values.
-# 2.0, abbreviated form of 'ascending'.
+# 2, global references for values of ordering.
+# 2.0, abbreviated form of 'Ascending'.
 (decl ASC  ordering:Ascending)
-# 2.1, abbreviated form of 'descending'.
+# 2.1, abbreviated form of 'Descending'.
 (decl DESC ordering:Descending)
 #
 ###############################################################################
