@@ -10,7 +10,7 @@
 ($impl slicer 
     # 1, addtional operations to 'iterator'.
     # 1.0, 'rest' returns the amount of remaining items, counting the current one.
-    (rest (= ?int -)
+    (:rest (= ?int -)
 ) ;
 #
 ###############################################################################
