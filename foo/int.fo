@@ -70,15 +70,20 @@
 ###############################################################################
 # 5, functions to generate integer values.
 # 5.0, 'byte' will generate an 'int8' integer.
-(decl byte (= (! value:numeric|string) returns (int value 1) ;
-#
+(decl byte (= (! value:numeric|string) 
+    (int value 1)
+);
 # 5.1, 'short' will generate an 'int16' integer.
-(decl short (= (! value:numeric|string) returns (int value 2) ;
-#
+(decl short (= (! value:numeric|string)
+    (int value 2)
+);
 # 5.2, 'int32' will generate an 'int16' integer.
-(decl int32 (= (! value:numeric|string) returns (int value 4) ;
-#
+(decl int32 (= (! value:numeric|string)
+    (int value 4)
+);
 # 5.3, 'long' will generate an 'int64' integer.
-(decl long (= (! value:numeric|string) returns (int value 8) ;
+(decl long (= (! value:numeric|string)
+    (int value 8)
+);
 # 
 ###############################################################################
