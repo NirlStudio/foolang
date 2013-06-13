@@ -22,16 +22,5 @@
     (equal (= (! other:object) ?bool -)
     # 1.7, 'not_equal' is equivalent to '(not (obj:equal other))'. 
     (not_equal (= (! other:object) ?bool -)
-    # 1.8, to explicitly convert to an instance of another class.
-    (to (= (! type:class) ?object -)
-    #
-    # 2, local replacement operations.
-    # 2.0, local replacement implements a fake (in theory) 'update' mechanism.
-    # 2.1, local replacement uses a cloned 'object' to replace its original one.
-    # 2.2, when it's possible, the clone action may be omitted automatically by runtime.
-    # 2.3, '$mset' implements an operation to 'update' an object's member.
-    ($mset (= (! name:string entity) ?bool -)
-    # 2.4, '$update' implements a method to 'update' an object with a function.
-    ($update (= (! updater:function) ?bool -)
 );
 ###############################################################################
