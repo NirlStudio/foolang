@@ -7,12 +7,13 @@
 #
 ###############################################################################
 #
-(decl equal (= (! other:object) ?bool
-    ((this:is other):or 
-        ((this:as class):and (this:_equal other)
-) ;
-#
-(decl not_equal (= (! other:object) ?bool
-    returns (not (this:equal other)
-) ;
+($impl countable
+    (:is_empty (= ?bool
+        (:Count:lt 1)
+    -)
+    #
+    (:not_empty (= ?bool
+        (:Count:gt 0)
+    -)
+);
 ###############################################################################
