@@ -24,7 +24,7 @@
     # 3, overridden operations.
     # 3.0, to customize the operation of 'comparable'.
     (:compare (= (! other:package hint) ?compared
-        (if (other:as pair)
+        (if (other:is_object pair)
             (compare :K other:K)
          else
             (compare :K other)
