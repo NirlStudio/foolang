@@ -33,7 +33,7 @@
     (:items (= (! test:function) ?iterator
         ((list :K :V):items test -)
     -)
-    # 3.2, to return the hash code of ':K'.
+    # 3.2, to use the hash code of ':K' as the hash code of 'pair'.
     (:hash (= (! hint) ?int
         (:K:hash hint)
     -)
