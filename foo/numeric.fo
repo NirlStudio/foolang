@@ -31,15 +31,15 @@
     # 3, fundamental mathematical operations.
     # 3.0, 'abs' can be used to get the absolute value of 'this'.
     (:abs (= ?numeric -)
-    # 3.1, 'plus' can be used to plus one or more numerics.
-    (:plus (= (! num:numeric *) ?numeric -)
-    # 3.2, 'minus' can be used to minus one or more numerics.
-    (:minus (= (! num:numeric *) ?numeric -)
-    # 3.3, 'times' can be used to be multiplied by one or more numerics.
-    (:times (= (! num:numeric *) ?numeric -)
-    # 3.4, 'div' can be used to be diveded by one or more numerics.
+    # 3.1, 'add' can be used to add one or more numbers to 'this'.
+    (:add (= (! num:numeric *) ?numeric -)
+    # 3.2, 'sub' can be used to subtract one or more numbers from 'this'.
+    (:sub (= (! num:numeric *) ?numeric -)
+    # 3.3, 'mul' computes the value of 'this' multiplied by one or more numbers.
+    (:mul (= (! num:numeric *) ?numeric -)
+    # 3.4, 'div' computes the value of 'this' divided by one or more numbers.
     (:div (= (! num:numeric *) ?numeric -)
-    # 3.5, 'mod' can be used to compute the modulo to 'num'.
+    # 3.5, 'mod' can be used to compute the modulo of 'this' to 'num'.
     (:mod (= (! num:numeric) ?numeric -)
     #
     # 4, addtional mathematical operations.

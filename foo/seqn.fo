@@ -18,7 +18,7 @@
                 -)
             else
             (* 
-                (decl count ((limit:minus start):div step -)
+                (decl count ((limit:sub start):div step -)
                 (if (count:gt 0)
                     (return (this:_seqn start step
                         (if (count:gt 1) (int count) else 1 -)
@@ -37,14 +37,14 @@
     #
     (:next  (= ?seqn
         (if (:_count:gt 1)
-            (seqn (:_current:plus step) :_step (:_count:minus 1)
+            (seqn (:_current:add step) :_step (:_count:sub 1)
     -)
     #
     ($next  (= ?seqn
         (if (:_count:gt 1) 
             (&impl this
-                (:_current  (&:_current:plus :_Step -)
-                (:_count    (&:_count:minus  1 -)
+                (:_current  (&:_current:add :_step -)
+                (:_count    (&:_count:sub   1 -)
     -)
 );
 ###############################################################################

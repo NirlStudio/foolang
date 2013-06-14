@@ -18,7 +18,7 @@
     # 2, basic operations.
     # 2.0, ':get' overrides the operation of 'collection' to resolve 'item' as an offset.
     # 2.1, ':get' returns 'null' if the 'offset' is out of range.
-    # 2.2, an negative offset should be equivalent to '((this:count ):plus offset)'.
+    # 2.2, an negative offset should be equivalent to '(this:Size:add offset)'.
     (:get (= (! offset:int?0) ?* -)
     # 2.3, ':yield' returns a 'slicer' traversing elements in range of [from, to).
     # 2.4, ':yield' returns an empty list when the [from, to) is an empty set.
