@@ -17,7 +17,7 @@
 (decl check_to (= (! value defaulue type *) ?*
     (if (value:is null) 
         (return defaulue)
-     else
+    else
         (with value (foreach type in (argi 2)
             (if (value:as type)
                 (return value)
@@ -28,7 +28,7 @@
 (decl by_default (= (! defaulue value) ?* 
     (if (value:is null)
         (return defaulue)
-     else
+    else
         (return value)
 );
 #
@@ -43,7 +43,7 @@
 (decl convert_to (= (! value defaulue type *) ?*
     (if (value:is null)
         (return defaulue)
-     else
+    else
         (with value (foreach type in (argi 2) (*
             (decl val (value:conv type -)
             (if (val:is null)
@@ -51,54 +51,9 @@
              else
                 (return val)
 );
-#
-(decl _seqn_iter (+:slicer
-    (_seqn_iter (= (! current:numeric?0 step:numeric?1 count:int?1)
-        (&impl this
-            (:_current current)
-            (:_step    step)
-            (:_count   count)
-    -)
-
-    (:rest (= ?int (return :_count -)
-
-    (:item (= ?numeric (return :_current -)
-
-    (:next (= ?seqn_iter 
-        (if (:_count:gt 1)
-            (return (seqn_iter (:_current:plus step) 
-                               :_step 
-                               (:_count:minus 1)
-    -)
-
-    ($next (= 
-        (if (:_count:gt 1) 
-            (&impl this
-                (:_current  (&:_current:plus :_Step -)
-                (:_count    (&:_count:minus  1 -)
-    -)
-);
-#
-(decl seqn (= (! limit:numeric?0
-                 start:numeric?0
-                  step:numeric?1
-              by_count:bool?false) ?slicer
-    (if (step:neq 0)
-        (if by_count
-            (if (limit:ge 1) 
-                (return (_seq_iter start step (int limit)
-            -)
-        else 
-        (* 
-            (decl count ((limit:minus start):div step -)
-            (if (count:gt 0)
-                (return (_seqn_iter start step
-                    (if (count:gt 1) (int count) else 1 -)
-        -)
-);
 # 
 (decl hello (= (! world:string *)
-    (if (argc:le 0)
+    (if (argc:lt 1)
         (print "hello, World!")
     else
         (printf "hello, %%." (string:concat args)
