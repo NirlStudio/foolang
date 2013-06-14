@@ -16,7 +16,7 @@
                 (_func func)
     -)
     #
-    (:next (= ?filter
+    (:next (= ?converter 
         (converter (:_src:next ) :_func -)
     -)
     #
@@ -24,7 +24,7 @@
         (_func (:_src:item -)
     -)
     #
-    ($next (= ?filter (*
+    ($next (= ?converter (*
         (decl src (&:_src:next -)
         (if (src:is_not null)
             (&impl this
