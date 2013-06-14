@@ -7,66 +7,76 @@
 #
 ###############################################################################
 #
-(decl :_equal (= (! other:object) ?bool
-    (by_default false 
-        (if ((other:is_object collection):and (this:Count:eq other:Count))
-            (for item in other
-                (if (this:has item)
-                    (continue true)
-                 else
-                    (break false)
-);
-#
-(decl :has_any (= (! item *) ?bool
-    (with true (for item in args
-        (if (this:has item)
-            (break true)
-         else
-            (continue false)
-);
-#
-(:$cas (= (! item value) ?collection
-    (if (value:is item)
-        this
-    else
-        (&(&this:remove item):put value)
-);
-#
-(:$join (= (! iter:iterator|iterable *) ?collection
-    (with this
-        (for iter in args
-            (for item in iter
-                (&last:put item)
-);
-#
-(:triage (= (! func:function *) ?(collection *) (*
-    (decl groups (collect
-        (for func in args
-            (pair func (this:clear -)
+($impl
+    #
+    (:_equal (= (! other:object) ?bool
+        (by_default false 
+            (if ((other:is_object collection):and (this:Count:eq other:Count))
+                (with true (for item in other
+                    (if (this:has item)
+                        (continue true)
+                     else
+                        (break false)
     -)
-    (for item in this
-        (for index in (seqn groups:count) (*
-            (decl group (groups:get index -)
-            (if (group:K item) (* 
-                ($groups:cas index group (&group:V:put item -) 
-                (break )
-            -)
+    #
+    (:has_any (= (! item *) ?bool
+        (with true (for item in args
+            (if (this:has item)
+                (break true)
+             else
+                (continue false)
     -)
-    (return (collect (for group in groups group:V -)
-);
-#
-(:assort (= (! func:function *) ?(collection *) (*
-    (decl groups (collect
-        (for func in args
-            (pair func (this:clear -)
+    #
+    (:cas (= (! item value) ?collection
+        (if (value:is item)
+            (return this)
+        else
+            (&(this:remove item):put value)
     -)
-    (for item in this
-        (for index in (seqn groups:count) (*
-            (decl group (groups:get index -)
-            (if (group:K item)
-                ($groups:cas index group (&group:V:put item) -)
+    #
+    (:$cas (= (! item value) ?collection
+        (if (value:is item)
+            (return this)
+        else
+            (&(&this:remove item):put value)
     -)
-    (return collect (for group in groups group:V -)
+    #
+    (:join (= (! iter:iterator|iterable *) ?collection
+        (with (this:clone )
+            (foreach iter in args
+                (foreach item in iter
+                    (&last:put item)
+    -)
+    #
+    (:$join (= (! iter:iterator|iterable *) ?collection
+        (with this
+            (foreach iter in args
+                (foreach item in iter
+                    (&last:put item)
+    -)
+    #
+    (:triage (= (! func:function *) ?(collection *) (*
+        (decl groups (collect
+            (foreach func in args (this:clear -)
+        -)
+        (foreach item in this
+            (for (index group) in groups
+                (if ((argv index) item) (* 
+                    ($groups:cas index group (&group:put item -) 
+                    (break )
+        -)
+        (return groups)
+    -)
+    #
+    (:assort (= (! func:function *) ?(collection *)
+        (collect (foreach func in args
+            (with (this:clear ) 
+                (foreach item in this
+                    (if (func item)
+                        (&last:put item)
+                    else
+                        (continue last)
+    -)
 );
 #
 ###############################################################################
