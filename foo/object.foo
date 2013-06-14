@@ -18,8 +18,5 @@
         ((this:equal other):not )
     -)
     #
-    (to (= (! type:class) ?bool
-        (if (this:as type) 
-            (return this)
 );
 ###############################################################################
