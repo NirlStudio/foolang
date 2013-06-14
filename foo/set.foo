@@ -7,12 +7,52 @@
 #
 ###############################################################################
 #
-(decl equal (= (! other:object) ?bool
-    ((this:is other):or 
-        ((this:as class):and (this:_equal other)
-) ;
-#
-(decl not_equal (= (! other:object) ?bool
-    returns (not (this:equal other)
-) ;
+($impl set
+    #
+    (of  (= (! iter:iterator *) ?set
+        (call set (call cons args -)
+    -)
+    #
+    (:contain  (= (! subset:set is_proper:bool?false) ?bool
+        (if is_proper
+            ((call this:has subset):and (this:Count:gt subset:Count -)
+        else
+            (call this:has subset)
+    -)
+    #
+    (:intersected  (! other:set *) ?bool
+        ((call this:intersect args):not_empty )
+    -)
+    #
+    (:intersect  (= (! other:set *) ?set (*
+        (with (this:clone ) (foreach item in this
+            (with last (foreach other in args
+                (if (other:has item)
+                    (continue last)
+                else
+                    (&last:remove item)
+    -)
+    #
+    (:$intersect  (= (! other:set *) ?set (*
+        (with this (foreach item in (this:clone )
+            (with last (foreach other in args
+                (if (other:has item)
+                    (continue last)
+                else
+                    (&last:remove item)
+    -)
+    #
+    (:subtract  (= (! other:set *) ?set
+        (with (this:clone ) 
+            (foreach item in (call cons args)
+                (&last:remove item)
+    -)
+    #
+    (:$subtract  (= (! other:set *) ?set
+        (with this
+            (foreach item in (call cons args)
+                (&last:remove item)
+    -)
+    #
+);
 ###############################################################################

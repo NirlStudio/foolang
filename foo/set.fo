@@ -10,23 +10,23 @@
 ($impl set
     # 1, the constructors of 'set'.
     # 1.0, 'set' will produce an instance including all items in arguments.
-    (set (= (! item *) ?set -)
+    (set  (= (! item *) ?set -)
     # 1.1, 'of' will produce an instance basing one or more iterable entity.
     # 1.2, 'items' should be an 'iterable' entity or an 'iterator'.
-    (of (= (! iter:iterator|iterable *) ?set -)
+    (of  (= (! iter:iterator *) ?set -)
     #
     # 2, testing and query operations.
     # 2.0, ':contain' tests for whether the 'set' is the superset of 'subset'.
     # 2.1, ':contain' will test for proper subset relationship if 'is_proper' is 'true'.
-    (:contain (= (! subset:set is_proper:bool) ?bool -)
+    (:contain  (= (! subset:set is_proper:bool?false) ?bool -)
     # 2.2, ':intersected' tests for whether there is a non-empty intersection..
-    (:intersected (! other:set *) ?bool -)
+    (:intersected  (! other:set *) ?bool -)
     #
     # 3, incremental operations.
     # 3.0, ':intersect' produces the intersection between 'set' and others.
-    (:intersect (= (! other:set *) ?set -)
-    # 3.1, ':substract' produces the complementary set of others to 'set'.
-    (:subtract (= (! other:set *) ?set -)
+    (:intersect  (= (! other:set *) ?set -)
+    # 3.1, ':subtract' produces the complementary set of others to 'set'.
+    (:subtract  (= (! other:set *) ?set -)
     #
 ) ;
 ###############################################################################
