@@ -7,12 +7,60 @@
 #
 ###############################################################################
 #
-(decl equal (= (! other:object) ?bool
-    ((this:is other):or 
-        ((this:as class):and (this:_equal other)
-) ;
-#
-(decl not_equal (= (! other:object) ?bool
-    returns (not (this:equal other)
-) ;
+($impl map
+    #
+    (of  (= (! keys:iterator values:iterator) ?map
+    -)
+    #
+    (:cas  (= (! key refer value) ?map
+        (if (refer:is value)
+            (return this)
+        else
+            (this:put key value)
+    -)
+    #
+    (:$cas  (= (! key refer value) ?map
+        (if (refer:is value)
+            (return this)
+        else
+            (&this:put key value)
+    -)
+    #
+    (:join  (= (! other:map *) ?map
+        (with (this:clone )
+            (foreach other in args
+                (for (key value) in other
+                    (&last:put key value)
+    -)
+    #
+    (:$join  (= (! other:map *) ?map
+        (with this
+            (foreach other in args
+                (for (key value) in other
+                    (&last:put key value)
+    -)
+    #
+    (:triage  (= (! func:function *) ?(map *) (*
+        (decl groups (collect
+            (foreach func in args (this:clear -)
+        -)
+        (for (key value) in this
+            (for (index group) in groups
+                (if ((argv index) key value) (* 
+                    ($groups:cas index group (&group:put key value -) 
+                    (break )
+        -)
+        (return groups)
+    -)
+    #
+    (:assort  (= (! func:function *) ?(map *)
+        (collect (foreach func in args
+            (with (this:clear ) 
+                (for (key value) in this
+                    (if (func key value)
+                        (&last:put key value)
+                    else
+                        (continue last)
+    -)
+);
 ###############################################################################
