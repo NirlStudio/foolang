@@ -738,13 +738,14 @@
 (decl foreach (?loop (! item:ref
                         iter:ref|statement
                         body:statement );  #conj.
-# 8.2.2, 'in' can be placed before 'iter' to make code more readable.
+# 8.2.2, 'for' is an automatic loop basing on a map or a sliceable entity.
+(decl for (?loop (! (index:ref value:ref)
+                   indexed:ref|statement
+                      body:statement );  #conj.
+# 8.2.3, 'in' can be placed before 'iter' and 'indexed' to make code more readable.
 (def in)  #conj.
-# 8.2.3, 'seqn' is used to generate an iterator of arithmetic progression.
-(decl seqn (= (! limit:numeric?0
-                 start:numeric?0
-                  step:numeric?1
-              by_count:bool?false) ?slicer ;  #verb.
+# 8.2.4, 'seqn' is a slicer to produce a arithmetic progression.
+(decl seqn (+slicer );
 # 
 # 8.3, dynamically evaluation.
 # 8.3.0, 'eval' is used to evaluate a piece of code and pass a list as arguments.
