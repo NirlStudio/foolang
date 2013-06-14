@@ -21,8 +21,8 @@
     # 2.0, ':put' returns a copied collection containing items in arguments.
     (:put (= (! item *) ?collection -)
     # 2.1, ':cas' uses 'value' to replace 'item' to produce a new collection.
-    # 2.2, if '(item:is value)' is true, 'cas' will return the value of 'this'.
-    (:cas (= (! item value) ?collection -)
+    # 2.2, if '(refer:is value)' is true, 'cas' will return the value of 'this'.
+    (:cas (= (! refer value) ?collection -)
     # 2.3, ':join' returns a copied collection joined with a series of 'other'.
     # 2.4, 'iter' should be an 'iterable' entity or an 'iterator'.
     (:join (= (! iter:iterator|iterable *) ?collection -)
