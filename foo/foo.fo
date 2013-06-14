@@ -656,19 +656,21 @@
 # 7.1, mapping-collection type.
 # 7.1.0, 'map' is a collection of key-value pairs indexed by the keys.
 # 7.1.1, the 'null' is defined that it can't work as a key.
-# 7.1.2, if trying to use 'null' as key, it will not affect the collection.
+# 7.1.2, if trying to put value for 'null', it will not affect the collection.
 # 7.1.3, if trying to get value for 'null', it will identically return 'null'.
 (decl map (+collection );  #noun & verb.
 #
-# 7.2, sliceable-collection types.
-# 7.2.0, 'sliceable' represents a collection with a zero-based integer index.
+# 7.2, sliceable collections.
+# 7.2.0, 'repeater' is a 'slicer' to repeat the same entity for a number of times.
+(decl repeater (+slicer );  #noun & verb.
+# 7.2.1, 'sliceable' represents a collection with a zero-based integer index.
 (decl sliceable (+collection );  #noun.
-# 7.2.1, 'slice' is a sliceable type basing on another sliceable one.
+# 7.2.2, 'slice' is a sliceable type basing on another sliceable one.
 (decl slice (+sliceable );  #noun & verb.
-# 7.2.2, 'list' is a sequence of any entities, including 'null'.
+# 7.2.3, 'list' is a sequence of any entities, including 'null'.
 (decl list (+sliceable );  #noun & verb.
 #
-# 7.3, typed-collection types.
+# 7.3, strong-typed collections.
 # 7.3.0, 'array' is a sliceable collection of entities of same type.
 (decl array (+sliceable );  #noun & verb.
 # 7.3.1, 'series' is an arry of numeric values of same type with same size.
