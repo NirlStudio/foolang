@@ -9,7 +9,7 @@
 #
 ($impl
     #
-    (:_equal (= (! other:object) ?bool
+    (:_equal  (= (! other:object) ?bool
         (by_default false 
             (if ((other:is_object collection):and (this:Count:eq other:Count))
                 (with true (for item in other
@@ -19,7 +19,7 @@
                         (break false)
     -)
     #
-    (:has_any (= (! item *) ?bool
+    (:has_any  (= (! item *) ?bool
         (with true (for item in args
             (if (this:has item)
                 (break true)
@@ -27,35 +27,35 @@
                 (continue false)
     -)
     #
-    (:cas (= (! item value) ?collection
+    (:cas  (= (! item value) ?collection
         (if (value:is item)
             (return this)
         else
             (&(this:remove item):put value)
     -)
     #
-    (:$cas (= (! item value) ?collection
+    (:$cas  (= (! item value) ?collection
         (if (value:is item)
             (return this)
         else
             (&(&this:remove item):put value)
     -)
     #
-    (:join (= (! iter:iterator|iterable *) ?collection
+    (:join  (= (! iter:iterator *) ?collection
         (with (this:clone )
             (foreach iter in args
                 (foreach item in iter
                     (&last:put item)
     -)
     #
-    (:$join (= (! iter:iterator|iterable *) ?collection
+    (:$join  (= (! iter:iterator *) ?collection
         (with this
             (foreach iter in args
                 (foreach item in iter
                     (&last:put item)
     -)
     #
-    (:triage (= (! func:function *) ?(collection *) (*
+    (:triage  (= (! func:function *) ?(collection *) (*
         (decl groups (collect
             (foreach func in args (this:clear -)
         -)
@@ -68,7 +68,7 @@
         (return groups)
     -)
     #
-    (:assort (= (! func:function *) ?(collection *)
+    (:assort  (= (! func:function *) ?(collection *)
         (collect (foreach func in args
             (with (this:clear ) 
                 (foreach item in this

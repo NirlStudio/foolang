@@ -25,7 +25,7 @@
     (:cas (= (! refer value) ?collection -)
     # 2.3, ':join' returns a copied collection joined with a series of 'other'.
     # 2.4, 'iter' should be an 'iterable' entity or an 'iterator'.
-    (:join (= (! iter:iterator|iterable *) ?collection -)
+    (:join (= (! iter:iterator *) ?collection -)
     # 2.5, ':remove' returns a copied collection which had excluded items.
     (:remove (= (! item *) ?collection -)
     #
