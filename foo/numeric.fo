@@ -31,15 +31,17 @@
     # 3, fundamental mathematical operations.
     # 3.0, 'abs' can be used to get the absolute value of 'this'.
     (:abs (= ?numeric -)
-    # 3.1, 'add' can be used to add one or more numbers to 'this'.
+    # 3.1, 'neg' can be used to get the negated value of 'this'.
+    (:neg (= ?numeric -)
+    # 3.2, 'add' can be used to add one or more numbers to 'this'.
     (:add (= (! num:numeric?1 *) ?numeric -)
-    # 3.2, 'sub' can be used to subtract one or more numbers from 'this'.
+    # 3.3, 'sub' can be used to subtract one or more numbers from 'this'.
     (:sub (= (! num:numeric?1 *) ?numeric -)
-    # 3.3, 'mul' computes the value of 'this' multiplied by one or more numbers.
+    # 3.4, 'mul' computes the value of 'this' multiplied by one or more numbers.
     (:mul (= (! num:numeric?1 *) ?numeric -)
-    # 3.4, 'div' computes the value of 'this' divided by one or more numbers.
+    # 3.5, 'div' computes the value of 'this' divided by one or more numbers.
     (:div (= (! num:numeric?1 *) ?numeric -)
-    # 3.5, 'mod' can be used to compute the modulo of 'this' to 'num'.
+    # 3.6, 'mod' can be used to compute the modulo of 'this' to 'num'.
     (:mod (= (! num:numeric?1) ?numeric -)
     #
     # 4, addtional mathematical operations.
