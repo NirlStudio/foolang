@@ -9,26 +9,12 @@
 # 0, to define and implement of 'seqn'.
 ($impl seqn
     # 1, the constructor of seqn.
-    (seqn  (= (! limit:numeric?0    start:numeric?0 
-                 step:numeric?1 by_count:bool?false)
-        (if (step:neq 0)
-            (if by_count
-                (if (limit:ge 1) 
-                    (return (this:_seqn start step (int limit)
-                -)
-            else
-            (* 
-                (decl count ((limit:sub start):div step -)
-                (if (count:gt 0)
-                    (return (this:_seqn start step
-                        (if (count:gt 1) (int count) else 1 -)
-    -)
-    #
-    (_seqn  (= (! current step count)
-        (&impl this
-            (:_current  current)
-            (:_step     step)
-            (:_count    count)
+    (seqn  (= (! count:int?0 start:numeric?0 step:numeric?1) 
+        (if ((count:gt 0):and (step:neq 0))
+            (&impl this
+                (:_count    count)
+                (:_current  start)
+                (:_step     step)
     -)
     #
     (:rest  (= ?int (return :_count -)
@@ -37,14 +23,14 @@
     #
     (:next  (= ?seqn
         (if (:_count:gt 1)
-            (seqn (:_current:add step) :_step (:_count:sub 1)
+            (seqn (:_count:sub ) (:_current:add step) :_step
     -)
     #
     ($next  (= ?seqn
         (if (:_count:gt 1) 
             (&impl this
+                (:_count    (&:_count:sub -)
                 (:_current  (&:_current:add :_step -)
-                (:_count    (&:_count:sub   1 -)
     -)
 );
 ###############################################################################
