@@ -32,30 +32,30 @@
     # 3.0, 'abs' can be used to get the absolute value of 'this'.
     (:abs (= ?numeric -)
     # 3.1, 'add' can be used to add one or more numbers to 'this'.
-    (:add (= (! num:numeric *) ?numeric -)
+    (:add (= (! num:numeric?1 *) ?numeric -)
     # 3.2, 'sub' can be used to subtract one or more numbers from 'this'.
-    (:sub (= (! num:numeric *) ?numeric -)
+    (:sub (= (! num:numeric?1 *) ?numeric -)
     # 3.3, 'mul' computes the value of 'this' multiplied by one or more numbers.
-    (:mul (= (! num:numeric *) ?numeric -)
+    (:mul (= (! num:numeric?1 *) ?numeric -)
     # 3.4, 'div' computes the value of 'this' divided by one or more numbers.
-    (:div (= (! num:numeric *) ?numeric -)
+    (:div (= (! num:numeric?1 *) ?numeric -)
     # 3.5, 'mod' can be used to compute the modulo of 'this' to 'num'.
-    (:mod (= (! num:numeric) ?numeric -)
+    (:mod (= (! num:numeric?1) ?numeric -)
     #
     # 4, addtional mathematical operations.
     # 4.0, 'power' can be used to compute the value raised to the power of 'num'.
-    (:power (= (! num:numeric) ?numeric -)
+    (:power (= (! num:numeric?1.0) ?numeric -)
     # 4.1, 'root' can be used to compute the num-th root of its value.
-    (:root (= (! num:numeric accept_complex:bool) ?numeric -)
+    (:root (= (! num:numeric?1.0 accept_complex:bool?false) ?numeric -)
     # 4.2, 'sqrt' can be used to compute the square root of its value.
-    (:sqrt (= (! accept_complex:bool) ?numeric -)
+    (:sqrt (= (! accept_complex:bool?false) ?numeric -)
     # 4.3, 'ln' can be used to compute the natural logarithm of its value.
-    (:ln (= (! accept_complex:bool) ?numeric -)
+    (:ln (= (! accept_complex:bool?false) ?numeric -)
     # 4.4, 'lg' can be used to compute the logarithm to base '2'.
-    (:lg (= (! accept_complex:bool) ?numeric -)
+    (:lg (= (! accept_complex:bool?false) ?numeric -)
     # 4.5, 'log' can be used to compute the logarithm to base 'num'.
     # 4.6, by default, the base of 'log' will be '10'.
-    (:log (= (! num:numeric accept_complex:bool) ?numeric -)
+    (:log (= (! num:numeric?10.0 accept_complex:bool?false) ?numeric -)
     #
     # 5, mathematical constants.
     # 5.0, 'Pi' is a constant value of Pi.
