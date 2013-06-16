@@ -36,7 +36,7 @@
     #
     (:SaveOffset ?int) #???
     # 3, functions to save data.
-    # 3.0, all the returned result sets Of ':$save_*' return the new offset.
+    # 3.0, all the returned result sets Of '$save_*' return the new offset.
     # 3.1, 'save_byte' writes a byte/int8 value into the buffer.
     (save_byte   (= (! value:int offset:int) ?data -)
     # 3.2, 'save_short' writes a short/int16 value into the buffer.
