@@ -9,7 +9,7 @@
 # 0, to implement constructors of array.
 (decl array (= (! type item *) ?array
     (with 
-        (&impl this (ItemType type -)
+        (impl this (ItemType type -)
         (for item in (argi 1)
             (&last:append item)
 );

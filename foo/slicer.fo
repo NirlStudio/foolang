@@ -11,7 +11,7 @@
     # 1, constructor of slicer.
     (slicer (= (! rest:int?1 item) ?slicer
         (if (rest:gt 0)
-            (&impl (this:iterator item)
+            (impl (this:iterator item)
                 (_rest  rest)
     -)
     #
@@ -28,7 +28,7 @@
     #
     ($next (= ?slicer
         (if (:_count:gt 1)
-            (&impl this
+            (impl this
                 (_rest  (&:_rest:sub -)
     -)
 );
@@ -40,11 +40,11 @@
     (if (argc:gt 0)
         (swith argc
             (1  (slicer 1 item0 -)
-            (2  (&impl (slicer 2 item0) 
+            (2  (impl (slicer 2 item0) 
                 (_next  (slicer 1 item1 -)
                 (next   :_next -)
             -)
-            (3  (&impl (slicer 3 item0) 
+            (3  (impl (slicer 3 item0) 
                 (_next  (self item1 item2 -)
                 (next   :_next -)
             -)

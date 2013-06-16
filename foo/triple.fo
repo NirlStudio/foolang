@@ -10,7 +10,7 @@
 ($impl triple
     # 1, the constructor of 'triple'.
     (triple (= (! left middle right) ?triple
-        (&impl this
+        (impl this
             (L left)
             (M middle)
             (R right)

@@ -11,7 +11,7 @@
     # 1, the constructor of seqn.
     (seqn  (= (! count:int?0 start:numeric?0 step:numeric?1) 
         (if ((count:gt 0):and (step:neq 0))
-            (&impl 
+            (impl 
               (this:slicer count start)
                 (:_step     step)
     -)

@@ -16,12 +16,12 @@
         -)
         (decl rest (with 0 (foreach iter in iters
             (if ((iter:rest ):gt 0)
-                (&last:add (iter:rest -)
+                (last:add (iter:rest -)
             else
                 (break)
         -)
         (if (iters:Count:gt 0)
-            (&impl
+            (impl
               (this:iterator ((:_iters:get 0):item -)
                 (_iters iters)
     -)
@@ -33,7 +33,7 @@
     -)
     #
     ($join (= (! iter:iterator *) ?cons
-        (&impl this
+        (impl this
             (_iters  (&:iters:join args -)
     -)
     #
@@ -52,13 +52,13 @@
         (decl nxt (&cur:next -)
         (if (nxt:is null)
             (if (:_iters:Count:gt 1)
-                (&impl
+                (impl
                   (this:iterator ((:_iters:get 0):item -)
                     (_iters  (&:_iters:delete -)
                     (_rest   (&:_rest:sub -)
             -)
          else
-            (&impl
+            (impl
               (this:iterator ((:_iters:get 0):item -)
                 (_iters  (&:_iters:cas 0 cur nxt -)
                 (_rest   (&:_rest:sub -)

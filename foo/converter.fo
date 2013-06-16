@@ -11,7 +11,7 @@
     # 1, the constructor of converter.
     (converter (= (! src:iterator func:function) ?converter
         (if (src:is_not null)
-            (&impl 
+            (impl 
               (this:iterator (func (src:item -)
                 (_src  src )
                 (_func func)
@@ -27,7 +27,7 @@
     ($next (= ?converter (*
         (decl src (&:_src:next -)
         (if (src:is_not null)
-            (&impl
+            (impl
               (this:iterator (func (src:item -)
                 (_src  src)
     -)

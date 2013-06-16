@@ -10,7 +10,7 @@
 ($impl couple
     # 1, the constructor of 'couple'.
     (couple (= (! left right) ?couple 
-        (&impl this
+        (impl this
             (L left)
             (R right)
     -)

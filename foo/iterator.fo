@@ -10,7 +10,7 @@
 ($impl iterator 
     # 1, constructor of iterator.
     (iterator (= (! item) ?iterator
-        (&impl this (_item item -)
+        (impl this (_item item -)
     -)
     #
     # 1, fundamental operations.

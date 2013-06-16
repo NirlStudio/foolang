@@ -10,7 +10,7 @@
 ($impl pair
     # 1, the constructor of 'pair'.
     (pair (= (! key value) ?pair
-        (&impl this 
+        (impl this 
             (K key)
             (V value)
     -)
