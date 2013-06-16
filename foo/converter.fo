@@ -11,23 +11,24 @@
     # 1, the constructor of converter.
     (converter (= (! src:iterator func:function) ?converter
         (if (src:is_not null)
-            (&impl this 
+            (&impl 
+              (this:iterator (func (src:item -)
                 (_src  src )
                 (_func func)
     -)
+    # 2, to forward the rest count if the 'src' has it.
+    (:rest (= (:_src:rest -)
     #
+    # 3, overridden operations.
     (:next (= ?converter 
         (converter (:_src:next ) :_func -)
-    -)
-    #
-    (:item (= ?* 
-        (_func (:_src:item -)
     -)
     #
     ($next (= ?converter (*
         (decl src (&:_src:next -)
         (if (src:is_not null)
             (&impl this
+              (this:iterator (func (src:item -)
                 (_src  src)
     -)
     #

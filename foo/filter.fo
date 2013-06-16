@@ -12,7 +12,7 @@
     (filter (= (! src:iterator test:function) ?filter (*
         (decl src (:_find_next test src -) 
         (if (src:is_not null)
-            (&impl this
+            (&impl (this:iterator (src:item))
                 (_src  src)
                 (_test test)
     -)
@@ -21,14 +21,10 @@
         (filter (:_src:next ) :_test -)
     -)
     #
-    (:item (= ?* 
-        (:_src:item )
-    -)
-    #
     ($next (= ?filter (*
         (decl src (:_find_next :_test (&:_src:next -)
         (if (src:is_not null)
-            (&impl this
+            (&impl (this:iterator (src:item ))
                 (_src  src)
     -)
     #

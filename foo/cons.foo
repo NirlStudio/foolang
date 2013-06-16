@@ -14,16 +14,25 @@
             (filter args
                 (= (! item) (item:is_not null -)
         -)
+        (decl rest (with 0 (foreach iter in iters
+            (if ((iter:rest ):gt 0)
+                (&last:add (iter:rest -)
+            else
+                (break)
+        -)
         (if (iters:Count:gt 0)
-            (&impl this 
+            (&impl
+              (this:iterator ((:_iters:get 0):item -)
                 (_iters iters)
     -)
+    #
+    (:rest (= (:_rest -)
     #
     (:join (= (! iter:iterator *) ?cons
         (call cons (:_iters:join args -)
     -)
     #
-    (:$join (= (! iter:iterator *) ?cons
+    ($join (= (! iter:iterator *) ?cons
         (&impl this
             (_iters  (&:iters:join args -)
     -)
@@ -38,22 +47,21 @@
             (call cons (:_iters:put 0 nxt -)
     -)
     #
-    (:$next (= ?iterator (*
+    ($next (= ?iterator (*
         (decl cur (:iters:get 0 -)
         (decl nxt (&cur:next -)
         (if (nxt:is null)
             (if (:_iters:Count:gt 1)
-                (&impl this 
-                    (_iters (&:_iters:delete -)
+                (&impl
+                  (this:iterator ((:_iters:get 0):item -)
+                    (_iters  (&:_iters:delete -)
+                    (_rest   (&:_rest:sub -)
             -)
          else
-            (&impl this 
-                (_iters (&:_iters:cas 0 cur nxt -)
+            (&impl
+              (this:iterator ((:_iters:get 0):item -)
+                (_iters  (&:_iters:cas 0 cur nxt -)
+                (_rest   (&:_rest:sub -)
     -)
-    #
-    (:item (= ?*
-        ((:_iters:get 0):item )
-    -)
-    #
 );
 ###############################################################################
