@@ -11,7 +11,7 @@
     (with 
         (impl this (ItemType type -)
         (for item in (argi 1)
-            (&last:append item)
+            (last:append item)
 );
 #
 (decl of (= (! type items:iterator|iterable *) ?array
@@ -19,7 +19,7 @@
         (for iter in (argi 1)
             (for item in 
                 (if (iter:as iterable) (iter:items ) iter -)
-                (&last:append item)
+                (last:append item)
 );
 # 1, to implement the ':check'.
 (decl :check (= (! value) ?bool

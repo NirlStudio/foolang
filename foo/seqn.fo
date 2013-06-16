@@ -29,7 +29,7 @@
     #
     ($next  (= ?seqn
         (if (:_rest:gt 1) 
-            (this:slicer (&:_rest:sub -) (&:_item:add :_step -)
+            (this:slicer (:_rest:sub -) (:_item:add :_step -)
     -)
 );
 ###############################################################################

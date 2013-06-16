@@ -30,28 +30,13 @@
                 (if (other:has item)
                     (continue last)
                 else
-                    (&last:remove item)
-    -)
-    #
-    ($intersect  (= (! other:set *) ?set (*
-        (with this (foreach item in (this:clone )
-            (with last (foreach other in args
-                (if (other:has item)
-                    (continue last)
-                else
-                    (&last:remove item)
-    -)
-    #
-    (:subtract  (= (! other:set *) ?set
-        (with (this:clone ) 
-            (foreach item in (call cons args)
-                (&last:remove item)
+                    (last:remove item)
     -)
     #
     ($subtract  (= (! other:set *) ?set
         (with this
             (foreach item in (call cons args)
-                (&last:remove item)
+                (last:remove item)
     -)
     #
 );

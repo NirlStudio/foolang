@@ -25,7 +25,7 @@
     -)
     #
     ($next (= ?converter (*
-        (decl src (&:_src:next -)
+        (decl src (:_src:next -)
         (if (src:is_not null)
             (impl
               (this:iterator (func (src:item -)

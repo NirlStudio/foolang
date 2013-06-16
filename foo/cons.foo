@@ -34,7 +34,7 @@
     #
     ($join (= (! iter:iterator *) ?cons
         (impl this
-            (_iters  (&:iters:join args -)
+            (_iters  (:iters:join args -)
     -)
     #
     (:next (= ?iterator (*
@@ -54,14 +54,14 @@
             (if (:_iters:Count:gt 1)
                 (impl
                   (this:iterator ((:_iters:get 0):item -)
-                    (_iters  (&:_iters:delete -)
-                    (_rest   (&:_rest:sub -)
+                    (_iters  (:_iters:delete -)
+                    (_rest   (:_rest:sub -)
             -)
          else
             (impl
               (this:iterator ((:_iters:get 0):item -)
-                (_iters  (&:_iters:cas 0 cur nxt -)
-                (_rest   (&:_rest:sub -)
+                (_iters  (:_iters:cas 0 cur nxt -)
+                (_rest   (:_rest:sub -)
     -)
 );
 ###############################################################################

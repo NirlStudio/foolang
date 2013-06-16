@@ -23,21 +23,14 @@
         (if (refer:is value)
             (return this)
         else
-            (&this:put key value)
-    -)
-    #
-    (:join  (= (! other:map *) ?map
-        (with (this:clone )
-            (foreach other in args
-                (for (key value) in other
-                    (&last:put key value)
+            (this:put key value)
     -)
     #
     ($join  (= (! other:map *) ?map
         (with this
             (foreach other in args
                 (for (key value) in other
-                    (&last:put key value)
+                    (last:put key value)
     -)
     #
     (:triage  (= (! func:function *) ?(map *) (*
@@ -58,7 +51,7 @@
             (with (this:clear ) 
                 (for (key value) in this
                     (if (func key value)
-                        (&last:put key value)
+                        (last:put key value)
                     else
                         (continue last)
     -)

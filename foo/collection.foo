@@ -38,21 +38,14 @@
         (if (value:is item)
             (return this)
         else
-            (&(&this:remove item):put value)
-    -)
-    #
-    (:join  (= (! iter:iterator *) ?collection
-        (with (this:clone )
-            (foreach iter in args
-                (foreach item in iter
-                    (&last:put item)
+            ((this:remove item):put value)
     -)
     #
     ($join  (= (! iter:iterator *) ?collection
         (with this
             (foreach iter in args
                 (foreach item in iter
-                    (&last:put item)
+                    (last:put item)
     -)
     #
     (:triage  (= (! func:function *) ?(collection *) (*
@@ -73,7 +66,7 @@
             (with (this:clear ) 
                 (foreach item in this
                     (if (func item)
-                        (&last:put item)
+                        (last:put item)
                     else
                         (continue last)
     -)

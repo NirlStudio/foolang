@@ -26,7 +26,7 @@
         (with (array string) 
             (foreach name in :Names
                 (if (values:band :@name)
-                    (&last:apend name)
+                    (last:apend name)
     -)
     #
     (to_values (= (! names:iterator|iterable) ?enum

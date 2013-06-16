@@ -22,7 +22,7 @@
     -)
     #
     ($next (= ?filter (*
-        (decl src (:_find_next :_test (&:_src:next -)
+        (decl src (:_find_next :_test (:_src:next -)
         (if (src:is_not null)
             (impl (this:iterator (src:item ))
                 (_src  src)
@@ -33,7 +33,7 @@
             (if (test (last:item ))
                 (return last)
              else
-                (&last:next )
+                (last:next )
     -)
     #
 ) ;

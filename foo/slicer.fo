@@ -29,7 +29,7 @@
     ($next (= ?slicer
         (if (:_count:gt 1)
             (impl this
-                (_rest  (&:_rest:sub -)
+                (_rest  (:_rest:sub -)
     -)
 );
 #
