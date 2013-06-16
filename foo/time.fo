@@ -29,7 +29,7 @@
 ###############################################################################
 # 1, to define and implement operations of 'time'.
 # 1.0, the internal time value is the seconds from '1/1/1970 0:0:0 UTC'.
-(impl time
+($impl time
     # 2, constructor and generator functions.
     # 2.0, 'time' returns an instance based on several separate local values.
     (time (= (! year:int?0  month:int?1    day:int?1
