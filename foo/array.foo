@@ -39,39 +39,39 @@
                     (if (this:check item) item -)
 );
 #
-(decl :$put (= (! offset:int?0 item *) ?array
+(decl $put (= (! offset:int?0 item *) ?array
     (&call super:put (cons 
         (single offset) 
         (this:_converter (argi 1)
 );
 #
-(decl :$copy (= (! offset:int?0 src:iterator|iterable *) ?array
+(decl $copy (= (! offset:int?0 src:iterator|iterable *) ?array
     (&call super:copy (cons 
         (single offset)
         (call this:_converter (argi 1)
 );
 #
-(decl :$insert (= (! offset:int?0 item *) ?array
+(decl $insert (= (! offset:int?0 item *) ?array
     (&call super:insert (cons 
         (single offset) 
         (this:_converter (argi 1)
 );
 #
-(decl :$prepend (= (! item *) ?array
+(decl $prepend (= (! item *) ?array
     (&call super:prepend (this:_convert args -)
 );
 #
-(decl :$merge (= (! offset:int?0 src:iterator|iterable *) ?array
+(decl $merge (= (! offset:int?0 src:iterator|iterable *) ?array
     (&call super:merge (cons 
         (single offset)
         (call this:_converter (argi 1)
 );
 #
-(decl :$append (= (! item *) ?array
+(decl $append (= (! item *) ?array
     (&call super:append (this:_convert args -)
 );
 #
-(decl :$join (= (! src:iterator|iterable *) ?array
+(decl $join (= (! src:iterator|iterable *) ?array
     (&super:join (call this:_convert args -)
 );
 #
