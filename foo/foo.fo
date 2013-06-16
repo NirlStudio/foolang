@@ -515,11 +515,11 @@
 (decl pmember (= (! name:string types:list body) ?triple ;
 # 4.3.1, 'extract' is the function form of extracting the value of a package member.
 # 4.3.1.0, 'extract' implements the semantics of referencing to 'pkg:name'.
-(decl (extract (= (! pkg:package name:string) ?* ;
+(decl extract (= (! pkg:package name:string) ?* ;
 # 4.3.2, 'invoke' is the function form to evaluate a package member.
 # 4.3.2.0, 'invoke' implements the semantics of evaluation with a 'this' entity.
 # 4.3.2.1, 'invoke' is also available for invoking pseudo members inherited from null.
-(decl (invoke (= (! pkg:package name:string arg *) ?* ;
+(decl invoke (= (! pkg:package name:string arg *) ?* ;
 #
 ###############################################################################
 # 5, Chapter of CLONEABLE
@@ -626,19 +626,17 @@
 (decl char (+int );  #noun & verb.
 #
 # 6.6, simple data structures.
-# 6.6.0, 'single' is an iterator for a single entity.
-(decl single (+slicer )  #noun & verb.
-# 6.6.1, 'pair' is a composition type with two fields: Key and Value.
-# 6.6.1.0, 'pair' is for associating the satellite data to its key or owner.
-# 6.6.1.0, the comparasion of pairs is implemented as the comparasion of their keys.
+# 6.6.0, 'pair' is a composition type with two fields: Key and Value.
+# 6.6.0.0, 'pair' is for associating the satellite data to its key or owner.
+# 6.6.0.0, the comparasion of pairs is implemented as the comparasion of their keys.
 (decl pair (+:comparable +:iterable );  #noun & verb. 
-# 6.6.2, 'couple' is a composition type with two fields: Left and Right.
-# 6.6.2.0, 'couple' can be used in all scenarios to represent a couple of values.
-# 6.6.2.1, the comparasion of couples is implemented as the comparasion of all their fields.
+# 6.6.1, 'couple' is a composition type with two fields: Left and Right.
+# 6.6.1.0, 'couple' can be used in all scenarios to represent a couple of values.
+# 6.6.1.1, the comparasion of couples is implemented as the comparasion of all their fields.
 (decl couple (+:iterable );  #noun & verb.
-# 6.6.3, 'triple' is a composition type with three fields: Left, Right and Value.
-# 6.6.3.0, 'triple' can be used to represent a collection of three values.
-# 6.6.3.1, the comparasion of triples is implemented as the comparasion of all their fields.
+# 6.6.2, 'triple' is a composition type with three fields: Left, Right and Value.
+# 6.6.2.0, 'triple' can be used to represent a collection of three values.
+# 6.6.2.1, the comparasion of triples is implemented as the comparasion of all their fields.
 (decl triple (+couple );  #noun & verb.
 #
 ###############################################################################
