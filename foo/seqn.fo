@@ -11,26 +11,25 @@
     # 1, the constructor of seqn.
     (seqn  (= (! count:int?0 start:numeric?0 step:numeric?1) 
         (if ((count:gt 0):and (step:neq 0))
-            (&impl this
-                (:_count    count)
-                (:_current  start)
+            (&impl 
+              (this:slicer count start)
                 (:_step     step)
     -)
-    #
-    (:rest  (= ?int (return :_count -)
-    #
-    (:item  (= ?numeric (return :_current -)
+    (of (= (! from:numeric?0 to:numeric?0 step:numeric?1) (*
+        (decl count (to:sub from -)
+        (if ((count:neq 0):and (step:neq 0)) (*
+            (if ((count:mul step):lt 0) ($step:neg -)
+            (seqn ((count:abs ):add ) from step -)
+    -)
     #
     (:next  (= ?seqn
-        (if (:_count:gt 1)
-            (seqn (:_count:sub ) (:_current:add step) :_step
+        (if (:_rest:gt 1)
+            (seqn (:_rest:sub ) (:_item:add step) :_step
     -)
     #
     ($next  (= ?seqn
-        (if (:_count:gt 1) 
-            (&impl this
-                (:_count    (&:_count:sub -)
-                (:_current  (&:_current:add :_step -)
+        (if (:_rest:gt 1) 
+            (this:slicer (&:_rest:sub -) (&:_item:add :_step -)
     -)
 );
 ###############################################################################
