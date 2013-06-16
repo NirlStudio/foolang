@@ -34,7 +34,7 @@
             (&(this:remove item):put value)
     -)
     #
-    (:$cas  (= (! item value) ?collection
+    ($cas  (= (! item value) ?collection
         (if (value:is item)
             (return this)
         else
@@ -48,7 +48,7 @@
                     (&last:put item)
     -)
     #
-    (:$join  (= (! iter:iterator *) ?collection
+    ($join  (= (! iter:iterator *) ?collection
         (with this
             (foreach iter in args
                 (foreach item in iter
