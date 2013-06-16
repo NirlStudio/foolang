@@ -19,7 +19,7 @@
             (this:put key value)
     -)
     #
-    (:$cas  (= (! key refer value) ?map
+    ($cas  (= (! key refer value) ?map
         (if (refer:is value)
             (return this)
         else
@@ -33,7 +33,7 @@
                     (&last:put key value)
     -)
     #
-    (:$join  (= (! other:map *) ?map
+    ($join  (= (! other:map *) ?map
         (with this
             (foreach other in args
                 (for (key value) in other
