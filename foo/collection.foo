@@ -31,7 +31,7 @@
         (if (value:is item)
             (return this)
         else
-            (&(this:remove item):put value)
+            ((this:remove item):$put value)
     -)
     #
     ($cas  (= (! item value) ?collection
@@ -55,7 +55,7 @@
         (foreach item in this
             (for (index group) in groups
                 (if ((argv index) item) (* 
-                    ($groups:cas index group (&group:put item -) 
+                    ($groups:cas index group (group:$put item -) 
                     (break )
         -)
         (return groups)

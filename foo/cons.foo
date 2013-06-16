@@ -49,7 +49,7 @@
     #
     ($next (= ?iterator (*
         (decl cur (:iters:get 0 -)
-        (decl nxt (&cur:next -)
+        (decl nxt (cur:$next -)
         (if (nxt:is null)
             (if (:_iters:Count:gt 1)
                 (impl

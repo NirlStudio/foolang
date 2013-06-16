@@ -40,7 +40,7 @@
         (for (key value) in this
             (for (index group) in groups
                 (if ((argv index) key value) (* 
-                    ($groups:cas index group (&group:put key value -) 
+                    ($groups:cas index group (group:$put key value -) 
                     (break )
         -)
         (return groups)
