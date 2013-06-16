@@ -8,10 +8,18 @@
 ###############################################################################
 # 0, to define common operations of 'iterator'.
 ($impl iterator 
+    # 1, constructor of iterator.
+    (iterator (= (! item) ?iterator
+        (&impl this (_item item -)
+    -)
+    #
     # 1, fundamental operations.
     # 1.0, ':next' returns a new 'iterator' indicating next element.
+    # 1.1, by default, ':next' just returns null.
     (:next (= ?iterator -)
-    # 1.1, ':item' returns the current element.
-    (:item (= ?* -)
+    # 1.2, ':item' returns the current element.
+    (:item (= ?*
+        (return :_item)
+    -)
 ) ;
 ###############################################################################

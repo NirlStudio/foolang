@@ -8,9 +8,48 @@
 ###############################################################################
 # 0, to define common operations of 'slicer'.
 ($impl slicer 
-    # 1, addtional operations to 'iterator'.
-    # 1.0, 'rest' returns the amount of remaining items, counting the current one.
-    (:rest (= ?int -)
-) ;
+    # 1, constructor of slicer.
+    (slicer (= (! rest:int?1 item) ?slicer
+        (if (rest:gt 0)
+            (&impl (this:iterator item)
+                (_rest  rest)
+    -)
+    #
+    # 2, addtional operations to 'iterator'.
+    # 2.0, 'rest' returns the amount of remaining items, counting the current one.
+    (:rest (= ?int
+        (return _rest)
+    -)
+    #
+    # 3, overridden operations.
+    (:next (= ?slicer
+        (slicer (:_rest:sub ) :_value -)
+    -)
+    #
+    ($next (= ?slicer
+        (if (:_count:gt 1)
+            (&impl this
+                (_rest  (&:_rest:sub -)
+    -)
+);
 #
+###############################################################################
+# 4, functions to quickly create a slicer.
+# 4.0, to create an iterator to traverse all arguments.
+(decl itearte (= (! item0 item1 item2 *) ?slicer
+    (if (argc:gt 0)
+        (swith argc
+            ( 1     (slicer 1 item0 -)
+            ( 2     ((couple item0 item1):items -)
+            ( 3     ((triple item0 item1 item2):items -)
+            ( else  ((list:of args):items -)
+);
+# 4.1, to create an iterator for a single entity.
+(decl single (= (! value)
+    (slicer 1 value)
+);
+# 4.2, to create an iterator to repeat a value for a number of times.
+(decl repeat (= (! value count:int?1)
+    (slicer count value)
+);
 ###############################################################################
