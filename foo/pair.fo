@@ -29,13 +29,18 @@
          else
             (compare :K other)
     -)
-    # 3.1, to customize the operation of 'iterable'.
-    (:items (= (! test:function) ?iterator
-        ((list :K :V):items test -)
-    -)
-    # 3.2, to use the hash code of ':K' as the hash code of 'pair'.
+    # 3.1, to use the hash code of ':K' as the hash code of 'pair'.
     (:hash (= (! hint) ?int
         (:K:hash hint)
+    -)
+    # 3.2, to customize the operation of 'iterable'.
+    (:items (= (! test:function) ?iterator
+        (if (test:is null) 
+            (iterate :K :V) 
+        else (if (test :K)
+            (if (test :V) (iterate :K :V) (single :K) -)
+        else (if (test :V)
+            (single :V)
     -)
 ) ;
 ###############################################################################

@@ -24,13 +24,25 @@
     (:_equal (= (! other:object) ?bool
         (by_default false
             (if (other:is_object triple)
-                (and (:L:equal other:L)
-                     (:M:equal other:M)
-                     (:R:equal other:R)
+                ((:L:equal other:L):and 
+                    (:M:equal other:M)
+                    (:R:equal other:R)
     -)
     # 3.1, to customize the operation of 'iterable'.
     (:items (= (! test:function) ?iterator
-        ((list :L :M :R):items test -)
+        (if (test:is null) 
+            (iterate :L :M :R) 
+        else (if (test :L)
+            (if (test :M) 
+                (if (test :R) (iterate :L :M :R) (iterate :L :M) -)
+            else
+                (if (test :R) (iterate :L :R) (single :L) -)
+            -)
+        else
+            (if (test :M) 
+                (if (test :R) (iterate :M :R) (single :M) -)
+            else
+                (if (test :R) (single :R)  -)
     -)
 ) ;
 ###############################################################################

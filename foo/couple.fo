@@ -30,7 +30,12 @@
     -)
     # 3.1, to customize the operation of 'iterable'.
     (:items (= (! test:function) ?iterator
-        ((list :L :R):items test -)
+        (if (test:is null) 
+            (iterate :L :R) 
+        else (if (test :L)
+            (if (test :R) (iterate :L :R) (single :L) -)
+        else (if (test :R)
+            (single :R)
     -)
 ) ;
 ###############################################################################

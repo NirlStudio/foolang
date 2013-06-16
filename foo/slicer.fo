@@ -39,10 +39,16 @@
 (decl itearte (= (! item0 item1 item2 *) ?slicer
     (if (argc:gt 0)
         (swith argc
-            ( 1     (slicer 1 item0 -)
-            ( 2     ((couple item0 item1):items -)
-            ( 3     ((triple item0 item1 item2):items -)
-            ( else  ((list:of args):items -)
+            (1  (slicer 1 item0 -)
+            (2  (&impl (slicer 2 item0) 
+                (_next  (slicer 1 item1 -)
+                (next   :_next -)
+            -)
+            (3  (&impl (slicer 3 item0) 
+                (_next  (self item1 item2 -)
+                (next   :_next -)
+            -)
+            (else  ((list:of args):items -)
 );
 # 4.1, to create an iterator for a single entity.
 (decl single (= (! value)
