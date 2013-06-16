@@ -40,39 +40,39 @@
 );
 #
 (decl $put (= (! offset:int?0 item *) ?array
-    (&call super:put (cons 
+    (call base:put (cons 
         (single offset) 
         (this:_converter (argi 1)
 );
 #
 (decl $copy (= (! offset:int?0 src:iterator|iterable *) ?array
-    (&call super:copy (cons 
+    (call base:copy (cons 
         (single offset)
         (call this:_converter (argi 1)
 );
 #
 (decl $insert (= (! offset:int?0 item *) ?array
-    (&call super:insert (cons 
+    (call base:insert (cons 
         (single offset) 
         (this:_converter (argi 1)
 );
 #
 (decl $prepend (= (! item *) ?array
-    (&call super:prepend (this:_convert args -)
+    (call base:prepend (this:_convert args -)
 );
 #
 (decl $merge (= (! offset:int?0 src:iterator|iterable *) ?array
-    (&call super:merge (cons 
+    (call base:merge (cons 
         (single offset)
         (call this:_converter (argi 1)
 );
 #
 (decl $append (= (! item *) ?array
-    (&call super:append (this:_convert args -)
+    (call base:append (this:_convert args -)
 );
 #
 (decl $join (= (! src:iterator|iterable *) ?array
-    (&super:join (call this:_convert args -)
+    (base:join (call this:_convert args -)
 );
 #
 ###############################################################################
