@@ -1,0 +1,57 @@
+#!(generic "foo")
+###############################################################################
+# data.fo
+#
+# The Programmer - Leevi, @2012-06-24. Happy Birthday.
+# C-Lab, Nirl Studio 2011-2013, All Rights Reserved.
+#
+###############################################################################
+# 0, to implement operations of 'data'.
+($impl data
+    # 1, constructor and generator.
+    # 1.0, the constructor is used to generate a 'data' instance.
+    # 1.1, 'padding' may be an 'int', 'iterator' or'iterable'.
+    (data (= (! size:int padding:int|iterator|iterable) ?data -)
+    # 
+    # 2, functions to parse data.
+    # 2.0, all the returned result sets Of ':read_*' include two items.
+    # 2.1, the first one is the value returned by the operation,
+    # 2.2, the second one is the new offset after the operation.
+    # 2.3, ':read_byte' returns a byte/int8 value.
+    (:read_byte   (= (! offset:int) ?(int int) -)
+    # 2.4, ':read_short' returns a short/int16 value.
+    (:read_short  (= (! offset:int) ?(int int) -)
+    # 2.5, ':read_int' returns an int32 value.
+    (:read_int    (= (! offset:int) ?(int int) -)
+    # 2.6, ':read_long' returns a long/int64 value.
+    (:read_long   (= (! offset:int) ?(int int) -)
+    # 2.7, ':read_float' returns a single-precesion floating-point value.
+    (:read_float  (= (! offset:int) ?(real int) -)
+    # 2.8, ':read_double' returns a double-precesion floating-point value.
+    (:read_double (= (! offset:int) ?(real int) -)
+    # 2.9, ':read_str' returns a string value.
+    (:read_str  (= (! offset:int length:int enc_name:string) ?(string int) -)
+    # 2.10, ':read_cstr' returns a string which length is determined by a '\0'.
+    (:read_cstr (= (! offset:int enc_name:int) ?(string int) -)
+    #
+    (:SaveOffset ?int) #???
+    # 3, functions to save data.
+    # 3.0, all the returned result sets Of '$save_*' return the new offset.
+    # 3.1, 'save_byte' writes a byte/int8 value into the buffer.
+    (save_byte   (= (! value:int offset:int) ?data -)
+    # 3.2, 'save_short' writes a short/int16 value into the buffer.
+    (save_short  (= (! value:int offset:int) ?data -)
+    # 3.3, 'save_int' writes an int32 value into the buffer.
+    (save_int    (= (! value:int offset:int) ?data -)
+    # 3.4, 'save_long' writes a long/int64 value into the buffer.
+    (save_long   (= (! value:int offset:int) ?data -)
+    # 3.5, 'save_float' writes a single-precision floating-point value into the buffer.
+    (save_float  (= (! value:real offset:int) ?data -)
+    # 3.6, 'save_double' writes a double-precision floating-point value into the buffer.
+    (save_double (= (! value:real offset:int) ?data -)
+    # 3.7, 'save_str' writes a string value
+    (save_str  (= (! str:string offset:int enc_name:string) ?data -)
+    # 3.8, 'save_cstr' writes a string value into the buffer as a c-style string.
+    (save_cstr (= (! str:string offset:int enc_name:string) ?data-)
+) ;
+###############################################################################

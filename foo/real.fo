@@ -1,0 +1,73 @@
+#!(generic "foo")
+###############################################################################
+# real.fo
+#
+# The Programmer - Leevi, @2012-06-24. Happy Birthday.
+# C-Lab, Nirl Studio 2011-2013, All Rights Reserved.
+#
+###############################################################################
+# 0, to define and implements the operations of 'real'.
+# 0.0, 'real' will be implemented as float or double following the IEEE-754.
+($impl real
+    # 1, the constructor of 'real'.
+    # 1.0, by default, it will generate a double-precision value.
+    # 1.1, the optional 'as_single' can be used to generate a single-precision value.
+    # 1,2, 'real' returns 'real:Zero' without a valid 'value' argument.
+    (real (= (! value:numeric|string as_single:bool?false) ?real -)
+    #
+    # 2, testing operations.
+    # 2.0, 'is_valid' indicates whether the value is valid and finite.
+    (:is_valid (= ?bool  -)
+    # 2.1, 'is_normal' indicates whether the internal format is 'normal' or 'subnormal'.
+    (:is_normal (= ?bool -)
+    # 2.2, 'not_number' indicates whether the value is a not-a-number value.
+    (:not_number (= ?bool -)
+    #
+    # 3, resizing operations.
+    # 3.0, ':float' returns a floating point value stored in 4 bytes.
+    # 3.1,  the value range of float is aprpoximately [-3.4E+38, 3.4E+38].
+    # 3.2, ':float' returns 'real:Infinity' or 'real:infinityN' if the value is out of range.
+    (:float (= ?real -)
+    # 3.3, ':double' returns an double precision value stored in 8 bytes.
+    # 3.4,  the value range of double is approximately [-1.7E+308, 1.7E+308].
+    (:double (= ?real -)
+    #
+    # 4, truncating operations.
+    # 4.0, 'floor' returns a value no more than original its value based on 'precision'.
+    # 4.1, the default 'precision' is 1, so to the 'ceiling' and 'round'.
+    (:floor (= (! precision:real?1.0) ?real -)
+    # 4.2, 'ceiling' returns a value no less than its original value based on 'precision'.
+    (:ceiling (= (! precision:real?1.0) ?real -)
+    # 4.3, 'round' returns a value by rounding its original value based on 'precision'.
+    (:round (= (! precision:real?1.0) ?real -)
+    # 4.4, 'int' returns the integer part of its original value.
+    (:int (= ?int -)
+    #
+    # 5, real number constants.
+    # 5.0, the maximal value as normal double: (1 + (1 - 2E−52)) * 2E+1023
+    # 5.1, the value equals approximately:     1.7976931348623157 * 10E+308
+    (MaxValue ?real)
+    # 5.2, the minimal value as normal double: (0 - real:MaxValue)
+    (MinValue ?real)
+    # 5.3, the minimal absolute value as normal double: 2E-1022 
+    # 5.4, the absolute value equals approximately:     2.2250738585072014 * 10E-308
+    (MinAbsValue ?real)
+    # 5.5, the infinity value defined as double :         0X7FF00000-00000000.
+    (Infinity ?real)
+    # 5.6, the negative infinity value defined as double: 0XFFF00000-00000000.
+    (InfinityN ?real)
+    # 5.7, a value indicates Not-a-Number:                0XFFFFFFFF-FFFFFFFF.
+    (NaN ?real)
+) ;
+###############################################################################
+# 6, functions to generate real numbers.
+# 6.0, 'float' will generate a single-precesion floating-point number.
+(decl float (= (! value:numeric|string) 
+    (real value true)
+);
+# 6.1, 'double' is an alias of 'real'.
+(decl double (= (! value:numeric|string)
+    (real value)
+);
+# 
+###############################################################################

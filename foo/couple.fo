@@ -1,0 +1,41 @@
+#!(generic "foo")
+###############################################################################
+# couple.fo
+#
+# The Programmer - Leevi, @2012-12-14.
+# C-Lab, Nirl Studio 2011-2013, All Rights Reserved.
+#
+###############################################################################
+# 0, the structure of 'couple'.
+($impl couple
+    # 1, the constructor of 'couple'.
+    (couple (= (! left right) ?couple 
+        (impl this
+            (L left)
+            (R right)
+    -)
+    #
+    # 2, the fields of 'couple'.
+    # 2.0, the left value of 'couple'.
+    (:L ?*) 
+    # 2.1, the right value of 'couple'.
+    (:R ?*) 
+    #
+    # 3, overridden operations.
+    # 3.0, to customize the behaviour of equivalence.
+    (:_equal (= (! other:object) ?bool
+        (by_default false
+            (if (other:is_object couple)
+                ((:L:equal other:L):and (:R:equal other:R -)
+    -)
+    # 3.1, to customize the operation of 'iterable'.
+    (:items (= (! test:function) ?iterator
+        (if (test:is null) 
+            (iterate :L :R) 
+        else (if (test :L)
+            (if (test :R) (iterate :L :R) (single :L) -)
+        else (if (test :R)
+            (single :R)
+    -)
+) ;
+###############################################################################

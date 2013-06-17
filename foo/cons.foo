@@ -1,0 +1,79 @@
+#!foo
+###############################################################################
+# cons.foo
+#
+# The Programmer - Leevi, @2013-06-06.
+# C-Lab, Nirl Studio 2011-2013, All Rights Reserved.
+#
+###############################################################################
+#
+($impl cons
+    #
+    (cons (= (! iter:iterator *) ?cons (*
+        (decl iters (array:of iterator 
+            (filter args
+                (= (! item) (item:is_not null -)
+        -)
+        (decl rest (with 0 (foreach iter in iters
+            (if ((iter:rest ):gt 0)
+                (last:add (iter:rest -)
+            else
+                (break null)
+        -)
+        (if (iters:Count:gt 0)
+            (impl
+              (this:iterator ((:_iters:get 0):item -)
+                (_iters  iters)
+                (_rest   rest)
+    -)
+    #
+    (:rest (= (:_rest -)
+    #
+    (:join (= (! iter:iterator *) ?cons
+        (call cons (:_iters:join args -)
+    -)
+    #
+    ($join (= (! iter:iterator *) ?cons
+        (decl iters (array:of iterator 
+            (filter args
+                (= (! item) (item:is_not null -)
+        -)
+        (decl rest (with 0 (foreach iter in iters
+            (if ((iter:rest ):gt 0)
+                (last:add (iter:rest -)
+            else
+                (break null)
+        -)
+        (impl this
+            (_iters  (:iters:join args -)
+            (_rest   (:_rest:add rest -)
+    -)
+    #
+    (:next (= ?iterator (*
+        (decl nxt ((:_iters:get 0):next -)
+        (if (nxt:is null)
+            (if (:_iters:Count:gt 1)
+                (call cons (:_iters:delete -)
+            -)
+         else
+            (call cons (:_iters:put 0 nxt -)
+    -)
+    #
+    ($next (= ?iterator (*
+        (decl cur (:iters:get 0 -)
+        (decl nxt (cur:$next -)
+        (if (nxt:is null)
+            (if (:_iters:Count:gt 1)
+                (impl
+                  (this:iterator ((:_iters:get 0):item -)
+                    (_iters  (:_iters:delete -)
+                    (_rest   (:_rest:sub -)
+            -)
+         else
+            (impl
+              (this:iterator ((:_iters:get 0):item -)
+                (_iters  (:_iters:cas 0 cur nxt -)
+                (_rest   (:_rest:sub -)
+    -)
+);
+###############################################################################

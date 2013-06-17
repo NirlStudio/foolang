@@ -1,0 +1,28 @@
+#!(generic "foo")
+###############################################################################
+# compared.fo
+#
+# The Programmer - Leevi, @2012-06-24. Happy Birthday.
+# C-Lab, Nirl Studio 2011-2013, All Rights Reserved.
+#
+###############################################################################
+# 0, 'compared' defines valid results of comparasion of values in a poset.
+($impl compared
+    # 1, fundamental notations 
+    # 1.0, the left operand is great than the right operand.
+    (Great 1) 
+    # 1.1, the left operand equals to the right operand.
+    (Equal 0)
+    # 1.2, the left operand is less than the right operand.
+    (Less -1)
+) ;
+###############################################################################
+# 2, global references for values of compared.
+# 2.0, abbreviated form of 'Great'.
+(decl GREAT compared:Great)
+# 2.1, abbreviated form of 'Equal'.
+(decl EQUAL compared:Equal)
+# 2.2, abbreviated form of 'Less'.
+(decl LESS compared:Less)
+#
+###############################################################################

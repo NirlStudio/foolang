@@ -1,0 +1,108 @@
+#!(generic "foo")
+###############################################################################
+# sliceable.fo
+#
+# The Programmer - Leevi, @2012-10-04.
+# C-Lab, Nirl Studio 2011-2013, All Rights Reserved.
+#
+###############################################################################
+# 0, to define the operations of a 'sliceable' entity.
+# 0.0, the offset of an element of 'sliceable' should be a zero-based integer.
+# 0.1, the value of an element of 'sliceable' should support 'equal' or 'is'.
+($impl sliceable
+    # 1, query operations.
+    # 1.0, ':get' overrides the operation of 'collection' to resolve 'item' as an offset.
+    # 1.0.0, ':get' returns 'null' if the 'offset' is great than 'this:Count'.
+    # 1.0.1, an negative 'offset' will be equivalent to '(offset:mod this:Count)'.
+    (:get  (= (! offset:int?0) ?* -)
+    # 1.1, 'slice:' returns a 'slicer' traversing in the range of [from, to).
+    # 1.1.0, 'slice:' returns null if the range of [from, to) is empty.
+    # 1.1.1, both 'from' and 'to' could be negative values.
+    # 1.1.2, if so, the value will be equivalent to '(value:mod this:Count)'.
+    # 1.1.3, 'to' will be equivalent to 'this:Count' if it is null.
+    (:slice  (= (! from:int?0 to:int) ?slicer -)
+    # 1.2, ':cut' works like 'slice', but returns an copied sliceable collection.
+    (:cut  (= (! from:int?0 to:int) ?sliceable -)
+    #
+    # 2, incremental update operations.
+    # 2.0, these opertions will return an updated collection.
+    # 2.1, overridden ':put' will replace existing elements from 'offset'. 
+    (:put  (= (! offset:int?0 item *) ?sliceable -)
+    # 2.2, ':extend' returns an extended copy of this sliceable entity.
+    # 2.2.0, the 'padding' will be used to fulfill new extended slots.
+    (:extend  (= (! size:int?0 padding) ?sliceable -)
+    # 2.3, ':cas' sets the value at 'offset' to 'value' if it's not 'refer'.
+    # 2.3.0, ':cas' returns 'this' if '(value:is refer)' is true.
+    (:cas  (= (! offset:int refer value) ?sliceable -)
+    # 2.4, ':move' move 'num' of items from its orginal position to new positon. 
+    (:move  (= (! from:int?0 to:int?0 num:int?1) ?sliceable -)
+    # 2.5, ':copy' will replace existing elements from 'offset' using items from 'source'.
+    (:copy  (= (! offset:int?0 src:iterator *) ?sliceable -)
+    # 2.6, ':merge' will insert all items in 'source' from 'offset'.
+    (:merge  (= (! offset:int?0 src:iterator *) ?sliceable -)
+    # 2.7, ':insert' will insert all 'item' from the position of 'offset'.
+    (:insert  (= (! offset:int?0 item *) ?sliceable -)
+    # 2.8, ':prepend' will append all 'item' in arguments as the first one.
+    (:prepend  (= (! item *) ?sliceable -)
+    # 2.9, ':append' will append all 'item' in arguments to the end.
+    (:append (= (! item *) ?sliceable -)
+    # 2.10, overridden ':join' will append all items in 'source' to the end.
+    (:join  (= (! src:iterator *) ?sliceable -)
+    # 2.11, overridden ':remove' will remove all occurences of 'item'. 
+    (:remove  (= (! item *) ?sliceable -)
+    # 2.12, ':delete' will remove all elements in range of [from, from+count). 
+    (:delete  (= (! index:int|couple|series *) ?sliceable -)
+    # 2.13, ':swap' will swap the values indexed by 'p' and 'q'. 
+    (:swap  (= (! p:int q:int) ?sliceable -)
+    # 2.14, ':reverse' will reverse all items in this collection. 
+    (:reverse  (= ?sliceable -)
+    #
+    # 3, searching for an item.
+    # 3.0, 'sliceable' provides default implementations for 'find' and 'find_all'.
+    # 3.1, ':find' returns the first offset for 'item' in the range of [from, to).
+    # 3.2, ':find' returns a negative value if none was found.
+    (:find  (= (! item from:int?0 to:int) ?int -)
+    # 3.3, ':find_last' works like ':find' but to search from the tail.
+    (:find_last  (= (! item from:int?0 to:int) ?int -)
+    # 3.4, ':find_all' returns a series of offset for 'item' in the range of [from, to).
+    # 3.5, ':find_all' returns null if none was found.
+    (:find_all  (= (! item from:int?0 to:int) ?iterator -)
+    #
+    # 4, searching for any one of 'items'.
+    # 4.0, 'sliceable' provides default implementations for 'scan' and 'scan_all'.
+    # 4.1, ':scan' returns the offset of the first occurence.
+    # 4.2, ':scan' returns a negative value if none was found.
+    (:scan  (= (! iter:iterator from:int?0 to:int) ?int -)
+    # 4.3, ':scan_last' works like ':scan' but to search from the tail.
+    (:scan_last  (= (! iter:iterator from:int?0 to:int) ?int -)
+    # 4.4, 'scan_all' returns a series of offset in the range of [from, to).
+    # 4.5, ':scan_all' returns null if none was found.
+    (:scan_all  (= (! iter:iterator from:int?0 to:int) ?iterator -)
+    #
+    # 5, matching for a permutation of 'sliceable'.
+    # 5.0, 'sliceable' provides default implementations for 'match' and 'match_all'.
+    # 5.1, ':match' returns the offset of first occurence of 'perm'.
+    # 5.2, ':match' returns a negative value if none was matched.
+    (:match  (= (! perm:sliceable from:int?0 to:int) ?int -)
+    # 5.3, ':match_all' returns a series of offset in the range of [from, to),
+    # 5.4, ':match_all' returns null if none was matched.
+    (:match_all  (= (! perm:sliceable from:int?0 to:int) ?iterator -)
+    #
+    # 6, common algorithms for 'sliceable'.
+    # 6.0, 'sliceable' provides default implementations for them.
+    # 6.1, ':sort' returns a new 'sliceable' entity containing sorted items.
+    # 6.2, ':sort' assumes that items is 'comparable'.
+    (:sort  (= (! order:ordering?ASC
+               comparer:function) ?sliceable 
+    -)
+    # 6.3, ':topn' returns a new 'sliceable' entity containing top 'num' items.
+    (:topn  (= (! num:int?1 
+                order:ordering?ASC 
+             comparer:function) ?sliceable 
+    -)
+    # 6.5, ':max' is used to find out the maximal value in the set.
+    (:max  (= (! comparer:function) ?* -)
+    # 6.6, ':min' is used to find out the minimal value in the set.
+    (:min  (= (! comparer:function) ?* -)
+) ;
+###############################################################################

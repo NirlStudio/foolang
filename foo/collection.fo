@@ -1,0 +1,39 @@
+#!(generic "foo")
+###############################################################################
+# collection.fo
+#
+# The Programmer - Leevi, @2012-06-24. Happy Birthday.
+# C-Lab, Nirl Studio 2011-2013, All Rights Reserved.
+#
+###############################################################################
+# 0, to define properties and operations of 'collection'.
+($impl collection
+    # 1, query and testing operations.
+    # 1.0, ':has' can be used to test for whether containing all the items.
+    (:has (= (! item *) ?bool -)
+    # 1.1, ':has_any' works like 'has', but will return 'true' for any match.
+    (:has_any (= (! item *) ?bool -)
+    # 1.2, ':get' can be used to fetch the existing equivalent element.
+    # 1.3, ':get' will return a 'null' without a matched one.
+    (:get (= (! item) ?* -)
+    #
+    # 2, incremental operations to generate new collection.
+    # 2.0, ':put' returns a copied collection containing items in arguments.
+    (:put (= (! item *) ?collection -)
+    # 2.1, ':cas' uses 'value' to replace 'item' to produce a new collection.
+    # 2.2, if '(refer:is value)' is true, 'cas' will return the value of 'this'.
+    (:cas (= (! refer value) ?collection -)
+    # 2.3, ':join' returns a copied collection joined with a series of 'other'.
+    (:join (= (! iter:iterator *) ?collection -)
+    # 2.4, ':remove' returns a copied collection which had excluded items.
+    (:remove (= (! item *) ?collection -)
+    #
+    # 3, analysis operations.
+    # 3.0, ':triage' returns one or more collections basing on filtering statements.
+    (:triage (= (! func:function *) ?(collection *) -)
+    # 3.1, ':assort' works like ':triage' but an item can be matched more than once.
+    (:assort (= (! func:function *) ?(collection *) -)
+    # 3.2, the 'func' in ':triage' and ':assort' should return a boolean value. 
+    #
+) ;
+###############################################################################

@@ -1,0 +1,21 @@
+#!(generic "foo")
+###############################################################################
+# package.fo
+#
+# The Programmer - Leevi, @2012-06-24. Happy Birthday. Updated @2013-02-03.
+# C-Lab, Nirl Studio 2011-2013, All Rights Reserved.
+#
+###############################################################################
+# 0, to implement generic operations of 'package'.
+($impl package
+    # 1, dynamically refer to a member.
+    # 1.0, like the global '@' function, '@' can be used as 'pkg:@name'. 
+    # 1.1, when using '@', code cann invoke private and protected members of package.
+    (@ (= (! name:string) ?* -)
+    #
+    # 2, to get all the members of 'package'.
+    # 2.0, 'Members' is a 'set' of all customized member names.
+    (Members ?set)
+    #
+) ;
+###############################################################################

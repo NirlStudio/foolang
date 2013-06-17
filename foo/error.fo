@@ -1,0 +1,30 @@
+#!(generic "foo")
+###############################################################################
+# error.fo
+#
+# The Programmer - Leevi, @2012-06-24. Happy Birthday.
+# C-Lab, Nirl Studio 2011-2013, All Rights Reserved.
+#
+###############################################################################
+# 0, to define properties and operations of 'error'.
+($impl error
+    # 1, constructor of 'error'.
+    # 1.0, 'error' produces an instance of 'error'.
+    # 1.1, all negative values of 'code' are reserved to indicate verious internal errors.
+    # 1.2, application can use any positive values to indicate application errors.
+    # 1.3, 'reason' should be another 'error' instance if it's not null.
+    (error (= (! code:int?0 msg:string reason:error) ?error -)
+    #
+    # 2, properties of 'error'.
+    # 2.0, ':Code' is the error code.
+    (:Code ?int) -)
+    # 2.1, ':Message' is a readable error message.
+    (:Message ?string) -)
+    # 2.2, ':Reason' is an internal error which caused this one.
+    (:Reason ?error) -)
+    #
+    # 3, operation of 'error'.
+    # 3.0, ':dump' returns a string printing out the stack trace for the error.
+    (:dump (= ?string -)
+) ;
+###############################################################################

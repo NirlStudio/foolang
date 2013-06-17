@@ -1,0 +1,37 @@
+#!(generic "foo")
+###############################################################################
+# enum.fo
+#
+# The Programmer - Leevi, @2012-06-24. Happy Birthday.
+# C-Lab, Nirl Studio 2011-2013, All Rights Reserved.
+#
+###############################################################################
+# 0, to implement some generic operations of 'enum'.
+($impl enum
+    # 1, operations for discrete values.
+    # 1.0, 'Names' is an array of strings of all valid enum names.
+    (Names ?array) 
+    # 1.1, 'Values' is a series of all valid values.
+    (Values ?series)
+    #
+    # 2, operations for discrete values.
+    # 2.0, to convert a valid value to its name.
+    # 2.1, an invalid value will be converted to an empty string.
+    # 2.2, if called for an enum object, 'this' will be taken as 'value'.
+    (to_name  (= (! value:enum?0) ?string -)
+    # 2.3, to convert a valid name to its value.
+    # 2.4, an invalid name will be converted to an integer zero.
+    # 2.5, 'name' should be case-sensitive.
+    (to_value (= (! name:string) ?enum -)
+    #
+    # 3, opeations for mask values.
+    # 3.0, to convert a masked value to a list of names.
+    # 3.1, an invalid value will be ignored in conversion process.
+    # 3.2, if called for an enum object, 'this' will be taken as 'values'.
+    (to_names  (= (! values:enum?0) ?array -) 
+    # 3.3, to convert a list of names to a masked value.
+    # 3.4, an invalid name will be ignored in convertion.
+    # 3.5, name should be case-sensitive.
+    (to_values (= (! names:iterator|iterable) ?enum -)
+) ;
+###############################################################################

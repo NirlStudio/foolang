@@ -1,0 +1,28 @@
+#!foo
+###############################################################################
+# series.foo
+#
+# The Programmer - Leevi, @2013-02-17.
+# C-Lab, Nirl Studio 2011-2013, All Rights Reserved.
+#
+###############################################################################
+#
+($impl series
+    #
+    (series (= (! type:numeric size:int value:numeric *) ?series (*
+        (impl (this:array type)
+            (ItemSize  size)
+        -)
+        (.:join (argi 2 -)
+    -)
+    #
+    (of (= (! type:numeric size:int values:iterator|numeric *) ?series 
+        (with (series type size) 
+            (foreach val in (argi 2)
+                (if (val:as numeric)
+                    (last:append val)
+                else
+                    (last:join val)
+    -)
+) ;
+###############################################################################

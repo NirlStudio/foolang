@@ -1,0 +1,54 @@
+#!(generic "foo")
+###############################################################################
+# null.fo
+#
+# The Programmer - Leevi, @2012-06-24, Happy Birthday.
+# C-Lab, Nirl Studio 2011-2013, All Rights Reserved.
+#
+###############################################################################
+# 0, since 'null' is not a package yet, it only has some pseudo members.
+# 0.0, they can't be dynamiclly invoked, it's unnecessary too.
+# 0.1, some of them can be replaced for 'package' derivated entities.
+# 
+###############################################################################
+# 1, infomation of type
+# 1.0, to return the short type reference for an entity.
+(decl null:typeref (= ?ref ;
+#
+###############################################################################
+# 2, type relationship
+# 2.0, 'is' tests whehter an entity is exactly another one.
+# 2.0.0, 'is' returns true if it's anyone of listed entities.
+(decl null:is (= (! other *) ?bool ;
+# 2.1, 'is_not' is equivalent to '((this:is other ...):not )'.
+(decl null:is_not (= (! other *) ?bool ;
+# 2.2, 'as' will test whehter an entity is derivated from another one.
+(decl null:as (= (! other *) ?bool ;
+# 2.3, 'as_not' is equivalent to '((this:as other):not )'.
+(decl null:as_not (= (! other *) ?bool ;
+# 2.4, to get the most recent common ancestor of 'this' and others.
+(decl null:like (= (! other *) ?* ;
+# 2.5, 'unlike' is equivalent to '((this:like other):is null)'.
+(decl null:unlike (= (! other *) ?bool ;
+# 2.6, to get the super type for an entity.
+(decl null:super (= ?* ;
+#
+###############################################################################
+# 3, meta infomations
+# 3.0, to return an integer hash-code which can be used to implement fast mapping.
+(decl null:hash (= (! hint) ?int ;
+# 3.1, to return a piece of foo code to describe the entity.
+(decl null:desc (= (! hint) ?int ;
+# 3.2, to explicitly convert into another entity.
+(decl null:conv (= (! type hint) ?*
+# 3.3, 'hash', 'desc' and 'conv' can be customized by application code.
+# 3.4, to return the documentation related to the entity.
+(decl null:doc (= (! hint) ?string ;
+###############################################################################
+# 4, statement aliases
+# 4.0, 'super' means the super type of calling function.
+(def super (self:super ) ;
+# 4.1, 'base' means the super type of the container of calling function.
+(def base (this:super ) ;
+#
+###############################################################################

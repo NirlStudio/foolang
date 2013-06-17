@@ -1,0 +1,46 @@
+#!(generic "foo")
+###############################################################################
+# pair.fo
+#
+# The Programmer - Leevi, @2012-12-14.
+# C-Lab, Nirl Studio 2011-2013, All Rights Reserved.
+#
+###############################################################################
+# 0, the structure of 'pair'.
+($impl pair
+    # 1, the constructor of 'pair'.
+    (pair (= (! key value) ?pair
+        (impl this 
+            (K key)
+            (V value)
+    -)
+    #
+    # 2, the fields of 'pair'.
+    # 2.0, ':K' is the identifier of 'pair' in comparasion.
+    (:K ?*)
+    # 2.1, ':V' is the satellite data of ':K'.
+    (:V ?*)
+    #
+    # 3, overridden operations.
+    # 3.0, to customize the operation of 'comparable'.
+    (:compare (= (! other:package hint) ?compared
+        (if (other:is_object pair)
+            (compare :K other:K)
+         else
+            (compare :K other)
+    -)
+    # 3.1, to use the hash code of ':K' as the hash code of 'pair'.
+    (:hash (= (! hint) ?int
+        (:K:hash hint)
+    -)
+    # 3.2, to customize the operation of 'iterable'.
+    (:items (= (! test:function) ?iterator
+        (if (test:is null) 
+            (iterate :K :V) 
+        else (if (test :K)
+            (if (test :V) (iterate :K :V) (single :K) -)
+        else (if (test :V)
+            (single :V)
+    -)
+) ;
+###############################################################################

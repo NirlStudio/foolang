@@ -1,0 +1,47 @@
+#!(generic "foo")
+###############################################################################
+# finfo.fo
+#
+# The Programmer - Leevi, 2012-06-24. Happy Birthday.
+# C-Lab, Nirl Studio 2011-2012, All Rights Reserved.
+#
+###############################################################################
+# 0, to define and implement operations of 'finfo'.
+($impl finfo
+    # 1, constructor of 'finfo'.
+    # 1.0, 'finfo' creates an instance for file located at 'location'.
+    (finfo (= (! location:string|path|uri) ?finfo -)
+    # 
+    # 2, static testing and manipulation operations.
+    # 2.0, 'exist' testes for whether one or more files are existed. 
+    (exist (= (! location:string|path|uri *) ?bool -)
+    # 2.1, 'exist_any' testes for whether any one of listed files is existed. 
+    (exist_any (= (! location:string|path|uri *) ?bool -)
+    # 2.2, 'move' move an existing file to another location. 
+    (move (= (! from:string|path|uri to:string|path|uri) ?bool -)
+    # 2.3, 'remove' remove one or more existing files. 
+    # 2.4, 'remove' returns false if any file has not been successfully removed. 
+    (remove (= (! location:string|path|uri *) ?bool -)
+    # 
+    # 3, basic properites.
+    # 3.0, ':path' returns the original path value in constructor. 
+    (:path (= ?string -)
+    # 3.1, ':full' returns the full path value for this file. 
+    (:full (= ?string -)
+    # 3.2, ':real' returns the real full path value for this file. 
+    (:real (= ?string -)
+    # 3.3, ':is_dir' returns whether this file entry is a directory.
+    (:is_dir (= ?bool -)
+    # 
+    # 4, time properties.
+    # 4.0, ':ctime' returns the creation time of this file or directory. 
+    (:ctime (= ?time -)
+    # 4.1, ':utime' returns the last update time of this file or directory. 
+    (:utime (= ?time -)
+    # 4.2, ':atime' returns the last accessing time of this file or directory. 
+    (:atime (= ?time -)
+    # 
+    # 5, operation to get the value of an extended property.
+    (:get (= (! prop:string) ?* -)
+) ;
+###############################################################################

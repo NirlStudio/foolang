@@ -1,0 +1,43 @@
+#!foo
+###############################################################################
+# set.foo
+#
+# The Programmer - Leevi, @2013-02-17.
+# C-Lab, Nirl Studio 2011-2013, All Rights Reserved.
+#
+###############################################################################
+#
+($impl set
+    #
+    (of  (= (! iter:iterator *) ?set
+        (call set (call cons args -)
+    -)
+    #
+    (:contain  (= (! subset:set is_proper:bool?false) ?bool
+        (if is_proper
+            ((call this:has subset):and (this:Count:gt subset:Count -)
+        else
+            (call this:has subset)
+    -)
+    #
+    (:intersected  (! other:set *) ?bool
+        ((call this:intersect args):not_empty )
+    -)
+    #
+    (:intersect  (= (! other:set *) ?set (*
+        (with (this:clone ) (foreach item in this
+            (with last (foreach other in args
+                (if (other:has item)
+                    (continue )
+                else
+                    (last:remove item)
+    -)
+    #
+    ($subtract  (= (! other:set *) ?set
+        (with this
+            (foreach item in (call cons args)
+                (last:remove item)
+    -)
+    #
+);
+###############################################################################
