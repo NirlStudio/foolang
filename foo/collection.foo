@@ -12,7 +12,7 @@
     (:_equal  (= (! other:object) ?bool
         (by_default false 
             (if ((other:is_object collection):and (this:Count:eq other:Count))
-                (with true (for item in other
+                (with true (foreach item in other
                     (if (this:has item)
                         (continue true)
                      else
@@ -20,7 +20,7 @@
     -)
     #
     (:has_any  (= (! item *) ?bool
-        (with true (for item in args
+        (with true (foreach item in args
             (if (this:has item)
                 (break true)
              else
