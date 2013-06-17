@@ -68,7 +68,7 @@
                     (if (func item)
                         (last:put item)
                     else
-                        (continue last)
+                        (continue )
     -)
 );
 #

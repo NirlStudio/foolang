@@ -16,7 +16,7 @@
     (series (= (! type:numeric size:int value:numeric *) ?series -)
     # 1.3, 'of' will produce an instance basing one or more iterable entity.
     # 1.4, 'numbers' may be an 'iterator', 'slicer', 'iterable' or 'sliceable' entity.
-    (of (= (! type:numeric size:int values:iterator|iterable *) ?series -)
+    (of (= (! type:numeric size:int values:iterator|int *) ?series -)
     #
     # 2, new testing operation.
     # 2.0, ':ItemSize' returns the size for each element in the 'series'.

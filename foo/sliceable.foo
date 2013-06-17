@@ -7,13 +7,343 @@
 #
 ###############################################################################
 #
-($impl
+($impl sliceable
+    #
+    (:_range  (= (! from to seq)
+        (if (from:lt 0) ($from:mod :Count -)
+        (if ((to:is null):or (to:gt :Count))
+            (decl to :Count)
+        else
+            (if (to:lt 0) ($to:mod :Count -)
+        -)
+        (if (seq:is null)
+            (return from to)
+        else (if (from:lt to)
+            (seq from to)
+    -)
+    #
+    (:yield (= (! from:int?0 to:int) ?slicer (*
+        (decl (from to) (:_range from to -)
+        (impl 
+          (slicer (to:sub from) (:get from))
+            (_src  src)
+            (_to   to)
+            ($next (= (*
+                (decl rest (:_rest:sub -)
+                (this:slicer rest (:get rest -)
+    -)
+    #
+    (:cut (= (! from:int?0 to:int as_slice:bool?false) ?sliceable|slice
+        (if as_slice
+            (slice this from to)
+        else
+            ((this:clear ):join (:yield from to -)
+    -)
+    #
+    (:cas (= (! offset:int refer value) ?sliceable
+        (if (refer:is value)
+            (return this)
+        else
+            (this:put offset value)
+    -)
+    #
+    ($cas (= (! offset:int refer value) ?sliceable
+        (if (refer:is value)
+            (return this)
+        else
+            (this:put offset value)
+    -)
+    #
+    ($move  (= (! from:int?0 to:int?0 num:int?1) ?sliceable (*
+        (decl (from to) (:_range from to -)
+        (if ((from:add num):gt :Count) (decl num (:Count:sub from -)
+        (if ((num:gt 0):and (from:neq to))
+            (with this (foreach offset in 
+                (if (from:gt to) (seqn num) else (seqn num (num:sub ) -1 -)
+                (last:put (to:add offset) (last:get (from:add offset -)
+    -)
+    #
+    ($copy (= (! offset:int?0 src:iterator *) ?sliceable (*
+        (if (offset:lt 0) ($offset:mod :Count -)
+        ($offset:sub )
+        (with this 
+            (foreach item in (call cons (argi 1)) (*
+                ($offset:add )
+                (last:put offset item)
+    -)
+    #
+    ($merge (= (! offset:int?0 src:iterator *) ?sliceable
+        (if (offset:lt 0) ($offset:mod :Count -)
+        (decl src (list:of (call cons (argi 1 -)
+        (if (src:Count:gt 0) (*
+            (if (offset:lt :Count)
+                (this:move offset (offset:add count) count -)
+            -)
+            ($offset:sub )
+            (with this (foreach item in src (*
+                ($offset:add )
+                (this:put offset item)
+    -)
+    #
+    ($insert (= (! offset:int?0 item *) ?sliceable (*
+        (this:merge offset (argi 1 -)
+    -)
+    #
+    ($prepend (= (! item *) ?sliceable
+        (this:merge 0 args)
+    -)
+    #
+    ($append (= (! item *) ?sliceable
+        (this:merge (:Count:sub ) args)
+    -)
+    #
+    ($join (= (! src:iterator *) ?sliceable
+        (this:merge (:Count:sub ) (call cons args -)
+    -)
+    #
+    ($remove (= (! item *) ?sliceable (*
+        (decl test (if (argc:lt 1)
+            (= (! item) (item:is null -)
+        else
+            (== ? (set:of args) 
+                (= (! item values) (values:has item -)
+        -)
+        (this:delete (with (series int) 
+            (foreach (offset item) in this
+                (if (test item) (last:put offset)
+        -)
+    -)
+    #
+    ($_swap (= (! p q) (*
+        (decl tmp (this:get p -)
+        ((this:put p (this:get q):$put q tmp)
+    -)
+    ($swap (= (! p:int? q:int) ?sliceable (*
+        (if (p:lt 0) ($p:mod :Count -)
+        (if (q:lt 0) ($q:mod :Count -)
+        (if (p:eq q)
+            (return this)
+        else
+            (this:_swap p q)
+    -)
+    #
+    (:reverse (= ?sliceable
+        (with this 
+            (foreach offset in (seqn (this:Count:div 2))
+                (this:swap offset (this:Count:sub offset 1 -)
+    -)
+    #
     # override the conv method.
     (:conv (= (! type hint) ?*
-        (if (type:is slicer)
+        (if ((type:is slicer):or (type:is iterator))
             (:yield )
          else
             (base:conv type hint)
     -)
+    # override the iterable:items.
+    (:items (= (! test:function) ?iterator
+        (if (test:is null)
+            (:yield -)
+        else
+            (filter (:yield ) test -)
+    -)
+    #
+    (:_search  (= (! seq test)
+        (with -1 (foreach offset in seq
+            (if (test (this:get offset))
+                (break offset)
+            else
+                (continue )
+    -)
+    #
+    (:_find  (= (! item from to seq)
+        (:_search (:_range from to seq)
+            (== ? item 
+                (= (!value item)
+                    ((item:is value):or (item:equal value)
+    -)
+    #
+    (:find  (= (! item from:int?0 to:int) ?int 
+        (:_find item from to (= (! from to)
+            (seqn from to)
+    -)
+    (:find_last  (= (! item from:int?0 to:int) ?int (*
+        (:_find item from to (= (! from to)
+            (seqn (to:sub ) (from:sub -)
+    -)
+    #
+    (:find_all  (= (! item from:int?0 to:int) ?iterator
+        (filter 
+            (:_range from to (= (! from to) (seqn from to -)
+            (== ? item this 
+                (= (! offset item s) (*
+                    (decl value (s:get offset -)
+                    ((item:is value):or (item:equal value)
+    -)
+    #
+    (:_scan  (= (! iter from to seq)
+        (:_search (:_range from to seq)
+            (== ? (set:of iter) 
+                (= (!value values) (values:has value)
+    -)
+    #
+    (:scan (= (! iter:iterator from:int?0 to:int) ?int
+        (:_scan iter from to (= (! from to) (seqn from to)
+    -)
+    #
+    (:scan_last (= (! iter:iterator from:int?0 to:int) ?int
+        (:_scan iter from to (= (! from to)
+            (seqn (to:sub ) (from:sub -)
+    -)
+    #
+    (:scan_all  (= (! iter:iterator from:int?0 to:int) ?iterator
+        (filter 
+            (:_range from to (= (! from to) (seqn from to -)
+            (== ? this (set:of iter) 
+                (= (! offset s values) (values:has (s:get offset -)
+    -)
+    #
+    (_kmp_prepare  (= (! p) (*
+        (decl kmp (series:of int 
+            (single -1) 
+            (repeat 0 p:Count -)
+        -)
+        (decl i 0) (decl j -1)
+        (while (i:lt p:Count)
+            (while 
+              ((j:gt -1):and ((p:get i):neq (p:get j -)
+                (decl j (kmp:get j))
+            -)
+            ($i:add ) ($j:add )
+            (if 
+              ((i:lt p:Count):and ((p:get i):eq (p:get j -)
+                (kmp:put i (kmp:get j -)
+            else
+                (kmp:put i j)
+        -)
+        (return kmp)
+    -)
+    #
+    (_kmp_find  (= (! p s from to kmp) (*
+        (decl i from) (decl j 0)
+        (with -1 (while (i:lt to)
+            (while 
+              ((j:gt -1):and ((p:get j):neq (:get i -)
+                (decl j (kmp:get j -)
+            -)
+            ($i:add ) ($j:add )
+            (if (j:ge p:Count)
+                (break (i:sub j -)
+    -)
+    #
+    (:match (= (! perm:sliceable from:int?0 to:int) ?int (*
+        (decl (from to) (:_range from to -)
+        (:_kmp_find perm this from to (_kmp_prepare perm -)
+    -)
+    #
+    (:match_all  (= (! perm:sliceable from:int?0 to:int) ?iterator (*
+        (decl kmp (_kmp_prepare perm -)
+        (decl (from to) (:_range from to -)
+        (decl offset (:_kmp_find perm this from to kmp -)
+        (if (offset:ge from) (*
+            (decl s this)
+            (impl (iterator offset)
+                (_s    s)
+                (_p    perm)
+                (_kmp  kmp)
+                (_to   to)
+                ($next  (=
+                    (decl from (:item:add :_p:Count -)
+                    (decl offset (sliceable:_kmp_find 
+                        :_p :_s from :_to :_kmp 
+                    -)
+                    (if (offset:ge from)
+                        (this:iterator offset)
+    -)
+    #
+    ($_isort  (= (! cmp )
+        (with this (foreach i in (seqn:of 1 :Count) (*
+            (decl r (:get i -)
+            (decl l (with 0 (foreach j in (seqn:of i 0)
+                (if (cmp (:get (j:sub )) r)
+                    (break j)
+                else
+                    (continue (j:sub -)
+            -)
+            (if (l:lt i) (last:move l i) last -)
+    -)
+    #
+    ($_qsort  (= (! cmp l r)
+        (if ((r:sub l):lt 100)
+            (return this)
+        else (*
+            (decl t (:get l -)
+            (decl i (l:add -)
+            (decl j r)
+            (with this (loop (*
+                (decl i (with i
+                    (while ((last:le r):and (cmp (:get last) t))
+                        (last:add )
+                -)
+                (decl j (with j 
+                    (while (cmp t (:get last))
+                        (last:sub )
+                -)
+                (if (i:gt j) 
+                    (break )
+                else
+                    (last:_swap i j)
+            -)
+            (.:$_swap l j)
+            (.:$_qsort l (j:sub -)
+            (.:$_qsort (j:add ) r)
+    -)
+    (_comparer (= (! order cmp)
+        (== ? ? order cmp 
+            (= (! l r o c) (*
+                (if (o:eq DESC) (c l r) (c r l)) 
+                (.:eq GREAT)
+    -)
+    #
+    ($sort (= (! order:ordering?ASC cmp:function?compare) ?sliceable
+        (if (:Count:gt 1) (*
+            (decl cmp (:_comparer order cmp -)
+            (if (:Count:gt 100)
+                ((:_qsort cmp 0 (:Count:sub )):_isort cmp -)
+            else
+                (:_isort cmp)
+    -)
+    #
+    (:topn (= (! num:int?1 order:ordering?ASC cmp:function?compare) ?sliceable (*
+        (decl cmp (:_comparer order cmp -)
+        (with (this:clear ) (foreach cur in this (*
+            (decl offset (with 0 (for i in (seqn last:Count 0)
+                (if (cmp (last:get (i:sub )) cur)
+                    (break i)
+                else
+                    (continue (i:sub -)
+             (last:insert i cur)
+             (if (last:Count:gt num)
+                 (last:delete num) 
+             else
+                 (continue )
+    -)
+    #
+    (:max (= (! cmp:function?compare) ?*
+        (if (:Count:gt 0)
+            (with (:get 0) (foreach i in (seqn 1 :Count) (*
+                (decl cur (:get i -)
+                (if ((cmp cur last):eq GREAT) 
+                    cur else last
+    -)
+    #
+    (:min (= (! cmp:function?compare) ?*
+        (if (:Count:gt 0)
+            (with (:get 0) (foreach i in (seqn 1 :Count) (*
+                (decl cur (:get i -)
+                (if ((cmp cur last):eq LESS)
+                    cur else last
+    -)
+    #
 ) ;
 ###############################################################################

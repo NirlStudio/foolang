@@ -28,7 +28,7 @@
         (with (this:clone ) (foreach item in this
             (with last (foreach other in args
                 (if (other:has item)
-                    (continue last)
+                    (continue )
                 else
                     (last:remove item)
     -)

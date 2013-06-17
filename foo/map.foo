@@ -53,7 +53,7 @@
                     (if (func key value)
                         (last:put key value)
                     else
-                        (continue last)
+                        (continue )
     -)
 );
 ###############################################################################
