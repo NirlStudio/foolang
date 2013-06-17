@@ -18,12 +18,13 @@
             (if ((iter:rest ):gt 0)
                 (last:add (iter:rest -)
             else
-                (break)
+                (break null)
         -)
         (if (iters:Count:gt 0)
             (impl
               (this:iterator ((:_iters:get 0):item -)
-                (_iters iters)
+                (_iters  iters)
+                (_rest   rest)
     -)
     #
     (:rest (= (:_rest -)
@@ -33,8 +34,19 @@
     -)
     #
     ($join (= (! iter:iterator *) ?cons
+        (decl iters (array:of iterator 
+            (filter args
+                (= (! item) (item:is_not null -)
+        -)
+        (decl rest (with 0 (foreach iter in iters
+            (if ((iter:rest ):gt 0)
+                (last:add (iter:rest -)
+            else
+                (break null)
+        -)
         (impl this
             (_iters  (:iters:join args -)
+            (_rest   (:_rest:add rest -)
     -)
     #
     (:next (= ?iterator (*

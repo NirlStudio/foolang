@@ -22,7 +22,7 @@
             (seq from to)
     -)
     #
-    (:yield (= (! from:int?0 to:int) ?slicer (*
+    (:slice (= (! from:int?0 to:int) ?slicer (*
         (decl (from to) (:_range from to -)
         (impl 
           (slicer (to:sub from) (:get from))
@@ -33,11 +33,8 @@
                 (this:slicer rest (:get rest -)
     -)
     #
-    (:cut (= (! from:int?0 to:int as_slice:bool?false) ?sliceable|slice
-        (if as_slice
-            (slice this from to)
-        else
-            ((this:clear ):join (:yield from to -)
+    (:cut (= (! from:int?0 to:int) ?sliceable
+        ((this:clear ):join (:slice from to -)
     -)
     #
     (:cas (= (! offset:int refer value) ?sliceable
@@ -75,7 +72,7 @@
     ($merge (= (! offset:int?0 src:iterator *) ?sliceable
         (if (offset:lt 0) ($offset:mod :Count -)
         (decl src (list:of (call cons (argi 1 -)
-        (if (src:Count:gt 0) (*
+        (by_default this (if (src:Count:gt 0) (*
             (if (offset:lt :Count)
                 (this:move offset (offset:add count) count -)
             -)
@@ -127,25 +124,36 @@
             (this:_swap p q)
     -)
     #
-    (:reverse (= ?sliceable
+    ($reverse (= ?sliceable
         (with this 
             (foreach offset in (seqn (this:Count:div 2))
-                (this:swap offset (this:Count:sub offset 1 -)
+                (last:_swap offset (this:Count:sub offset 1 -)
+    -)
+    #
+    # override the _equal method.
+    (:_equal  (= (! other:sliceable) ?bool
+        (by_default false
+            (if ((other:is_not null):and (:Count:eq other:Count))
+                (with true (foreach i in (seqn :Count)
+                    (if ((compare (:get i) (other:get i)):neq EQUAL)
+                        (break false)
+                    else
+                        (continue )
     -)
     #
     # override the conv method.
     (:conv (= (! type hint) ?*
         (if ((type:is slicer):or (type:is iterator))
-            (:yield )
+            (:slice )
          else
             (base:conv type hint)
     -)
     # override the iterable:items.
     (:items (= (! test:function) ?iterator
         (if (test:is null)
-            (:yield -)
+            (:slice -)
         else
-            (filter (:yield ) test -)
+            (filter (:slice ) test -)
     -)
     #
     (:_search  (= (! seq test)

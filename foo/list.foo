@@ -7,12 +7,14 @@
 #
 ###############################################################################
 #
-(decl equal (= (! other:object) ?bool
-    ((this:is other):or 
-        ((this:as class):and (this:_equal other)
-) ;
-#
-(decl not_equal (= (! other:object) ?bool
-    returns (not (this:equal other)
+($impl list
+    #
+    (list (= (! item *) ?list 
+        (this:join args)
+    -)
+    #
+    (of (= (! iter:iterator *) ?list 
+        (this:join (call cons args -)
+    -)
 ) ;
 ###############################################################################

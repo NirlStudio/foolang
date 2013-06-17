@@ -661,9 +661,7 @@
 # 7.2, sliceable collections.
 # 7.2.0, 'sliceable' represents a collection with a zero-based integer index.
 (decl sliceable (+collection );  #noun.
-# 7.2.1, 'slice' is a sliceable type basing on another sliceable one.
-(decl slice (+sliceable );  #noun & verb.
-# 7.2.2, 'list' is a sequence of any entities, including 'null'.
+# 7.2.1, 'list' is a sequence of any entities, including 'null'.
 (decl list (+sliceable );  #noun & verb.
 #
 # 7.3, strong-typed collections.

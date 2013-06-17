@@ -15,14 +15,14 @@
     # 1.0.0, ':get' returns 'null' if the 'offset' is great than 'this:Count'.
     # 1.0.1, an negative 'offset' will be equivalent to '(offset:mod this:Count)'.
     (:get  (= (! offset:int?0) ?* -)
-    # 1.1, ':yield' returns a 'slicer' traversing in the range of [from, to).
-    # 1.1.0, ':yield' returns null if the range of [from, to) is empty.
+    # 1.1, 'slice:' returns a 'slicer' traversing in the range of [from, to).
+    # 1.1.0, 'slice:' returns null if the range of [from, to) is empty.
     # 1.1.1, both 'from' and 'to' could be negative values.
     # 1.1.2, if so, the value will be equivalent to '(value:mod this:Count)'.
     # 1.1.3, 'to' will be equivalent to 'this:Count' if it is null.
-    (:yield  (= (! from:int?0 to:int) ?slicer -)
-    # 1.2, ':cut' works like 'yield', but returns a list of elements in the range.
-    (:cut  (= (! from:int?0 to:int as_slice:bool?false) ?sliceable|slice -)
+    (:slice  (= (! from:int?0 to:int) ?slicer -)
+    # 1.2, ':cut' works like 'slice', but returns an copied sliceable collection.
+    (:cut  (= (! from:int?0 to:int) ?sliceable -)
     #
     # 2, incremental update operations.
     # 2.0, these opertions will return an updated collection.

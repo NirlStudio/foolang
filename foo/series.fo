@@ -21,10 +21,5 @@
     # 2, new testing operation.
     # 2.0, ':ItemSize' returns the size for each element in the 'series'.
     (:ItemSize ?int)
-    #
-    # 3, overridden operations.
-    # 3.0, ':cas' sets the value at 'offset' to 'value' if it does not equal 'refer'.
-    # 3.1, ':cas' returns 'this' if '(value:equal refer)' is true.
-    (:cas (= (! offset:int refer:numeric value:numeric) ?sliceable -)
 ) ;
 ###############################################################################

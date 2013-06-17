@@ -6,73 +6,23 @@
 # C-Lab, Nirl Studio 2011-2013, All Rights Reserved.
 #
 ###############################################################################
-# 0, to implement constructors of array.
-(decl array (= (! type item *) ?array
-    (with 
+# 0, to implement array.
+($impl array
+    #
+    (array (= (! type item *) ?array (*
         (impl this (ItemType type -)
-        (for item in (argi 1)
-            (last:append item)
+        (.:$join (argi 1 -)
+    -)
+    #
+    (of (= (! type iter:iterator *) ?array
+        ((array type):$join (call cons (argi 1 -)
+    -)
+    # 1, to implement the ':check'.
+    (:check (= (! value) ?bool
+        (when
+            ( (this:ItemType:is null)  false -)
+            ( (value:is null)          true  -)
+            ( else                     (value:as this:ItemType -)
+    -)
 );
-#
-(decl of (= (! type items:iterator|iterable *) ?array
-    (with (array type)
-        (for iter in (argi 1)
-            (for item in 
-                (if (iter:as iterable) (iter:items ) iter -)
-                (last:append item)
-);
-# 1, to implement the ':check'.
-(decl :check (= (! value) ?bool
-    (when
-        ( (this:ItemType:is null) false -)
-        ( (value:is null)         true  -)
-        ( default                 (value:as this:ItemType -)
-);
-# 2, to override some inherited methods.
-(decl _convert (= (! items:iterator|iterable *) ?iterator
-    (with (cons ) (for iter in args
-        (last:join 
-            (if ((items:is_object array):and (items:ItemType:as this:ItemType))
-                items
-             else
-                (converter items (= (! item) 
-                    (if (this:check item) item -)
-);
-#
-(decl $put (= (! offset:int?0 item *) ?array
-    (call base:put (cons 
-        (single offset) 
-        (this:_converter (argi 1)
-);
-#
-(decl $copy (= (! offset:int?0 src:iterator|iterable *) ?array
-    (call base:copy (cons 
-        (single offset)
-        (call this:_converter (argi 1)
-);
-#
-(decl $insert (= (! offset:int?0 item *) ?array
-    (call base:insert (cons 
-        (single offset) 
-        (this:_converter (argi 1)
-);
-#
-(decl $prepend (= (! item *) ?array
-    (call base:prepend (this:_convert args -)
-);
-#
-(decl $merge (= (! offset:int?0 src:iterator|iterable *) ?array
-    (call base:merge (cons 
-        (single offset)
-        (call this:_converter (argi 1)
-);
-#
-(decl $append (= (! item *) ?array
-    (call base:append (this:_convert args -)
-);
-#
-(decl $join (= (! src:iterator|iterable *) ?array
-    (base:join (call this:_convert args -)
-);
-#
 ###############################################################################

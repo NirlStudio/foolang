@@ -7,12 +7,22 @@
 #
 ###############################################################################
 #
-(decl equal (= (! other:object) ?bool
-    ((this:is other):or 
-        ((this:as class):and (this:_equal other)
-) ;
-#
-(decl not_equal (= (! other:object) ?bool
-    returns (not (this:equal other)
+($impl series
+    #
+    (series (= (! type:numeric size:int value:numeric *) ?series (*
+        (impl (this:array type)
+            (ItemSize  size)
+        -)
+        (.:join (argi 2 -)
+    -)
+    #
+    (of (= (! type:numeric size:int values:iterator|numeric *) ?series 
+        (with (series type size) 
+            (foreach val in (argi 2)
+                (if (val:as numeric)
+                    (last:append val)
+                else
+                    (last:join val)
+    -)
 ) ;
 ###############################################################################

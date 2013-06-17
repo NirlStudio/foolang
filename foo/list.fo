@@ -12,7 +12,6 @@
     # 1.0, 'list' will produce an instance including all items in arguments.
     (list (= (! item *) ?list -)
     # 1.1, 'of' will produce an instance basing one or more iterable entity.
-    # 1.2, 'items' may be an 'iterator', 'slicer', 'iterable' or 'sliceable' entity.
-    (of (= (! iter:iterator|iterable *) ?list -)
+    (of (= (! iter:iterator *) ?list -)
 ) ;
 ###############################################################################

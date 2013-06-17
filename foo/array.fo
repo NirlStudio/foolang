@@ -14,9 +14,8 @@
     # 1.2, otherwise, the item will be replaced to null.
     # 1.3, if 'type' is null, 'array' will produce empty array.
     (array (= (! type item *) ?array -)
-    # 1.3, 'of' will produce an instance basing one or more iterable entity.
-    # 1.4, 'items' may be an 'iterator' or 'iterable' entity.
-    (of (= (! type iter:iterator|iterable *) ?array -)
+    # 1.4, 'of' will produce an instance basing one or more iterable entity.
+    (of (= (! type iter:iterator *) ?array -)
     #
     # 2, testing operations.
     # 2.0, ':ItemType' is the type of elements in the array.
