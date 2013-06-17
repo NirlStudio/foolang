@@ -42,11 +42,11 @@
             (1  (slicer 1 item0 -)
             (2  (impl (slicer 2 item0) 
                 (_next  (slicer 1 item1 -)
-                (next   :_next -)
+                (next   (= :_next -)
             -)
             (3  (impl (slicer 3 item0) 
                 (_next  (self item1 item2 -)
-                (next   :_next -)
+                (next   ( :_next -)
             -)
             (else  ((list:of args):items -)
 );
